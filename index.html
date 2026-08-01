@@ -15,7 +15,7 @@
             font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
             
             /* ========================================== */
-            /* ★ 背景图 - 请将 "background.jpg" 替换为您的图片文件名 */
+            /* ★ 背景图 - 湖南省地图 */
             /* ========================================== */
             background-image: url('湖南省地图.jpg');
             background-size: cover;
@@ -119,45 +119,31 @@
         .main-container {
             padding-top: 80px;
             min-height: 100vh;
-            /* 去除背景模糊和遮罩 */
-            background: rgba(0, 0, 0, 0.35); /* 仅保留轻微遮罩，使文字可读 */
+            background: rgba(0, 0, 0, 0.35);
         }
 
-        /* ===== 三个坐标点（上移 + 缩小） ===== */
+        /* ===== 三个坐标点 ===== */
         .points-section {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;  /* 改为顶部对齐，使坐标点上移 */
-            padding: 30px 40px 20px;  /* 减少上内边距，让坐标点更靠上 */
+            align-items: flex-start;
+            padding: 30px 40px 20px;
             gap: 30px;
             max-width: 1400px;
             margin: 0 auto;
-            min-height: auto;  /* 取消最小高度限制 */
+            min-height: auto;
             position: relative;
-        }
-
-        /* ===== 黑色小圆点连接线（伪元素实现） ===== */
-        .points-section::before {
-            content: '';
-            position: absolute;
-            top: 45px;           /* 与圆点垂直居中对齐 */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;          /* 连接线宽度，覆盖三个圆点 */
-            height: 2px;
-            background: #000;
-            z-index: 0;
         }
 
         .point-card {
             flex: 1;
-            max-width: 300px;     /* 缩小卡片宽度 */
+            max-width: 300px;
             display: flex;
             flex-direction: column;
             align-items: center;
             background: rgba(255, 255, 255, 0.08);
             border-radius: 16px;
-            padding: 20px 16px 20px;  /* 减少内边距 */
+            padding: 20px 16px 20px;
             border: 1px solid rgba(255, 255, 255, 0.06);
             backdrop-filter: blur(4px);
             transition: 0.3s;
@@ -171,9 +157,9 @@
             border-color: rgba(204, 0, 0, 0.3);
         }
 
-        /* ===== 坐标点标记（缩小） ===== */
+        /* ===== 坐标点标记 ===== */
         .point-marker {
-            width: 44px;          /* 从60px缩小到44px */
+            width: 44px;
             height: 44px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #f7d98c, #d49b3b);
@@ -181,7 +167,7 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.7rem;    /* 缩小字体 */
+            font-size: 0.7rem;
             color: #1a1a2e;
             box-shadow: 0 4px 16px rgba(212, 155, 59, 0.4);
             margin-bottom: 14px;
@@ -200,7 +186,7 @@
         /* ★ 批注：坐标点下方图片 */
         .point-card img {
             width: 100%;
-            height: 150px;        /* 稍微缩小图片高度 */
+            height: 150px;
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 12px;
@@ -210,7 +196,7 @@
         /* ★ 批注：坐标点下方文字 */
         .point-text {
             text-align: center;
-            font-size: 0.85rem;   /* 缩小文字 */
+            font-size: 0.85rem;
             line-height: 1.5;
             color: #f0f0f8;
             padding: 0 4px;
@@ -263,7 +249,7 @@
             color: rgba(255,255,255,0.12);
             font-size: 0.85rem;
             letter-spacing: 2px;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
         }
 
         /* ===== 阶段详情页 ===== */
@@ -288,28 +274,13 @@
             text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
         }
 
-        /* ★ 批注：小标题行 */
-        .sub-title {
-            background: rgba(255, 255, 255, 0.06);
-            border-left: 4px solid #cc0000;
-            padding: 18px 24px;
-            margin-bottom: 16px;
-            border-radius: 0 12px 12px 0;
-            transition: 0.2s;
-            cursor: pointer;
-            color: #e8e8f0;
-            font-size: 1.1rem;
-            backdrop-filter: blur(4px);
-            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
-        }
-        .sub-title:hover {
-            background: rgba(204, 0, 0, 0.15);
-            transform: translateX(6px);
-        }
-        .sub-title::before {
-            content: "▶ ";
-            color: #cc0000;
-            font-size: 0.8rem;
+        /* ===== 阶段1详情页 - 无小标题，只显示大标题 ===== */
+        .phase-detail .empty-content {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1.2rem;
+            padding: 60px 0;
+            letter-spacing: 4px;
         }
 
         /* ===== 响应式 ===== */
@@ -318,9 +289,6 @@
                 flex-direction: column;
                 align-items: center;
                 padding: 30px 20px 20px;
-            }
-            .points-section::before {
-                display: none;  /* 移动端隐藏连接线 */
             }
             .point-card {
                 max-width: 100%;
@@ -446,16 +414,14 @@
 
     </div>
 
-    <!-- ===== 阶段1详情页 ===== -->
+    <!-- ===== 阶段1详情页（无小标题） ===== -->
     <div class="phase-detail" id="phase1Detail">
         <h2>📖 阶段1：历史背景</h2>
-        <!-- ★ 批注：小标题行 - 阶段1有3个小标题 -->
-        <div class="sub-title">小标题1-1：通道转兵的战略背景</div>
-        <div class="sub-title">小标题1-2：红军长征的转折点</div>
-        <div class="sub-title">小标题1-3：历史意义与影响</div>
+        <!-- ★ 批注：阶段1无小标题，只显示大标题 -->
+        <div class="empty-content">暂无更多内容</div>
     </div>
 
-    <!-- ===== 阶段2详情页 ===== -->
+    <!-- ===== 阶段2详情页（保留4个小标题） ===== -->
     <div class="phase-detail" id="phase2Detail">
         <h2>📖 阶段2：决策过程</h2>
         <!-- ★ 批注：小标题行 - 阶段2有4个小标题 -->
@@ -465,13 +431,11 @@
         <div class="sub-title">小标题2-4：历史档案与回忆</div>
     </div>
 
-    <!-- ===== 阶段3详情页 ===== -->
+    <!-- ===== 阶段3详情页（无小标题） ===== -->
     <div class="phase-detail" id="phase3Detail">
         <h2>📖 阶段3：胜利与影响</h2>
-        <!-- ★ 批注：小标题行 - 阶段3有3个小标题 -->
-        <div class="sub-title">小标题3-1：通道转兵的胜利</div>
-        <div class="sub-title">小标题3-2：对长征全局的影响</div>
-        <div class="sub-title">小标题3-3：红色精神的传承</div>
+        <!-- ★ 批注：阶段3无小标题，只显示大标题 -->
+        <div class="empty-content">暂无更多内容</div>
     </div>
 
     <script>
@@ -581,17 +545,18 @@
             });
 
             // ============================================
-            // 小标题点击
+            // 阶段2小标题点击（阶段1和3没有小标题）
             // ============================================
-            document.querySelectorAll('.sub-title').forEach(item => {
+            document.querySelectorAll('#phase2Detail .sub-title').forEach(item => {
                 item.addEventListener('click', function() {
                     alert('📌 您点击了: "' + this.textContent.trim() + '"\n(可在此处添加跳转或展开逻辑)');
                 });
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 背景图: background.jpg');
-            console.log('📌 坐标点已上移、缩小，黑色小圆点连接');
+            console.log('📌 背景图: 湖南省地图.jpg');
+            console.log('📌 阶段1和阶段3无小标题，阶段2有4个小标题');
+            console.log('📌 黑线已去除');
         })();
     </script>
 
