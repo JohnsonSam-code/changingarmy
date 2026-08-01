@@ -17,7 +17,7 @@
             /* ========================================== */
             /* ★ 背景图 - 请将 "background.jpg" 替换为您的图片文件名 */
             /* ========================================== */
-            background-image: url('湖南省地图.jpg');
+            background-image: url('background.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -29,13 +29,6 @@
             color: #fff;
             min-height: 100vh;
             overflow-y: auto;
-        }
-
-        /* 为内容添加半透明遮罩，使文字更清晰 */
-        .main-container {
-            padding-top: 80px;
-            min-height: 100vh;
-            background: rgba(0, 0, 0, 0.4); /* 半透明遮罩 */
         }
 
         /* ===== 顶部导航栏 ===== */
@@ -122,78 +115,105 @@
             transform: scale(0.97);
         }
 
-        /* ===== 三个坐标点 ===== */
+        /* ===== 主内容区域 ===== */
+        .main-container {
+            padding-top: 80px;
+            min-height: 100vh;
+            /* 去除背景模糊和遮罩 */
+            background: rgba(0, 0, 0, 0.35); /* 仅保留轻微遮罩，使文字可读 */
+        }
+
+        /* ===== 三个坐标点（上移 + 缩小） ===== */
         .points-section {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 60px 40px 40px;
+            align-items: flex-start;  /* 改为顶部对齐，使坐标点上移 */
+            padding: 30px 40px 20px;  /* 减少上内边距，让坐标点更靠上 */
             gap: 30px;
             max-width: 1400px;
             margin: 0 auto;
-            min-height: 70vh;
+            min-height: auto;  /* 取消最小高度限制 */
+            position: relative;
+        }
+
+        /* ===== 黑色小圆点连接线（伪元素实现） ===== */
+        .points-section::before {
+            content: '';
+            position: absolute;
+            top: 45px;           /* 与圆点垂直居中对齐 */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;          /* 连接线宽度，覆盖三个圆点 */
+            height: 2px;
+            background: #000;
+            z-index: 0;
         }
 
         .point-card {
             flex: 1;
-            max-width: 380px;
+            max-width: 300px;     /* 缩小卡片宽度 */
             display: flex;
             flex-direction: column;
             align-items: center;
             background: rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 30px 20px 25px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(6px);
+            border-radius: 16px;
+            padding: 20px 16px 20px;  /* 减少内边距 */
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(4px);
             transition: 0.3s;
             cursor: pointer;
+            position: relative;
+            z-index: 1;
         }
         .point-card:hover {
-            transform: translateY(-6px);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(204, 0, 0, 0.4);
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(204, 0, 0, 0.3);
         }
 
+        /* ===== 坐标点标记（缩小） ===== */
         .point-marker {
-            width: 60px;
-            height: 60px;
+            width: 44px;          /* 从60px缩小到44px */
+            height: 44px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #f7d98c, #d49b3b);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.7rem;    /* 缩小字体 */
             color: #1a1a2e;
-            box-shadow: 0 4px 20px rgba(212, 155, 59, 0.4);
-            margin-bottom: 18px;
+            box-shadow: 0 4px 16px rgba(212, 155, 59, 0.4);
+            margin-bottom: 14px;
             border: 2px solid rgba(255, 215, 120, 0.5);
+            flex-shrink: 0;
         }
         .point-marker span {
             background: rgba(0, 0, 0, 0.15);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 16px;
+            font-size: 0.6rem;
             color: #fff;
+            white-space: nowrap;
         }
 
-        /* ★ 批注：坐标点下方图片 - 请替换为您的图片 */
+        /* ★ 批注：坐标点下方图片 */
         .point-card img {
             width: 100%;
-            height: 180px;
+            height: 150px;        /* 稍微缩小图片高度 */
             object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 14px;
+            border-radius: 10px;
+            margin-bottom: 12px;
             background: #2a2a4a;
         }
 
-        /* ★ 批注：坐标点下方文字 - 请替换为您的文字 */
+        /* ★ 批注：坐标点下方文字 */
         .point-text {
             text-align: center;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 0.85rem;   /* 缩小文字 */
+            line-height: 1.5;
             color: #f0f0f8;
-            padding: 0 6px;
+            padding: 0 4px;
             text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
         }
 
@@ -208,6 +228,7 @@
             transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s ease;
             pointer-events: none;
+            margin-top: 30px;
         }
 
         .bottom-bar.visible {
@@ -235,12 +256,12 @@
 
         /* ===== 滚动占位 ===== */
         .scroll-spacer {
-            height: 300px;
+            height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.15);
-            font-size: 0.9rem;
+            color: rgba(255,255,255,0.12);
+            font-size: 0.85rem;
             letter-spacing: 2px;
             text-shadow: 0 2px 12px rgba(0,0,0,0.5);
         }
@@ -295,11 +316,16 @@
         @media (max-width: 900px) {
             .points-section {
                 flex-direction: column;
-                padding: 40px 20px;
+                align-items: center;
+                padding: 30px 20px 20px;
+            }
+            .points-section::before {
+                display: none;  /* 移动端隐藏连接线 */
             }
             .point-card {
                 max-width: 100%;
                 width: 100%;
+                max-width: 380px;
             }
             .nav-title {
                 font-size: 1.1rem;
@@ -344,6 +370,18 @@
             }
             .main-container {
                 padding-top: 70px;
+            }
+            .point-marker {
+                width: 38px;
+                height: 38px;
+                font-size: 0.6rem;
+            }
+            .point-marker span {
+                font-size: 0.5rem;
+                padding: 2px 6px;
+            }
+            .point-card img {
+                height: 120px;
             }
         }
     </style>
@@ -552,8 +590,8 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 背景图: 湖南省地图.jpg ');
-            console.log('📌 队伍详情将在滚动到页面底部时渐入');
+            console.log('📌 背景图: background.jpg');
+            console.log('📌 坐标点已上移、缩小，黑色小圆点连接');
         })();
     </script>
 
