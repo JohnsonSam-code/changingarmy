@@ -13,20 +13,40 @@
 
         body {
             font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
-            background: #1a1a2e;
+            
+            /* ========================================== */
+            /* ★ 背景图 - 请将 "background.jpg" 替换为您的图片文件名 */
+            /* ========================================== */
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            
+            /* 图片加载失败时的备用纯色 */
+            background-color: #1a1a2e;
+            
             color: #fff;
             min-height: 100vh;
             overflow-y: auto;
         }
 
-        /* ===== 顶部导航栏（每一页都有） ===== */
+        /* 为内容添加半透明遮罩，使文字更清晰 */
+        .main-container {
+            padding-top: 80px;
+            min-height: 100vh;
+            background: rgba(0, 0, 0, 0.4); /* 半透明遮罩 */
+            backdrop-filter: blur(2px);       /* 轻微模糊效果 */
+        }
+
+        /* ===== 顶部导航栏 ===== */
         .top-nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             padding: 18px 30px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(10px);
             z-index: 1000;
             display: flex;
@@ -103,12 +123,6 @@
             transform: scale(0.97);
         }
 
-        /* ===== 主内容区域 ===== */
-        .main-container {
-            padding-top: 80px;
-            min-height: 100vh;
-        }
-
         /* ===== 三个坐标点 ===== */
         .points-section {
             display: flex;
@@ -127,18 +141,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 20px;
             padding: 30px 20px 25px;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(6px);
             transition: 0.3s;
             cursor: pointer;
         }
         .point-card:hover {
             transform: translateY(-6px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(204, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(204, 0, 0, 0.4);
         }
 
         .point-marker {
@@ -164,6 +178,7 @@
             color: #fff;
         }
 
+        /* ★ 批注：坐标点下方图片 - 请替换为您的图片 */
         .point-card img {
             width: 100%;
             height: 180px;
@@ -173,31 +188,29 @@
             background: #2a2a4a;
         }
 
+        /* ★ 批注：坐标点下方文字 - 请替换为您的文字 */
         .point-text {
             text-align: center;
             font-size: 0.95rem;
             line-height: 1.6;
-            color: #d0d0e0;
+            color: #f0f0f8;
             padding: 0 6px;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
         }
 
-        /* ============================================
-           底部横向黑幕 - 随滚动显隐
-           ============================================ */
+        /* ===== 底部横向黑幕（随滚动显隐） ===== */
         .bottom-bar {
             width: 100%;
             background: #0a0a0a;
             padding: 28px 0;
             text-align: center;
             border-top: 2px solid #cc0000;
-            /* ★ 关键：初始隐藏，滚动时渐入 */
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s ease;
-            pointer-events: none;  /* 隐藏时不可点击 */
+            pointer-events: none;
         }
 
-        /* ★ 当添加 .visible 类时，显示黑幕 */
         .bottom-bar.visible {
             opacity: 1;
             transform: translateY(0);
@@ -221,15 +234,16 @@
             text-shadow: 0 0 30px rgba(204, 0, 0, 0.3);
         }
 
-        /* ===== 占位内容（让页面可以滚动） ===== */
+        /* ===== 滚动占位 ===== */
         .scroll-spacer {
             height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.15);
             font-size: 0.9rem;
             letter-spacing: 2px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.5);
         }
 
         /* ===== 阶段详情页 ===== */
@@ -251,10 +265,12 @@
             text-align: center;
             border-bottom: 2px solid rgba(204, 0, 0, 0.3);
             padding-bottom: 20px;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
         }
 
+        /* ★ 批注：小标题行 */
         .sub-title {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.06);
             border-left: 4px solid #cc0000;
             padding: 18px 24px;
             margin-bottom: 16px;
@@ -263,9 +279,11 @@
             cursor: pointer;
             color: #e8e8f0;
             font-size: 1.1rem;
+            backdrop-filter: blur(4px);
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
         }
         .sub-title:hover {
-            background: rgba(204, 0, 0, 0.12);
+            background: rgba(204, 0, 0, 0.15);
             transform: translateX(6px);
         }
         .sub-title::before {
@@ -325,6 +343,9 @@
             .bottom-bar {
                 padding: 20px 0;
             }
+            .main-container {
+                padding-top: 70px;
+            }
         }
     </style>
 </head>
@@ -353,30 +374,35 @@
             <!-- 坐标点1 -->
             <div class="point-card" data-phase="1">
                 <div class="point-marker"><span>📍 阶段1</span></div>
+                <!-- ★ 批注：图片行 - 坐标点1下方图片，请替换为您的图片 -->
                 <img src="point-1.jpg" alt="阶段1图片">
+                <!-- ★ 批注：文字行 - 坐标点1下方文字，请替换为您的文字 -->
                 <p class="point-text">这里是阶段1的文字描述，讲述通道转兵的历史背景与意义。</p>
             </div>
 
             <!-- 坐标点2 -->
             <div class="point-card" data-phase="2">
                 <div class="point-marker"><span>📍 阶段2</span></div>
+                <!-- ★ 批注：图片行 - 坐标点2下方图片，请替换为您的图片 -->
                 <img src="point-2.jpg" alt="阶段2图片">
+                <!-- ★ 批注：文字行 - 坐标点2下方文字，请替换为您的文字 -->
                 <p class="point-text">这里是阶段2的文字描述，讲述通道转兵的决策过程与转折。</p>
             </div>
 
             <!-- 坐标点3 -->
             <div class="point-card" data-phase="3">
                 <div class="point-marker"><span>📍 阶段3</span></div>
+                <!-- ★ 批注：图片行 - 坐标点3下方图片，请替换为您的图片 -->
                 <img src="point-3.jpg" alt="阶段3图片">
+                <!-- ★ 批注：文字行 - 坐标点3下方文字，请替换为您的文字 -->
                 <p class="point-text">这里是阶段3的文字描述，讲述通道转兵的胜利与历史影响。</p>
             </div>
 
         </div>
 
-        <!-- ★ 占位内容：让页面可以滚动到底部触发黑幕 -->
         <div class="scroll-spacer">▼ 继续滚动查看「队伍详情」 ▼</div>
 
-        <!-- ===== 底部横向黑幕（随滚动显隐） ===== -->
+        <!-- ===== 底部横向黑幕 ===== -->
         <div class="bottom-bar" id="bottomBar">
             <a href="#" class="team-link" id="teamLink">队伍详情</a>
         </div>
@@ -386,6 +412,7 @@
     <!-- ===== 阶段1详情页 ===== -->
     <div class="phase-detail" id="phase1Detail">
         <h2>📖 阶段1：历史背景</h2>
+        <!-- ★ 批注：小标题行 - 阶段1有3个小标题 -->
         <div class="sub-title">小标题1-1：通道转兵的战略背景</div>
         <div class="sub-title">小标题1-2：红军长征的转折点</div>
         <div class="sub-title">小标题1-3：历史意义与影响</div>
@@ -394,6 +421,7 @@
     <!-- ===== 阶段2详情页 ===== -->
     <div class="phase-detail" id="phase2Detail">
         <h2>📖 阶段2：决策过程</h2>
+        <!-- ★ 批注：小标题行 - 阶段2有4个小标题 -->
         <div class="sub-title">小标题2-1：会议召开与争论</div>
         <div class="sub-title">小标题2-2：关键人物的决策</div>
         <div class="sub-title">小标题2-3：军事路线的转变</div>
@@ -403,6 +431,7 @@
     <!-- ===== 阶段3详情页 ===== -->
     <div class="phase-detail" id="phase3Detail">
         <h2>📖 阶段3：胜利与影响</h2>
+        <!-- ★ 批注：小标题行 - 阶段3有3个小标题 -->
         <div class="sub-title">小标题3-1：通道转兵的胜利</div>
         <div class="sub-title">小标题3-2：对长征全局的影响</div>
         <div class="sub-title">小标题3-3：红色精神的传承</div>
@@ -423,16 +452,15 @@
             const pointCards = document.querySelectorAll('.point-card');
 
             // ============================================
-            // ★ 核心功能：滚动时控制黑幕显隐
+            // 滚动控制黑幕显隐
             // ============================================
             function handleScroll() {
                 const scrollY = window.scrollY;
                 const windowHeight = window.innerHeight;
                 const documentHeight = document.documentElement.scrollHeight;
 
-                // 计算滚动进度（0 ~ 1），当滚动到页面 70% 位置时完全显示
                 const scrollProgress = scrollY / (documentHeight - windowHeight);
-                const threshold = 0.65; // 滚动到 65% 时开始显示
+                const threshold = 0.65;
 
                 if (scrollProgress > threshold) {
                     bottomBar.classList.add('visible');
@@ -441,7 +469,6 @@
                 }
             }
 
-            // 监听滚动事件（使用防抖优化性能）
             let scrollTimeout;
             window.addEventListener('scroll', function() {
                 if (scrollTimeout) {
@@ -450,18 +477,12 @@
                 scrollTimeout = window.requestAnimationFrame(handleScroll);
             });
 
-            // 页面加载完成后立即检测一次
-            window.addEventListener('load', function() {
-                handleScroll();
-            });
-
-            // 窗口大小变化时重新计算
+            window.addEventListener('load', handleScroll);
             window.addEventListener('resize', handleScroll);
 
             // ============================================
-            // 原有功能：坐标点点击、返回、搜索等
+            // 坐标点点击 → 跳转详情
             // ============================================
-
             function showPhase(phaseNumber) {
                 mainPage.style.display = 'none';
                 phaseDetails.forEach(p => p.classList.remove('active'));
@@ -476,7 +497,6 @@
                 mainPage.style.display = 'block';
                 phaseDetails.forEach(p => p.classList.remove('active'));
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                // 返回主页后重新检测黑幕状态
                 setTimeout(handleScroll, 300);
             }
 
@@ -500,7 +520,9 @@
                 // window.location.href = "team-detail.html";
             });
 
+            // ============================================
             // 搜索功能
+            // ============================================
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
 
@@ -521,7 +543,9 @@
                 }
             });
 
+            // ============================================
             // 小标题点击
+            // ============================================
             document.querySelectorAll('.sub-title').forEach(item => {
                 item.addEventListener('click', function() {
                     alert('📌 您点击了: "' + this.textContent.trim() + '"\n(可在此处添加跳转或展开逻辑)');
@@ -529,6 +553,7 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
+            console.log('📌 背景图: 湖南省地图.jpg (请确保图片在项目根目录)');
             console.log('📌 队伍详情将在滚动到页面底部时渐入');
         })();
     </script>
