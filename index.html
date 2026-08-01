@@ -41,7 +41,6 @@
             gap: 18px;
         }
 
-        /* 返回符号 */
         .back-btn {
             color: #fff;
             font-size: 1.6rem;
@@ -67,7 +66,6 @@
             color: #cc0000;
         }
 
-        /* 右上角搜索框 */
         .search-wrapper {
             display: flex;
             align-items: center;
@@ -111,7 +109,7 @@
             min-height: 100vh;
         }
 
-        /* ===== 三个坐标点（横向排列） ===== */
+        /* ===== 三个坐标点 ===== */
         .points-section {
             display: flex;
             justify-content: space-between;
@@ -123,7 +121,6 @@
             min-height: 70vh;
         }
 
-        /* 坐标点卡片 */
         .point-card {
             flex: 1;
             max-width: 380px;
@@ -144,7 +141,6 @@
             border-color: rgba(204, 0, 0, 0.3);
         }
 
-        /* 坐标点标记 */
         .point-marker {
             width: 60px;
             height: 60px;
@@ -168,7 +164,6 @@
             color: #fff;
         }
 
-        /* ★ 批注：坐标点下方图片 - 请将 point-1.jpg, point-2.jpg, point-3.jpg 替换为您的图片 */
         .point-card img {
             width: 100%;
             height: 180px;
@@ -178,7 +173,6 @@
             background: #2a2a4a;
         }
 
-        /* ★ 批注：坐标点下方文字 - 请替换为对应的文字内容 */
         .point-text {
             text-align: center;
             font-size: 0.95rem;
@@ -187,14 +181,27 @@
             padding: 0 6px;
         }
 
-        /* ===== 底部横向黑幕 ===== */
+        /* ============================================
+           底部横向黑幕 - 随滚动显隐
+           ============================================ */
         .bottom-bar {
             width: 100%;
             background: #0a0a0a;
             padding: 28px 0;
             text-align: center;
-            margin-top: 40px;
             border-top: 2px solid #cc0000;
+            /* ★ 关键：初始隐藏，滚动时渐入 */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            pointer-events: none;  /* 隐藏时不可点击 */
+        }
+
+        /* ★ 当添加 .visible 类时，显示黑幕 */
+        .bottom-bar.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
         }
 
         .bottom-bar .team-link {
@@ -214,7 +221,18 @@
             text-shadow: 0 0 30px rgba(204, 0, 0, 0.3);
         }
 
-        /* ===== 阶段详情页（默认隐藏） ===== */
+        /* ===== 占位内容（让页面可以滚动） ===== */
+        .scroll-spacer {
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        /* ===== 阶段详情页 ===== */
         .phase-detail {
             display: none;
             padding: 100px 40px 60px;
@@ -235,7 +253,6 @@
             padding-bottom: 20px;
         }
 
-        /* ★ 批注：小标题行 - 每个阶段有不同数量的小标题 */
         .sub-title {
             background: rgba(255, 255, 255, 0.05);
             border-left: 4px solid #cc0000;
@@ -305,15 +322,17 @@
                 font-size: 1.2rem;
                 letter-spacing: 4px;
             }
+            .bottom-bar {
+                padding: 20px 0;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== 顶部导航栏（每一页都有） ===== -->
+    <!-- ===== 顶部导航栏 ===== -->
     <nav class="top-nav">
         <div class="nav-left">
-            <!-- 返回符号 -->
             <a href="#" class="back-btn" id="backBtn">
                 <span>←</span>
             </a>
@@ -321,75 +340,69 @@
                 通道转兵<span class="red">红色资源库</span>
             </span>
         </div>
-        <!-- 右上角搜索框 -->
         <div class="search-wrapper">
             <input type="text" id="searchInput" placeholder="搜索内容">
             <button class="search-btn" id="searchBtn">搜索</button>
         </div>
     </nav>
 
-    <!-- ===== 主页面：三个坐标点 ===== -->
+    <!-- ===== 主页面 ===== -->
     <div class="main-container" id="mainPage">
         <div class="points-section">
 
-            <!-- 坐标点1：左部，上下中心 -->
+            <!-- 坐标点1 -->
             <div class="point-card" data-phase="1">
                 <div class="point-marker"><span>📍 阶段1</span></div>
-                <!-- ★ 批注：图片行 - 坐标点1下方图片，请替换为您的图片 -->
                 <img src="point-1.jpg" alt="阶段1图片">
-                <!-- ★ 批注：文字行 - 坐标点1下方文字，请替换为您的文字 -->
                 <p class="point-text">这里是阶段1的文字描述，讲述通道转兵的历史背景与意义。</p>
             </div>
 
-            <!-- 坐标点2：中心位置 -->
+            <!-- 坐标点2 -->
             <div class="point-card" data-phase="2">
                 <div class="point-marker"><span>📍 阶段2</span></div>
-                <!-- ★ 批注：图片行 - 坐标点2下方图片，请替换为您的图片 -->
                 <img src="point-2.jpg" alt="阶段2图片">
-                <!-- ★ 批注：文字行 - 坐标点2下方文字，请替换为您的文字 -->
                 <p class="point-text">这里是阶段2的文字描述，讲述通道转兵的决策过程与转折。</p>
             </div>
 
-            <!-- 坐标点3：右部，上下中心 -->
+            <!-- 坐标点3 -->
             <div class="point-card" data-phase="3">
                 <div class="point-marker"><span>📍 阶段3</span></div>
-                <!-- ★ 批注：图片行 - 坐标点3下方图片，请替换为您的图片 -->
                 <img src="point-3.jpg" alt="阶段3图片">
-                <!-- ★ 批注：文字行 - 坐标点3下方文字，请替换为您的文字 -->
                 <p class="point-text">这里是阶段3的文字描述，讲述通道转兵的胜利与历史影响。</p>
             </div>
 
         </div>
 
-        <!-- ===== 底部横向黑幕 ===== -->
-        <div class="bottom-bar">
+        <!-- ★ 占位内容：让页面可以滚动到底部触发黑幕 -->
+        <div class="scroll-spacer">▼ 继续滚动查看「队伍详情」 ▼</div>
+
+        <!-- ===== 底部横向黑幕（随滚动显隐） ===== -->
+        <div class="bottom-bar" id="bottomBar">
             <a href="#" class="team-link" id="teamLink">队伍详情</a>
         </div>
+
     </div>
 
-    <!-- ===== 阶段1详情页（3个小标题） ===== -->
+    <!-- ===== 阶段1详情页 ===== -->
     <div class="phase-detail" id="phase1Detail">
         <h2>📖 阶段1：历史背景</h2>
-        <!-- ★ 批注：小标题行 - 阶段1有3个小标题 -->
         <div class="sub-title">小标题1-1：通道转兵的战略背景</div>
         <div class="sub-title">小标题1-2：红军长征的转折点</div>
         <div class="sub-title">小标题1-3：历史意义与影响</div>
     </div>
 
-    <!-- ===== 阶段2详情页（4个小标题） ===== -->
+    <!-- ===== 阶段2详情页 ===== -->
     <div class="phase-detail" id="phase2Detail">
         <h2>📖 阶段2：决策过程</h2>
-        <!-- ★ 批注：小标题行 - 阶段2有4个小标题 -->
         <div class="sub-title">小标题2-1：会议召开与争论</div>
         <div class="sub-title">小标题2-2：关键人物的决策</div>
         <div class="sub-title">小标题2-3：军事路线的转变</div>
         <div class="sub-title">小标题2-4：历史档案与回忆</div>
     </div>
 
-    <!-- ===== 阶段3详情页（3个小标题） ===== -->
+    <!-- ===== 阶段3详情页 ===== -->
     <div class="phase-detail" id="phase3Detail">
         <h2>📖 阶段3：胜利与影响</h2>
-        <!-- ★ 批注：小标题行 - 阶段3有3个小标题 -->
         <div class="sub-title">小标题3-1：通道转兵的胜利</div>
         <div class="sub-title">小标题3-2：对长征全局的影响</div>
         <div class="sub-title">小标题3-3：红色精神的传承</div>
@@ -404,38 +417,69 @@
             const phase3Detail = document.getElementById('phase3Detail');
             const backBtn = document.getElementById('backBtn');
             const teamLink = document.getElementById('teamLink');
+            const bottomBar = document.getElementById('bottomBar');
 
-            // 所有阶段详情页
             const phaseDetails = [phase1Detail, phase2Detail, phase3Detail];
-            // 所有坐标点卡片
             const pointCards = document.querySelectorAll('.point-card');
 
-            // ===== 显示指定阶段详情 =====
+            // ============================================
+            // ★ 核心功能：滚动时控制黑幕显隐
+            // ============================================
+            function handleScroll() {
+                const scrollY = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
+
+                // 计算滚动进度（0 ~ 1），当滚动到页面 70% 位置时完全显示
+                const scrollProgress = scrollY / (documentHeight - windowHeight);
+                const threshold = 0.65; // 滚动到 65% 时开始显示
+
+                if (scrollProgress > threshold) {
+                    bottomBar.classList.add('visible');
+                } else {
+                    bottomBar.classList.remove('visible');
+                }
+            }
+
+            // 监听滚动事件（使用防抖优化性能）
+            let scrollTimeout;
+            window.addEventListener('scroll', function() {
+                if (scrollTimeout) {
+                    window.cancelAnimationFrame(scrollTimeout);
+                }
+                scrollTimeout = window.requestAnimationFrame(handleScroll);
+            });
+
+            // 页面加载完成后立即检测一次
+            window.addEventListener('load', function() {
+                handleScroll();
+            });
+
+            // 窗口大小变化时重新计算
+            window.addEventListener('resize', handleScroll);
+
+            // ============================================
+            // 原有功能：坐标点点击、返回、搜索等
+            // ============================================
+
             function showPhase(phaseNumber) {
-                // 隐藏主页
                 mainPage.style.display = 'none';
-                // 隐藏所有详情页
                 phaseDetails.forEach(p => p.classList.remove('active'));
-                // 显示对应的详情页
                 const target = document.getElementById('phase' + phaseNumber + 'Detail');
                 if (target) {
                     target.classList.add('active');
                 }
-                // 滚动到顶部
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // ===== 返回主页 =====
             function goToMain() {
-                // 显示主页
                 mainPage.style.display = 'block';
-                // 隐藏所有详情页
                 phaseDetails.forEach(p => p.classList.remove('active'));
-                // 滚动到顶部
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                // 返回主页后重新检测黑幕状态
+                setTimeout(handleScroll, 300);
             }
 
-            // ===== 点击坐标点 → 跳转到对应阶段详情 =====
             pointCards.forEach(card => {
                 card.addEventListener('click', function(e) {
                     const phase = this.dataset.phase;
@@ -445,23 +489,18 @@
                 });
             });
 
-            // ===== 返回按钮 =====
             backBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 goToMain();
             });
 
-            // ===== "队伍详情" 跳转 =====
             teamLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                // ★ 批注：点击"队伍详情"跳转到另一个页面（此处模拟跳转）
-                // 实际项目中可改为 window.location.href = "team.html";
                 alert('🚩 跳转到"队伍详情"页面（此处为模拟，实际可替换为真实链接）');
-                // 示例：跳转到队伍详情页（可取消注释使用）
                 // window.location.href = "team-detail.html";
             });
 
-            // ===== 搜索框功能（暂未实现真实搜索） =====
+            // 搜索功能
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
 
@@ -482,16 +521,15 @@
                 }
             });
 
-            // ===== 小标题点击交互（批注：可扩展为跳转或展开内容） =====
+            // 小标题点击
             document.querySelectorAll('.sub-title').forEach(item => {
                 item.addEventListener('click', function() {
-                    // ★ 批注：小标题行 — 点击小标题可跳转或展开详细内容
                     alert('📌 您点击了: "' + this.textContent.trim() + '"\n(可在此处添加跳转或展开逻辑)');
                 });
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 阶段1: 3个小标题 | 阶段2: 4个小标题 | 阶段3: 3个小标题');
+            console.log('📌 队伍详情将在滚动到页面底部时渐入');
         })();
     </script>
 
