@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>湘西通道转兵红色数字资源库</title>
+    <title>通道转兵红色资源库</title>
     <style>
         * {
             margin: 0;
@@ -12,272 +12,459 @@
         }
 
         body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+            min-height: 100vh;
+            overflow-y: auto;
         }
 
-        /* ========== 壁纸背景 ========== */
-        /* ★ 批注：此处为网站背景壁纸，请将 "your-wallpaper.jpg" 替换为您的图片文件名 */
-        .wallpaper-container {
+        /* ===== 顶部导航栏（每一页都有） ===== */
+        .top-nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: url('your-wallpaper.jpg') center center / cover no-repeat;
-            z-index: 0;
-        }
-        /* 壁纸遮罩层（使文字更清晰） */
-        .wallpaper-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.35);
-            z-index: 1;
-        }
-
-        /* ========== 主内容容器 ========== */
-        .main-content {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 1200px;
-            padding: 40px 20px;
+            padding: 18px 30px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid rgba(204, 0, 0, 0.3);
         }
 
-        /* ========== 标题 ========== */
-        .site-title {
-            font-size: 3.2rem;
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        /* 返回符号 */
+        .back-btn {
+            color: #fff;
+            font-size: 1.6rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .back-btn:hover {
+            color: #ff6b6b;
+            transform: scale(1.05);
+        }
+
+        .nav-title {
+            font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: 4px;
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 30px;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+            color: #fff;
+            letter-spacing: 2px;
         }
-        .site-title .black {
-            color: #1a1a1a;
-        }
-        .site-title .red {
+        .nav-title .red {
             color: #cc0000;
         }
 
-        /* ========== 搜索框 ========== */
+        /* 右上角搜索框 */
         .search-wrapper {
             display: flex;
             align-items: center;
-            width: 100%;
-            max-width: 560px;
-            margin-bottom: 50px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 60px;
-            padding: 4px 4px 4px 0;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 30px;
+            padding: 4px 4px 4px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .search-wrapper input {
-            flex: 1;
-            padding: 16px 24px;
+            background: transparent;
             border: none;
-            border-radius: 60px 0 0 60px;
-            font-size: 1rem;
+            padding: 8px 10px;
+            font-size: 0.9rem;
+            color: #fff;
             outline: none;
-            background: #ffffff;
-            color: #333;
-            min-width: 0;
+            width: 160px;
         }
         .search-wrapper input::placeholder {
-            color: #999;
-            font-size: 0.95rem;
+            color: #aaa;
+            font-size: 0.85rem;
         }
-
         .search-btn {
-            flex-shrink: 0;
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            border: none;
             background: #cc0000;
+            border: none;
+            border-radius: 30px;
+            padding: 8px 16px;
             color: #fff;
-            font-size: 1.4rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.25s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 4px;
-            box-shadow: 0 4px 14px rgba(204, 0, 0, 0.35);
+            transition: 0.2s;
+            font-size: 0.85rem;
         }
         .search-btn:hover {
             background: #b30000;
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(204, 0, 0, 0.5);
-        }
-        .search-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.97);
         }
 
-        /* ========== 三张图片卡片 ========== */
-        /* ★ 批注：图片行 — 三张图片并排展示，请将 image-1.jpg, image-2.jpg, image-3.jpg 替换为您的图片文件名 */
-        .cards-row {
+        /* ===== 主内容区域 ===== */
+        .main-container {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        /* ===== 三个坐标点（横向排列） ===== */
+        .points-section {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
+            padding: 60px 40px 40px;
             gap: 30px;
-            width: 100%;
-            max-width: 1000px;
-            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 70vh;
         }
 
-        .card-item {
+        /* 坐标点卡片 */
+        .point-card {
             flex: 1;
-            min-width: 200px;
-            max-width: 300px;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(6px);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
-            transition: transform 0.3s ease;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px 20px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+            transition: 0.3s;
+            cursor: pointer;
         }
-        .card-item:hover {
+        .point-card:hover {
             transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(204, 0, 0, 0.3);
         }
 
-        .card-item img {
+        /* 坐标点标记 */
+        .point-marker {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #f7d98c, #d49b3b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1a1a2e;
+            box-shadow: 0 4px 20px rgba(212, 155, 59, 0.4);
+            margin-bottom: 18px;
+            border: 2px solid rgba(255, 215, 120, 0.5);
+        }
+        .point-marker span {
+            background: rgba(0, 0, 0, 0.15);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: #fff;
+        }
+
+        /* ★ 批注：坐标点下方图片 - 请将 point-1.jpg, point-2.jpg, point-3.jpg 替换为您的图片 */
+        .point-card img {
             width: 100%;
-            height: 200px;
+            height: 180px;
             object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 14px;
+            background: #2a2a4a;
+        }
+
+        /* ★ 批注：坐标点下方文字 - 请替换为对应的文字内容 */
+        .point-text {
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #d0d0e0;
+            padding: 0 6px;
+        }
+
+        /* ===== 底部横向黑幕 ===== */
+        .bottom-bar {
+            width: 100%;
+            background: #0a0a0a;
+            padding: 28px 0;
+            text-align: center;
+            margin-top: 40px;
+            border-top: 2px solid #cc0000;
+        }
+
+        .bottom-bar .team-link {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            padding: 8px 40px;
+        }
+        .bottom-bar .team-link:hover {
+            color: #cc0000;
+            transform: scale(1.05);
+            text-shadow: 0 0 30px rgba(204, 0, 0, 0.3);
+        }
+
+        /* ===== 阶段详情页（默认隐藏） ===== */
+        .phase-detail {
+            display: none;
+            padding: 100px 40px 60px;
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+        .phase-detail.active {
             display: block;
         }
 
-        /* ★ 批注：文字行 — 每张图片下方的说明文字 */
-        .card-item .card-caption {
-            padding: 16px 18px 20px;
+        .phase-detail h2 {
+            font-size: 2.8rem;
+            color: #f7d98c;
+            margin-bottom: 40px;
             text-align: center;
-            color: #fff;
-            font-size: 1.05rem;
-            font-weight: 500;
-            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
-            background: rgba(0, 0, 0, 0.2);
-            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(204, 0, 0, 0.3);
+            padding-bottom: 20px;
         }
 
-        /* ========== 响应式 ========== */
-        @media (max-width: 768px) {
-            .site-title {
-                font-size: 2.2rem;
-                letter-spacing: 2px;
+        /* ★ 批注：小标题行 - 每个阶段有不同数量的小标题 */
+        .sub-title {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #cc0000;
+            padding: 18px 24px;
+            margin-bottom: 16px;
+            border-radius: 0 12px 12px 0;
+            transition: 0.2s;
+            cursor: pointer;
+            color: #e8e8f0;
+            font-size: 1.1rem;
+        }
+        .sub-title:hover {
+            background: rgba(204, 0, 0, 0.12);
+            transform: translateX(6px);
+        }
+        .sub-title::before {
+            content: "▶ ";
+            color: #cc0000;
+            font-size: 0.8rem;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 900px) {
+            .points-section {
+                flex-direction: column;
+                padding: 40px 20px;
             }
-            .search-wrapper {
+            .point-card {
                 max-width: 100%;
-                padding: 3px 3px 3px 0;
+                width: 100%;
+            }
+            .nav-title {
+                font-size: 1.1rem;
             }
             .search-wrapper input {
-                padding: 14px 18px;
-                font-size: 0.95rem;
-            }
-            .search-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-            .cards-row {
-                gap: 20px;
-            }
-            .card-item {
-                min-width: 150px;
-                max-width: 260px;
-            }
-            .card-item img {
-                height: 160px;
+                width: 100px;
             }
         }
 
-        @media (max-width: 480px) {
-            .site-title {
-                font-size: 1.6rem;
+        @media (max-width: 600px) {
+            .top-nav {
+                padding: 12px 16px;
+                flex-wrap: wrap;
+                gap: 10px;
             }
-            .card-item {
-                min-width: 130px;
-                max-width: 100%;
-                flex: 0 0 calc(50% - 12px);
+            .nav-left {
+                gap: 10px;
             }
-            .card-item img {
-                height: 140px;
+            .nav-title {
+                font-size: 0.95rem;
             }
-            .card-item .card-caption {
-                font-size: 0.9rem;
-                padding: 12px 12px 16px;
+            .back-btn {
+                font-size: 1.2rem;
+            }
+            .search-wrapper input {
+                width: 80px;
+                font-size: 0.8rem;
+            }
+            .search-btn {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            .phase-detail h2 {
+                font-size: 2rem;
+            }
+            .bottom-bar .team-link {
+                font-size: 1.2rem;
+                letter-spacing: 4px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== 壁纸背景 ===== -->
-    <!-- ★ 批注：壁纸行 — 请将 "your-wallpaper.jpg" 替换为您自己的壁纸文件名 -->
-    <div class="wallpaper-container"></div>
-    <div class="wallpaper-overlay"></div>
-
-    <!-- ===== 主内容 ===== -->
-    <div class="main-content">
-
-        <!-- 标题 -->
-        <h1 class="site-title">
-            <span class="black">湘西通道转兵</span>
-            <span class="red">红色数字资源库</span>
-        </h1>
-
-        <!-- 搜索框 -->
+    <!-- ===== 顶部导航栏（每一页都有） ===== -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <!-- 返回符号 -->
+            <a href="#" class="back-btn" id="backBtn">
+                <span>←</span>
+            </a>
+            <span class="nav-title">
+                通道转兵<span class="red">红色资源库</span>
+            </span>
+        </div>
+        <!-- 右上角搜索框 -->
         <div class="search-wrapper">
-            <input type="text" id="searchInput" placeholder="输入内容" aria-label="搜索框">
-            <button class="search-btn" id="searchBtn" aria-label="搜索">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-            </button>
+            <input type="text" id="searchInput" placeholder="搜索内容">
+            <button class="search-btn" id="searchBtn">搜索</button>
+        </div>
+    </nav>
+
+    <!-- ===== 主页面：三个坐标点 ===== -->
+    <div class="main-container" id="mainPage">
+        <div class="points-section">
+
+            <!-- 坐标点1：左部，上下中心 -->
+            <div class="point-card" data-phase="1">
+                <div class="point-marker"><span>📍 阶段1</span></div>
+                <!-- ★ 批注：图片行 - 坐标点1下方图片，请替换为您的图片 -->
+                <img src="point-1.jpg" alt="阶段1图片">
+                <!-- ★ 批注：文字行 - 坐标点1下方文字，请替换为您的文字 -->
+                <p class="point-text">这里是阶段1的文字描述，讲述通道转兵的历史背景与意义。</p>
+            </div>
+
+            <!-- 坐标点2：中心位置 -->
+            <div class="point-card" data-phase="2">
+                <div class="point-marker"><span>📍 阶段2</span></div>
+                <!-- ★ 批注：图片行 - 坐标点2下方图片，请替换为您的图片 -->
+                <img src="point-2.jpg" alt="阶段2图片">
+                <!-- ★ 批注：文字行 - 坐标点2下方文字，请替换为您的文字 -->
+                <p class="point-text">这里是阶段2的文字描述，讲述通道转兵的决策过程与转折。</p>
+            </div>
+
+            <!-- 坐标点3：右部，上下中心 -->
+            <div class="point-card" data-phase="3">
+                <div class="point-marker"><span>📍 阶段3</span></div>
+                <!-- ★ 批注：图片行 - 坐标点3下方图片，请替换为您的图片 -->
+                <img src="point-3.jpg" alt="阶段3图片">
+                <!-- ★ 批注：文字行 - 坐标点3下方文字，请替换为您的文字 -->
+                <p class="point-text">这里是阶段3的文字描述，讲述通道转兵的胜利与历史影响。</p>
+            </div>
+
         </div>
 
-        <!-- 三张图片卡片 -->
-        <!-- ★ 批注：图片行 — 三张图片并排，请将 image-1.jpg, image-2.jpg, image-3.jpg 替换为您的图片 -->
-        <!-- ★ 批注：文字行 — 每张图片下方的说明文字，请替换为对应的文字内容 -->
-        <div class="cards-row">
-
-            <div class="card-item">
-                <img src="image-1.jpg" alt="图片1">
-                <div class="card-caption">文字说明一</div>
-            </div>
-
-            <div class="card-item">
-                <img src="image-2.jpg" alt="图片2">
-                <div class="card-caption">文字说明二</div>
-            </div>
-
-            <div class="card-item">
-                <img src="image-3.jpg" alt="图片3">
-                <div class="card-caption">文字说明三</div>
-            </div>
-
+        <!-- ===== 底部横向黑幕 ===== -->
+        <div class="bottom-bar">
+            <a href="#" class="team-link" id="teamLink">队伍详情</a>
         </div>
+    </div>
 
+    <!-- ===== 阶段1详情页（3个小标题） ===== -->
+    <div class="phase-detail" id="phase1Detail">
+        <h2>📖 阶段1：历史背景</h2>
+        <!-- ★ 批注：小标题行 - 阶段1有3个小标题 -->
+        <div class="sub-title">小标题1-1：通道转兵的战略背景</div>
+        <div class="sub-title">小标题1-2：红军长征的转折点</div>
+        <div class="sub-title">小标题1-3：历史意义与影响</div>
+    </div>
+
+    <!-- ===== 阶段2详情页（4个小标题） ===== -->
+    <div class="phase-detail" id="phase2Detail">
+        <h2>📖 阶段2：决策过程</h2>
+        <!-- ★ 批注：小标题行 - 阶段2有4个小标题 -->
+        <div class="sub-title">小标题2-1：会议召开与争论</div>
+        <div class="sub-title">小标题2-2：关键人物的决策</div>
+        <div class="sub-title">小标题2-3：军事路线的转变</div>
+        <div class="sub-title">小标题2-4：历史档案与回忆</div>
+    </div>
+
+    <!-- ===== 阶段3详情页（3个小标题） ===== -->
+    <div class="phase-detail" id="phase3Detail">
+        <h2>📖 阶段3：胜利与影响</h2>
+        <!-- ★ 批注：小标题行 - 阶段3有3个小标题 -->
+        <div class="sub-title">小标题3-1：通道转兵的胜利</div>
+        <div class="sub-title">小标题3-2：对长征全局的影响</div>
+        <div class="sub-title">小标题3-3：红色精神的传承</div>
     </div>
 
     <script>
         (function() {
+            // ===== DOM 引用 =====
+            const mainPage = document.getElementById('mainPage');
+            const phase1Detail = document.getElementById('phase1Detail');
+            const phase2Detail = document.getElementById('phase2Detail');
+            const phase3Detail = document.getElementById('phase3Detail');
+            const backBtn = document.getElementById('backBtn');
+            const teamLink = document.getElementById('teamLink');
+
+            // 所有阶段详情页
+            const phaseDetails = [phase1Detail, phase2Detail, phase3Detail];
+            // 所有坐标点卡片
+            const pointCards = document.querySelectorAll('.point-card');
+
+            // ===== 显示指定阶段详情 =====
+            function showPhase(phaseNumber) {
+                // 隐藏主页
+                mainPage.style.display = 'none';
+                // 隐藏所有详情页
+                phaseDetails.forEach(p => p.classList.remove('active'));
+                // 显示对应的详情页
+                const target = document.getElementById('phase' + phaseNumber + 'Detail');
+                if (target) {
+                    target.classList.add('active');
+                }
+                // 滚动到顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // ===== 返回主页 =====
+            function goToMain() {
+                // 显示主页
+                mainPage.style.display = 'block';
+                // 隐藏所有详情页
+                phaseDetails.forEach(p => p.classList.remove('active'));
+                // 滚动到顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // ===== 点击坐标点 → 跳转到对应阶段详情 =====
+            pointCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    const phase = this.dataset.phase;
+                    if (phase) {
+                        showPhase(phase);
+                    }
+                });
+            });
+
+            // ===== 返回按钮 =====
+            backBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                goToMain();
+            });
+
+            // ===== "队伍详情" 跳转 =====
+            teamLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                // ★ 批注：点击"队伍详情"跳转到另一个页面（此处模拟跳转）
+                // 实际项目中可改为 window.location.href = "team.html";
+                alert('🚩 跳转到"队伍详情"页面（此处为模拟，实际可替换为真实链接）');
+                // 示例：跳转到队伍详情页（可取消注释使用）
+                // window.location.href = "team-detail.html";
+            });
+
+            // ===== 搜索框功能（暂未实现真实搜索） =====
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
 
-            // 搜索功能（暂时只做交互提示）
             function handleSearch() {
                 const query = searchInput.value.trim();
                 if (query === '') {
@@ -285,13 +472,9 @@
                     return;
                 }
                 alert('🔍 您搜索了: "' + query + '"\n(搜索功能暂未实现)');
-                // 未来可在此处接入真实搜索逻辑
             }
 
-            // 点击按钮搜索
             searchBtn.addEventListener('click', handleSearch);
-
-            // 回车键搜索
             searchInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -299,7 +482,16 @@
                 }
             });
 
-            console.log('✅ 湘西通道转兵红色数字资源库 已加载');
+            // ===== 小标题点击交互（批注：可扩展为跳转或展开内容） =====
+            document.querySelectorAll('.sub-title').forEach(item => {
+                item.addEventListener('click', function() {
+                    // ★ 批注：小标题行 — 点击小标题可跳转或展开详细内容
+                    alert('📌 您点击了: "' + this.textContent.trim() + '"\n(可在此处添加跳转或展开逻辑)');
+                });
+            });
+
+            console.log('✅ 通道转兵红色资源库 已加载');
+            console.log('📌 阶段1: 3个小标题 | 阶段2: 4个小标题 | 阶段3: 3个小标题');
         })();
     </script>
 
