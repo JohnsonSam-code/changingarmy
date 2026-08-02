@@ -13,6 +13,10 @@
 
         body {
             font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            
+            /* ========================================== */
+            /* ★ 背景图 - 湖南省地图 */
+            /* ========================================== */
             background-image: url('湖南省地图.jpg');
             background-size: cover;
             background-position: center;
@@ -24,6 +28,7 @@
             overflow-y: auto;
         }
 
+        /* ===== 顶部导航栏 ===== */
         .top-nav {
             position: fixed;
             top: 0;
@@ -60,14 +65,12 @@
             transform: scale(1.05);
         }
 
+        /* ★ 标题全部改为红色 */
         .nav-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #fff;
-            letter-spacing: 2px;
-        }
-        .nav-title .red {
             color: #cc0000;
+            letter-spacing: 2px;
         }
 
         .search-wrapper {
@@ -107,6 +110,7 @@
             transform: scale(0.97);
         }
 
+        /* ===== 主内容区域 ===== */
         .main-container {
             padding-top: 80px;
             min-height: 100vh;
@@ -118,20 +122,21 @@
         }
 
         /* ============================================ */
-        /* ★ 滑动选择器 - 完全重写居中逻辑 */
+        /* ★ 滑动选择器 - 完美居中 + 无透明墙 */
         /* ============================================ */
         .slider-wrapper {
             width: 100%;
             max-width: 1100px;
-            padding: 40px 20px;
+            padding: 40px 0;  /* 左右padding设为0，去除透明墙 */
             position: relative;
             margin: 0 auto;
-            overflow: hidden;
+            overflow: visible;  /* 改为visible，让卡片完全可见 */
         }
 
         .slider-track {
             display: flex;
             align-items: center;
+            justify-content: center;  /* ★ 关键：让卡片整体居中 */
             gap: 24px;
             padding: 20px 0;
             cursor: grab;
@@ -139,7 +144,6 @@
             -webkit-user-select: none;
             touch-action: none;
             will-change: transform;
-            /* 注意：transition 由 JS 控制 */
         }
 
         .slider-track.dragging {
@@ -183,6 +187,10 @@
         .phase-slide-item.far {
             transform: scale(0.78);
             opacity: 0.35;
+        }
+
+        .phase-slide-item:hover {
+            background: rgba(255, 255, 255, 0.12);
         }
 
         .phase-slide-item .phase-number {
@@ -293,6 +301,7 @@
             letter-spacing: 4px;
         }
 
+        /* ===== 响应式 ===== */
         @media (max-width: 768px) {
             .phase-slide-item {
                 flex: 0 0 220px;
@@ -310,6 +319,9 @@
             }
             .search-wrapper input {
                 width: 100px;
+            }
+            .slider-wrapper {
+                padding: 40px 10px;
             }
         }
 
@@ -356,19 +368,22 @@
             .slider-hint {
                 font-size: 0.65rem;
             }
+            .slider-wrapper {
+                padding: 40px 5px;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- ===== 顶部导航栏 ===== -->
     <nav class="top-nav">
         <div class="nav-left">
             <a href="#" class="back-btn" id="backBtn">
                 <span>←</span>
             </a>
-            <span class="nav-title">
-                通道转兵<span class="red">红色资源库</span>
-            </span>
+            <!-- ★ 标题全部改为红色 -->
+            <span class="nav-title">通道转兵红色资源库</span>
         </div>
         <div class="search-wrapper">
             <input type="text" id="searchInput" placeholder="搜索内容">
@@ -376,6 +391,7 @@
         </div>
     </nav>
 
+    <!-- ===== 主页面 ===== -->
     <div class="main-container" id="mainPage">
 
         <div class="slider-wrapper" id="sliderWrapper">
@@ -454,50 +470,34 @@
             let prevTranslateX = 0;
             let isAnimating = false;
 
-            // ===== 获取卡片完整宽度（含 gap） =====
+            // ===== 获取卡片宽度（含gap） =====
             function getCardWidth() {
-                // 使用 getBoundingClientRect 获取实际宽度
                 const rect = items[0].getBoundingClientRect();
-                const gap = 24; // CSS gap
+                const gap = 24;
                 return rect.width + gap;
             }
 
-            // ===== 获取容器可视宽度 =====
+            // ===== 获取容器宽度 =====
             function getContainerWidth() {
                 return sliderWrapper.getBoundingClientRect().width;
             }
 
-            // ===== 计算使卡片居中的偏移量 =====
+            // ===== 计算居中偏移 =====
             function calculateTranslate(index) {
                 const cardWidth = getCardWidth();
                 const containerWidth = getContainerWidth();
                 const totalWidth = totalItems * cardWidth;
 
-                // 目标：让第 index 张卡片居中
-                // 卡片左边界应该位于 (containerWidth - cardWidth) / 2
+                // 目标：让卡片居中
                 const targetLeft = (containerWidth - cardWidth) / 2;
-                // 第 index 张卡片的左边界 = index * cardWidth + translateX
-                // 所以 translateX = targetLeft - index * cardWidth
                 let translateX = targetLeft - index * cardWidth;
 
-                // 边界限制：不能超出左右边界
+                // 边界限制
                 const maxTranslate = 0;
                 const minTranslate = -(totalWidth - containerWidth);
                 translateX = Math.max(minTranslate, Math.min(maxTranslate, translateX));
 
                 return translateX;
-            }
-
-            // ===== 获取当前最接近的卡片索引 =====
-            function getNearestIndex(translateX) {
-                const cardWidth = getCardWidth();
-                const containerWidth = getContainerWidth();
-                const targetLeft = (containerWidth - cardWidth) / 2;
-                // 反向计算：index = (targetLeft - translateX) / cardWidth
-                let rawIndex = (targetLeft - translateX) / cardWidth;
-                let nearest = Math.round(rawIndex);
-                nearest = Math.max(0, Math.min(totalItems - 1, nearest));
-                return nearest;
             }
 
             // ===== 更新滑块 =====
@@ -562,7 +562,6 @@
                 const deltaX = clientX - startX;
                 let newTranslate = prevTranslateX + deltaX;
 
-                // 边界弹性
                 const cardWidth = getCardWidth();
                 const containerWidth = getContainerWidth();
                 const totalWidth = totalItems * cardWidth;
@@ -587,7 +586,6 @@
                 const deltaX = clientX - startX;
 
                 if (Math.abs(deltaX) > 40) {
-                    // 滑动切换
                     if (deltaX < 0 && currentIndex < totalItems - 1) {
                         updateSlider(currentIndex + 1);
                     } else if (deltaX > 0 && currentIndex > 0) {
@@ -596,9 +594,7 @@
                         updateSlider(currentIndex);
                     }
                 } else {
-                    // 点击检测
-                    const nearest = getNearestIndex(currentTranslateX);
-                    // 检查点击位置是否在卡片上
+                    // 检测点击卡片
                     const trackRect = sliderTrack.getBoundingClientRect();
                     const relX = clientX - trackRect.left;
                     const cardWidth = getCardWidth();
@@ -682,7 +678,6 @@
                 mainPage.style.display = 'flex';
                 phaseDetails.forEach(p => p.classList.remove('active'));
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                // 等待 DOM 重绘后重新计算位置
                 requestAnimationFrame(() => {
                     setTimeout(() => updateSlider(currentIndex, false), 50);
                 });
@@ -733,18 +728,17 @@
             });
 
             // ===== 初始化 =====
-            // 使用多次延迟确保 DOM 完全渲染后再计算位置
             window.addEventListener('load', () => {
                 setTimeout(() => {
                     updateSlider(1, false);
                 }, 100);
-                // 再延迟一次确保万无一失
                 setTimeout(() => {
                     updateSlider(1, false);
                 }, 300);
             });
 
-            console.log('✅ 滑动模块已加载，居中逻辑已修复');
+            console.log('✅ 通道转兵红色资源库 已加载');
+            console.log('📌 标题全部红色 | 选项框居中 | 无透明墙');
         })();
     </script>
 
