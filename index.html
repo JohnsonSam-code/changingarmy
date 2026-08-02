@@ -22,10 +22,7 @@
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
-            
-            /* 图片加载失败时的备用纯色 */
             background-color: #1a1a2e;
-            
             color: #fff;
             min-height: 100vh;
             overflow-y: auto;
@@ -120,136 +117,169 @@
             padding-top: 80px;
             min-height: 100vh;
             background: rgba(0, 0, 0, 0.35);
-        }
-
-        /* ===== 三个坐标点 ===== */
-        .points-section {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 30px 40px 20px;
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-            min-height: auto;
-            position: relative;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .point-card {
-            flex: 1;
-            max-width: 300px;
+        /* ============================================ */
+        /* ★ 滑动式三阶段选择器 */
+        /* ============================================ */
+        .slider-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            padding: 40px 20px;
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .slider-track {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding: 20px 0;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .slider-track:active {
+            cursor: grabbing;
+        }
+
+        /* ===== 阶段选项卡片 ===== */
+        .phase-slide-item {
+            flex: 0 0 240px;
+            min-height: 260px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 30px 20px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 20px 16px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(4px);
-            transition: 0.3s;
-            cursor: pointer;
-            position: relative;
-            z-index: 1;
-        }
-        .point-card:hover {
-            transform: translateY(-4px);
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(204, 0, 0, 0.3);
-        }
-
-        /* ===== 坐标点标记 ===== */
-        .point-marker {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #f7d98c, #d49b3b);
-            display: flex;
-            align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 0.7rem;
-            color: #1a1a2e;
-            box-shadow: 0 4px 16px rgba(212, 155, 59, 0.4);
-            margin-bottom: 14px;
-            border: 2px solid rgba(255, 215, 120, 0.5);
-            flex-shrink: 0;
-        }
-        .point-marker span {
-            background: rgba(0, 0, 0, 0.15);
-            padding: 2px 8px;
-            border-radius: 16px;
-            font-size: 0.6rem;
-            color: #fff;
-            white-space: nowrap;
-        }
-
-        /* ★ 批注：坐标点下方图片 */
-        .point-card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            background: #2a2a4a;
-        }
-
-        /* ★ 批注：坐标点下方文字 */
-        .point-text {
             text-align: center;
-            font-size: 0.85rem;
-            line-height: 1.5;
-            color: #f0f0f8;
-            padding: 0 4px;
-            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+            transform: scale(0.85);
+            opacity: 0.5;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* ===== 底部横向黑幕（随滚动显隐） ===== */
-        .bottom-bar {
-            width: 100%;
-            background: #0a0a0a;
-            padding: 28px 0;
-            text-align: center;
-            border-top: 2px solid #cc0000;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            pointer-events: none;
-            margin-top: 30px;
-        }
-
-        .bottom-bar.visible {
+        /* ★ 中间的卡片放大 + 高亮 */
+        .phase-slide-item.active {
+            transform: scale(1.08);
             opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(204, 0, 0, 0.5);
+            box-shadow: 0 8px 40px rgba(204, 0, 0, 0.25);
         }
 
-        .bottom-bar .team-link {
-            color: #fff;
-            font-size: 1.8rem;
+        /* 旁边的卡片稍微缩小 */
+        .phase-slide-item.side {
+            transform: scale(0.90);
+            opacity: 0.6;
+        }
+
+        /* 最旁边的卡片更小 */
+        .phase-slide-item.far {
+            transform: scale(0.78);
+            opacity: 0.35;
+        }
+
+        .phase-slide-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .phase-slide-item .phase-number {
+            font-size: 0.8rem;
+            color: #f7d98c;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .phase-slide-item .phase-title {
+            font-size: 1.6rem;
             font-weight: 700;
-            letter-spacing: 8px;
-            text-decoration: none;
+            color: #fff;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .phase-slide-item .phase-sub {
+            font-size: 0.85rem;
+            color: #c0c8d8;
+            line-height: 1.5;
+            opacity: 0.8;
+        }
+
+        /* ===== 指示器（小圆点） ===== */
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .slider-dots .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             cursor: pointer;
             transition: 0.3s;
-            display: inline-block;
-            padding: 8px 40px;
-        }
-        .bottom-bar .team-link:hover {
-            color: #cc0000;
-            transform: scale(1.05);
-            text-shadow: 0 0 30px rgba(204, 0, 0, 0.3);
         }
 
-        /* ===== 滚动占位 ===== */
-        .scroll-spacer {
-            height: 200px;
+        .slider-dots .dot.active {
+            background: #cc0000;
+            border-color: #cc0000;
+            box-shadow: 0 0 20px rgba(204, 0, 0, 0.4);
+            transform: scale(1.2);
+        }
+
+        .slider-dots .dot:hover {
+            background: rgba(204, 0, 0, 0.5);
+        }
+
+        /* ===== 导航箭头 ===== */
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .slider-nav button {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.12);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .slider-nav button:hover {
+            background: rgba(204, 0, 0, 0.3);
+            border-color: #cc0000;
+            transform: scale(1.05);
+        }
+
+        .slider-nav button:active {
+            transform: scale(0.95);
         }
 
         /* ===== 阶段详情页 ===== */
@@ -274,7 +304,30 @@
             text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
         }
 
-        /* ===== 阶段1详情页 - 无小标题，只显示大标题 ===== */
+        /* ===== 阶段2小标题 ===== */
+        .sub-title {
+            background: rgba(255, 255, 255, 0.06);
+            border-left: 4px solid #cc0000;
+            padding: 18px 24px;
+            margin-bottom: 16px;
+            border-radius: 0 12px 12px 0;
+            transition: 0.2s;
+            cursor: pointer;
+            color: #e8e8f0;
+            font-size: 1.1rem;
+            backdrop-filter: blur(4px);
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+        }
+        .sub-title:hover {
+            background: rgba(204, 0, 0, 0.15);
+            transform: translateX(6px);
+        }
+        .sub-title::before {
+            content: "▶ ";
+            color: #cc0000;
+            font-size: 0.8rem;
+        }
+
         .phase-detail .empty-content {
             text-align: center;
             color: rgba(255, 255, 255, 0.3);
@@ -284,16 +337,22 @@
         }
 
         /* ===== 响应式 ===== */
-        @media (max-width: 900px) {
-            .points-section {
-                flex-direction: column;
-                align-items: center;
-                padding: 30px 20px 20px;
+        @media (max-width: 768px) {
+            .phase-slide-item {
+                flex: 0 0 180px;
+                min-height: 200px;
+                padding: 20px 16px;
             }
-            .point-card {
-                max-width: 100%;
-                width: 100%;
-                max-width: 380px;
+            .phase-slide-item .phase-title {
+                font-size: 1.2rem;
+            }
+            .phase-slide-item .phase-sub {
+                font-size: 0.75rem;
+            }
+            .slider-nav button {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
             .nav-title {
                 font-size: 1.1rem;
@@ -326,30 +385,22 @@
                 padding: 6px 12px;
                 font-size: 0.75rem;
             }
+            .phase-slide-item {
+                flex: 0 0 150px;
+                min-height: 160px;
+                padding: 16px 12px;
+            }
+            .phase-slide-item .phase-title {
+                font-size: 1rem;
+            }
+            .phase-slide-item .phase-number {
+                font-size: 0.6rem;
+            }
             .phase-detail h2 {
                 font-size: 2rem;
             }
-            .bottom-bar .team-link {
-                font-size: 1.2rem;
-                letter-spacing: 4px;
-            }
-            .bottom-bar {
-                padding: 20px 0;
-            }
             .main-container {
                 padding-top: 70px;
-            }
-            .point-marker {
-                width: 38px;
-                height: 38px;
-                font-size: 0.6rem;
-            }
-            .point-marker span {
-                font-size: 0.5rem;
-                padding: 2px 6px;
-            }
-            .point-card img {
-                height: 120px;
             }
         }
     </style>
@@ -374,66 +425,68 @@
 
     <!-- ===== 主页面 ===== -->
     <div class="main-container" id="mainPage">
-        <div class="points-section">
 
-            <div class="point-card" data-phase="1">
-                <div class="point-marker"><span>📍 危机酝酿</span></div>
-                <!-- ★ 批注：图片行 - 坐标点1下方图片，请替换为您的图片 -->
-                <img src="point-1.jpg" alt="阶段1图片">
-                <!-- ★ 批注：文字行 - 坐标点1下方文字，请替换为您的文字 -->
-                <p class="point-text">这里是阶段1的文字描述，讲述通道转兵的历史背景与意义。</p>
+        <!-- ===== 滑动选择器 ===== -->
+        <div class="slider-wrapper">
+            <div class="slider-track" id="sliderTrack">
+
+                <!-- 阶段1：危机酝酿 -->
+                <div class="phase-slide-item" data-phase="1">
+                    <div class="phase-number">阶段 01</div>
+                    <div class="phase-title">危机酝酿</div>
+                    <div class="phase-sub">通道转兵的历史背景与危机</div>
+                </div>
+
+                <!-- 阶段2：会议决策 -->
+                <div class="phase-slide-item" data-phase="2">
+                    <div class="phase-number">阶段 02</div>
+                    <div class="phase-title">会议决策</div>
+                    <div class="phase-sub">关键会议与决策过程</div>
+                </div>
+
+                <!-- 阶段3：实施转兵 -->
+                <div class="phase-slide-item" data-phase="3">
+                    <div class="phase-number">阶段 03</div>
+                    <div class="phase-title">实施转兵</div>
+                    <div class="phase-sub">转兵实施与历史影响</div>
+                </div>
+
             </div>
 
-            <!-- 坐标点2 -->
-            <div class="point-card" data-phase="2">
-                <div class="point-marker"><span>📍 会议决策</span></div>
-                <!-- ★ 批注：图片行 - 坐标点2下方图片，请替换为您的图片 -->
-                <img src="point-2.jpg" alt="阶段2图片">
-                <!-- ★ 批注：文字行 - 坐标点2下方文字，请替换为您的文字 -->
-                <p class="point-text">这里是阶段2的文字描述，讲述通道转兵的决策过程与转折。</p>
+            <!-- 小圆点指示器 -->
+            <div class="slider-dots" id="sliderDots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
             </div>
 
-            <!-- 坐标点3 -->
-            <div class="point-card" data-phase="3">
-                <div class="point-marker"><span>📍 实施转兵</span></div>
-                <!-- ★ 批注：图片行 - 坐标点3下方图片，请替换为您的图片 -->
-                <img src="point-3.jpg" alt="阶段3图片">
-                <!-- ★ 批注：文字行 - 坐标点3下方文字，请替换为您的文字 -->
-                <p class="point-text">这里是阶段3的文字描述，讲述通道转兵的胜利与历史影响。</p>
+            <!-- 导航箭头 -->
+            <div class="slider-nav">
+                <button id="prevBtn">‹</button>
+                <button id="nextBtn">›</button>
             </div>
-
-        </div>
-
-        <div class="scroll-spacer">▼ 继续滚动查看「队伍详情」 ▼</div>
-
-        <!-- ===== 底部横向黑幕 ===== -->
-        <div class="bottom-bar" id="bottomBar">
-            <a href="#" class="team-link" id="teamLink">队伍详情</a>
         </div>
 
     </div>
 
-    <!-- ===== 阶段1详情页（无小标题） ===== -->
+    <!-- ===== 阶段1详情页 ===== -->
     <div class="phase-detail" id="phase1Detail">
-        <h2>📖 阶段1：历史背景</h2>
-        <!-- ★ 批注：阶段1无小标题，只显示大标题 -->
+        <h2>📖 危机酝酿</h2>
         <div class="empty-content">暂无更多内容</div>
     </div>
 
-    <!-- ===== 阶段2详情页（保留4个小标题） ===== -->
+    <!-- ===== 阶段2详情页 ===== -->
     <div class="phase-detail" id="phase2Detail">
-        <h2>📖 阶段2：决策过程</h2>
-        <!-- ★ 批注：小标题行 - 阶段2有4个小标题 -->
-        <div class="sub-title">小标题2-1：会议召开与争论</div>
-        <div class="sub-title">小标题2-2：关键人物的决策</div>
-        <div class="sub-title">小标题2-3：军事路线的转变</div>
-        <div class="sub-title">小标题2-4：历史档案与回忆</div>
+        <h2>📖 会议决策</h2>
+        <div class="sub-title">会议召开与争论</div>
+        <div class="sub-title">关键人物的决策</div>
+        <div class="sub-title">军事路线的转变</div>
+        <div class="sub-title">历史档案与回忆</div>
     </div>
 
-    <!-- ===== 阶段3详情页（无小标题） ===== -->
+    <!-- ===== 阶段3详情页 ===== -->
     <div class="phase-detail" id="phase3Detail">
-        <h2>📖 阶段3：胜利与影响</h2>
-        <!-- ★ 批注：阶段3无小标题，只显示大标题 -->
+        <h2>📖 实施转兵</h2>
         <div class="empty-content">暂无更多内容</div>
     </div>
 
@@ -445,44 +498,179 @@
             const phase2Detail = document.getElementById('phase2Detail');
             const phase3Detail = document.getElementById('phase3Detail');
             const backBtn = document.getElementById('backBtn');
-            const teamLink = document.getElementById('teamLink');
-            const bottomBar = document.getElementById('bottomBar');
+            const sliderTrack = document.getElementById('sliderTrack');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const items = document.querySelectorAll('.phase-slide-item');
 
             const phaseDetails = [phase1Detail, phase2Detail, phase3Detail];
-            const pointCards = document.querySelectorAll('.point-card');
+            let currentIndex = 1; // 默认中间（索引1）
+            let isDragging = false;
+            let startX = 0;
+            let currentTranslate = 0;
+            let isAnimating = false;
 
-            // ============================================
-            // 滚动控制黑幕显隐
-            // ============================================
-            function handleScroll() {
-                const scrollY = window.scrollY;
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight;
+            // ===== 更新滑块状态 =====
+            function updateSlider(index, animate = true) {
+                if (isAnimating) return;
+                if (index < 0) index = 0;
+                if (index > items.length - 1) index = items.length - 1;
+                currentIndex = index;
 
-                const scrollProgress = scrollY / (documentHeight - windowHeight);
-                const threshold = 0.65;
+                // 更新卡片样式
+                items.forEach((item, i) => {
+                    const offset = i - index;
+                    item.classList.remove('active', 'side', 'far');
+                    if (offset === 0) {
+                        item.classList.add('active');
+                    } else if (Math.abs(offset) === 1) {
+                        item.classList.add('side');
+                    } else {
+                        item.classList.add('far');
+                    }
+                });
 
-                if (scrollProgress > threshold) {
-                    bottomBar.classList.add('visible');
+                // 更新小圆点
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+
+                // 滚动到对应位置（居中）
+                if (animate) {
+                    isAnimating = true;
+                    sliderTrack.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                 } else {
-                    bottomBar.classList.remove('visible');
+                    sliderTrack.style.transition = 'none';
                 }
+
+                // 计算偏移使选中项居中
+                const containerWidth = sliderTrack.parentElement.offsetWidth;
+                const itemWidth = items[0].offsetWidth + 20; // 宽度 + gap
+                const totalWidth = items.length * itemWidth;
+                const centerOffset = (containerWidth - itemWidth) / 2;
+                const translateX = -(index * itemWidth) + centerOffset;
+
+                // 限制边界
+                const maxTranslate = 0;
+                const minTranslate = -(totalWidth - containerWidth);
+                const clamped = Math.max(minTranslate, Math.min(maxTranslate, translateX));
+
+                sliderTrack.style.transform = `translateX(${clamped}px)`;
+
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 550);
             }
 
-            let scrollTimeout;
-            window.addEventListener('scroll', function() {
-                if (scrollTimeout) {
-                    window.cancelAnimationFrame(scrollTimeout);
-                }
-                scrollTimeout = window.requestAnimationFrame(handleScroll);
+            // ===== 鼠标/触摸拖拽 =====
+            sliderTrack.addEventListener('mousedown', (e) => {
+                if (isAnimating) return;
+                isDragging = true;
+                startX = e.clientX;
+                sliderTrack.style.cursor = 'grabbing';
+                sliderTrack.style.transition = 'none';
             });
 
-            window.addEventListener('load', handleScroll);
-            window.addEventListener('resize', handleScroll);
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const diff = startX - e.clientX;
+                // 检测滑动方向，判断是否切换
+            });
 
-            // ============================================
-            // 坐标点点击 → 跳转详情
-            // ============================================
+            window.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                sliderTrack.style.cursor = 'grab';
+                // 根据滑动距离判断是否切换
+                const diff = startX - e.clientX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0 && currentIndex < items.length - 1) {
+                        updateSlider(currentIndex + 1);
+                    } else if (diff < 0 && currentIndex > 0) {
+                        updateSlider(currentIndex - 1);
+                    } else {
+                        updateSlider(currentIndex);
+                    }
+                } else {
+                    updateSlider(currentIndex);
+                }
+            });
+
+            // ===== 触摸事件 =====
+            let touchStartX = 0;
+            sliderTrack.addEventListener('touchstart', (e) => {
+                if (isAnimating) return;
+                touchStartX = e.touches[0].clientX;
+                sliderTrack.style.transition = 'none';
+            }, { passive: true });
+
+            sliderTrack.addEventListener('touchend', (e) => {
+                const diff = touchStartX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 40) {
+                    if (diff > 0 && currentIndex < items.length - 1) {
+                        updateSlider(currentIndex + 1);
+                    } else if (diff < 0 && currentIndex > 0) {
+                        updateSlider(currentIndex - 1);
+                    } else {
+                        updateSlider(currentIndex);
+                    }
+                } else {
+                    // 点击卡片跳转详情
+                    const target = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+                    const card = target.closest('.phase-slide-item');
+                    if (card) {
+                        const phase = card.dataset.phase;
+                        if (phase) showPhase(phase);
+                    }
+                    updateSlider(currentIndex);
+                }
+            }, { passive: true });
+
+            // ===== 点击卡片跳转详情 =====
+            items.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    const phase = this.dataset.phase;
+                    if (phase) {
+                        // 如果点击的是当前激活的卡片，跳转详情
+                        if (this.classList.contains('active')) {
+                            showPhase(phase);
+                        } else {
+                            // 否则切换到该卡片
+                            const index = parseInt(this.dataset.phase) - 1;
+                            updateSlider(index);
+                        }
+                    }
+                });
+            });
+
+            // ===== 小圆点点击 =====
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    updateSlider(index);
+                });
+            });
+
+            // ===== 导航箭头 =====
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) updateSlider(currentIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < items.length - 1) updateSlider(currentIndex + 1);
+            });
+
+            // ===== 键盘控制 =====
+            document.addEventListener('keydown', (e) => {
+                if (mainPage.style.display === 'none') return;
+                if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                    updateSlider(currentIndex - 1);
+                } else if (e.key === 'ArrowRight' && currentIndex < items.length - 1) {
+                    updateSlider(currentIndex + 1);
+                }
+            });
+
+            // ===== 显示阶段详情 =====
             function showPhase(phaseNumber) {
                 mainPage.style.display = 'none';
                 phaseDetails.forEach(p => p.classList.remove('active'));
@@ -493,36 +681,21 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
+            // ===== 返回主页 =====
             function goToMain() {
-                mainPage.style.display = 'block';
+                mainPage.style.display = 'flex';
                 phaseDetails.forEach(p => p.classList.remove('active'));
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                setTimeout(handleScroll, 300);
+                // 重新计算滑块位置
+                setTimeout(() => updateSlider(currentIndex, false), 100);
             }
-
-            pointCards.forEach(card => {
-                card.addEventListener('click', function(e) {
-                    const phase = this.dataset.phase;
-                    if (phase) {
-                        showPhase(phase);
-                    }
-                });
-            });
 
             backBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 goToMain();
             });
 
-            teamLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('🚩 跳转到"队伍详情"页面（此处为模拟，实际可替换为真实链接）');
-                // window.location.href = "team-detail.html";
-            });
-
-            // ============================================
-            // 搜索功能
-            // ============================================
+            // ===== 搜索功能 =====
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
 
@@ -543,19 +716,32 @@
                 }
             });
 
-            // ============================================
-            // 阶段2小标题点击（阶段1和3没有小标题）
-            // ============================================
+            // ===== 阶段2小标题点击 =====
             document.querySelectorAll('#phase2Detail .sub-title').forEach(item => {
                 item.addEventListener('click', function() {
                     alert('📌 您点击了: "' + this.textContent.trim() + '"\n(可在此处添加跳转或展开逻辑)');
                 });
             });
 
+            // ===== 窗口大小变化时重新计算 =====
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (mainPage.style.display !== 'none') {
+                        updateSlider(currentIndex, false);
+                    }
+                }, 200);
+            });
+
+            // ===== 初始化 =====
+            window.addEventListener('load', () => {
+                setTimeout(() => updateSlider(1, false), 100);
+            });
+
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 背景图: 湖南省地图.jpg');
-            console.log('📌 阶段1和阶段3无小标题，阶段2有4个小标题');
-            console.log('📌 黑线已去除');
+            console.log('📌 三个阶段：危机酝酿 | 会议决策 | 实施转兵');
+            console.log('📌 滑动选择器已启用，支持拖拽、点击、键盘控制');
         })();
     </script>
 
