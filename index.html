@@ -60,7 +60,6 @@
             transform: scale(1.05);
         }
 
-        /* ★ 标题改为白色 */
         .nav-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -115,7 +114,7 @@
             align-items: center;
         }
 
-        /* ===== 固定式三阶段选择器 ===== */
+        /* ===== 固定式三阶段选择器（带图片） ===== */
         .slider-wrapper {
             width: 100%;
             max-width: 1100px;
@@ -133,46 +132,59 @@
 
         .phase-slide-item {
             flex: 0 0 280px;
-            min-height: 280px;
+            min-height: 320px;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(8px);
             border-radius: 20px;
-            padding: 35px 24px 30px;
+            padding: 20px 20px 25px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             text-align: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             transition: 0.3s;
+            overflow: hidden;
         }
 
         .phase-slide-item:hover {
             background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-4px);
+            transform: translateY(-6px);
             border-color: rgba(204, 0, 0, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ★ 选项框图片 */
+        .phase-slide-item .phase-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 14px;
+            background: #2a2a4a;
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .phase-slide-item .phase-number {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #f7d98c;
             letter-spacing: 2px;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             font-weight: 600;
         }
 
         .phase-slide-item .phase-title {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #fff;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
         }
 
         .phase-slide-item .phase-sub {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #c0c8d8;
             line-height: 1.5;
             opacity: 0.8;
@@ -239,14 +251,17 @@
             }
             .phase-slide-item {
                 flex: 0 0 220px;
-                min-height: 220px;
-                padding: 24px 18px;
+                min-height: 260px;
+                padding: 16px 16px 20px;
+            }
+            .phase-slide-item .phase-image {
+                height: 130px;
             }
             .phase-slide-item .phase-title {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             .phase-slide-item .phase-sub {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
             .nav-title {
                 font-size: 1.1rem;
@@ -288,11 +303,14 @@
                 flex: 0 0 auto;
                 width: 100%;
                 max-width: 300px;
-                min-height: 160px;
-                padding: 20px 16px;
+                min-height: 200px;
+                padding: 14px 14px 18px;
+            }
+            .phase-slide-item .phase-image {
+                height: 120px;
             }
             .phase-slide-item .phase-title {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             .phase-slide-item .phase-number {
                 font-size: 0.6rem;
@@ -326,22 +344,31 @@
         <div class="slider-wrapper">
             <div class="slider-track">
 
+                <!-- ===== 选项框1：血战湘江 ===== -->
+                <!-- ★ 批注：请将 "血战湘江.jpg" 替换为您的图片文件名 -->
                 <div class="phase-slide-item" data-phase="1">
+                    <img class="phase-image" src="血战湘江.jpg" alt="血战湘江">
                     <div class="phase-number">阶段 01</div>
-                    <div class="phase-title">危机酝酿</div>
-                    <div class="phase-sub">通道转兵的历史背景与危机</div>
+                    <div class="phase-title">血战湘江</div>
+                    <div class="phase-sub">湘江战役的历史背景与惨烈战斗</div>
                 </div>
 
+                <!-- ===== 选项框2：通道会议 ===== -->
+                <!-- ★ 批注：请将 "通道会议.jpg" 替换为您的图片文件名 -->
                 <div class="phase-slide-item" data-phase="2">
+                    <img class="phase-image" src="通道会议.jpg" alt="通道会议">
                     <div class="phase-number">阶段 02</div>
-                    <div class="phase-title">会议决策</div>
-                    <div class="phase-sub">关键会议与决策过程</div>
+                    <div class="phase-title">通道会议</div>
+                    <div class="phase-sub">关键会议与转兵决策过程</div>
                 </div>
 
+                <!-- ===== 选项框3：通道转兵 ===== -->
+                <!-- ★ 批注：请将 "通道转兵.jpg" 替换为您的图片文件名 -->
                 <div class="phase-slide-item" data-phase="3">
+                    <img class="phase-image" src="通道转兵.jpg" alt="通道转兵">
                     <div class="phase-number">阶段 03</div>
-                    <div class="phase-title">实施转兵</div>
-                    <div class="phase-sub">转兵实施与历史影响</div>
+                    <div class="phase-title">通道转兵</div>
+                    <div class="phase-sub">转兵实施与历史深远影响</div>
                 </div>
 
             </div>
@@ -349,22 +376,24 @@
 
     </div>
 
-    <!-- ===== 阶段详情页 ===== -->
+    <!-- ===== 阶段1详情页：血战湘江 ===== -->
     <div class="phase-detail" id="phase1Detail">
-        <h2>📖 危机酝酿</h2>
+        <h2>📖 血战湘江</h2>
         <div class="empty-content">暂无更多内容</div>
     </div>
 
+    <!-- ===== 阶段2详情页：通道会议 ===== -->
     <div class="phase-detail" id="phase2Detail">
-        <h2>📖 会议决策</h2>
+        <h2>📖 通道会议</h2>
         <div class="sub-title">会议召开与争论</div>
         <div class="sub-title">关键人物的决策</div>
         <div class="sub-title">军事路线的转变</div>
         <div class="sub-title">历史档案与回忆</div>
     </div>
 
+    <!-- ===== 阶段3详情页：通道转兵 ===== -->
     <div class="phase-detail" id="phase3Detail">
-        <h2>📖 实施转兵</h2>
+        <h2>📖 通道转兵</h2>
         <div class="empty-content">暂无更多内容</div>
     </div>
 
@@ -435,7 +464,8 @@
                 });
             });
 
-            console.log('✅ 通道转兵红色资源库 已加载（固定式）');
+            console.log('✅ 通道转兵红色资源库 已加载');
+            console.log('📌 三张图片：血战湘江 | 通道会议 | 通道转兵');
         })();
     </script>
 
