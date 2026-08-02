@@ -13,10 +13,6 @@
 
         body {
             font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
-            
-            /* ========================================== */
-            /* ★ 背景图 - 湖南省地图 */
-            /* ========================================== */
             background-image: url('湖南省地图.jpg');
             background-size: cover;
             background-position: center;
@@ -28,7 +24,6 @@
             overflow-y: auto;
         }
 
-        /* ===== 顶部导航栏 ===== */
         .top-nav {
             position: fixed;
             top: 0;
@@ -112,7 +107,6 @@
             transform: scale(0.97);
         }
 
-        /* ===== 主内容区域 ===== */
         .main-container {
             padding-top: 80px;
             min-height: 100vh;
@@ -124,7 +118,7 @@
         }
 
         /* ============================================ */
-        /* ★ 滑动式三阶段选择器 - 修复居中 */
+        /* ★ 滑动选择器 - 完全重写居中逻辑 */
         /* ============================================ */
         .slider-wrapper {
             width: 100%;
@@ -135,19 +129,17 @@
             overflow: hidden;
         }
 
-        /* 滑动轨道 */
         .slider-track {
             display: flex;
             align-items: center;
             gap: 24px;
-            padding: 20px 10px;
+            padding: 20px 0;
             cursor: grab;
             user-select: none;
             -webkit-user-select: none;
             touch-action: none;
-            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: transform;
-            /* 关键：使用flex布局，每个卡片固定宽度 */
+            /* 注意：transition 由 JS 控制 */
         }
 
         .slider-track.dragging {
@@ -155,9 +147,8 @@
             transition: none !important;
         }
 
-        /* ===== 阶段选项卡片 ===== */
         .phase-slide-item {
-            flex: 0 0 280px;  /* 固定宽度，不伸缩 */
+            flex: 0 0 280px;
             min-height: 280px;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(8px);
@@ -176,7 +167,6 @@
             opacity: 0.5;
         }
 
-        /* ★ 中间的卡片放大 + 高亮 */
         .phase-slide-item.active {
             transform: scale(1.08);
             opacity: 1;
@@ -193,10 +183,6 @@
         .phase-slide-item.far {
             transform: scale(0.78);
             opacity: 0.35;
-        }
-
-        .phase-slide-item:hover {
-            background: rgba(255, 255, 255, 0.12);
         }
 
         .phase-slide-item .phase-number {
@@ -222,7 +208,6 @@
             opacity: 0.8;
         }
 
-        /* ===== 指示器（小圆点） ===== */
         .slider-dots {
             display: flex;
             justify-content: center;
@@ -245,10 +230,6 @@
             border-color: #cc0000;
             box-shadow: 0 0 20px rgba(204, 0, 0, 0.4);
             transform: scale(1.2);
-        }
-
-        .slider-dots .dot:hover {
-            background: rgba(204, 0, 0, 0.5);
         }
 
         .slider-hint {
@@ -312,7 +293,6 @@
             letter-spacing: 4px;
         }
 
-        /* ===== 响应式 ===== */
         @media (max-width: 768px) {
             .phase-slide-item {
                 flex: 0 0 220px;
@@ -381,7 +361,6 @@
 </head>
 <body>
 
-    <!-- ===== 顶部导航栏 ===== -->
     <nav class="top-nav">
         <div class="nav-left">
             <a href="#" class="back-btn" id="backBtn">
@@ -397,27 +376,23 @@
         </div>
     </nav>
 
-    <!-- ===== 主页面 ===== -->
     <div class="main-container" id="mainPage">
 
-        <div class="slider-wrapper">
+        <div class="slider-wrapper" id="sliderWrapper">
             <div class="slider-track" id="sliderTrack">
 
-                <!-- 阶段1：危机酝酿 -->
                 <div class="phase-slide-item" data-phase="1">
                     <div class="phase-number">阶段 01</div>
                     <div class="phase-title">危机酝酿</div>
                     <div class="phase-sub">通道转兵的历史背景与危机</div>
                 </div>
 
-                <!-- 阶段2：会议决策 -->
                 <div class="phase-slide-item" data-phase="2">
                     <div class="phase-number">阶段 02</div>
                     <div class="phase-title">会议决策</div>
                     <div class="phase-sub">关键会议与决策过程</div>
                 </div>
 
-                <!-- 阶段3：实施转兵 -->
                 <div class="phase-slide-item" data-phase="3">
                     <div class="phase-number">阶段 03</div>
                     <div class="phase-title">实施转兵</div>
@@ -437,13 +412,12 @@
 
     </div>
 
-    <!-- ===== 阶段1详情页 ===== -->
+    <!-- ===== 阶段详情页 ===== -->
     <div class="phase-detail" id="phase1Detail">
         <h2>📖 危机酝酿</h2>
         <div class="empty-content">暂无更多内容</div>
     </div>
 
-    <!-- ===== 阶段2详情页 ===== -->
     <div class="phase-detail" id="phase2Detail">
         <h2>📖 会议决策</h2>
         <div class="sub-title">会议召开与争论</div>
@@ -452,7 +426,6 @@
         <div class="sub-title">历史档案与回忆</div>
     </div>
 
-    <!-- ===== 阶段3详情页 ===== -->
     <div class="phase-detail" id="phase3Detail">
         <h2>📖 实施转兵</h2>
         <div class="empty-content">暂无更多内容</div>
@@ -462,15 +435,17 @@
         (function() {
             // ===== DOM 引用 =====
             const mainPage = document.getElementById('mainPage');
-            const phase1Detail = document.getElementById('phase1Detail');
-            const phase2Detail = document.getElementById('phase2Detail');
-            const phase3Detail = document.getElementById('phase3Detail');
+            const phaseDetails = [
+                document.getElementById('phase1Detail'),
+                document.getElementById('phase2Detail'),
+                document.getElementById('phase3Detail')
+            ];
             const backBtn = document.getElementById('backBtn');
             const sliderTrack = document.getElementById('sliderTrack');
+            const sliderWrapper = document.getElementById('sliderWrapper');
             const dots = document.querySelectorAll('.dot');
             const items = document.querySelectorAll('.phase-slide-item');
 
-            const phaseDetails = [phase1Detail, phase2Detail, phase3Detail];
             const totalItems = items.length;
             let currentIndex = 1;
             let isDragging = false;
@@ -479,40 +454,61 @@
             let prevTranslateX = 0;
             let isAnimating = false;
 
-            // ===== 获取卡片宽度（含间距） =====
-            function getItemWidth() {
-                return items[0].offsetWidth + 24;
+            // ===== 获取卡片完整宽度（含 gap） =====
+            function getCardWidth() {
+                // 使用 getBoundingClientRect 获取实际宽度
+                const rect = items[0].getBoundingClientRect();
+                const gap = 24; // CSS gap
+                return rect.width + gap;
             }
 
-            // ===== 核心：计算居中偏移 =====
-            function getCenterOffset() {
-                const containerWidth = sliderTrack.parentElement.offsetWidth;
-                const itemWidth = getItemWidth();
-                // 居中偏移 = (容器宽度 - 卡片宽度) / 2
-                return (containerWidth - itemWidth) / 2;
+            // ===== 获取容器可视宽度 =====
+            function getContainerWidth() {
+                return sliderWrapper.getBoundingClientRect().width;
             }
 
-            // ===== 更新滑块位置 =====
+            // ===== 计算使卡片居中的偏移量 =====
+            function calculateTranslate(index) {
+                const cardWidth = getCardWidth();
+                const containerWidth = getContainerWidth();
+                const totalWidth = totalItems * cardWidth;
+
+                // 目标：让第 index 张卡片居中
+                // 卡片左边界应该位于 (containerWidth - cardWidth) / 2
+                const targetLeft = (containerWidth - cardWidth) / 2;
+                // 第 index 张卡片的左边界 = index * cardWidth + translateX
+                // 所以 translateX = targetLeft - index * cardWidth
+                let translateX = targetLeft - index * cardWidth;
+
+                // 边界限制：不能超出左右边界
+                const maxTranslate = 0;
+                const minTranslate = -(totalWidth - containerWidth);
+                translateX = Math.max(minTranslate, Math.min(maxTranslate, translateX));
+
+                return translateX;
+            }
+
+            // ===== 获取当前最接近的卡片索引 =====
+            function getNearestIndex(translateX) {
+                const cardWidth = getCardWidth();
+                const containerWidth = getContainerWidth();
+                const targetLeft = (containerWidth - cardWidth) / 2;
+                // 反向计算：index = (targetLeft - translateX) / cardWidth
+                let rawIndex = (targetLeft - translateX) / cardWidth;
+                let nearest = Math.round(rawIndex);
+                nearest = Math.max(0, Math.min(totalItems - 1, nearest));
+                return nearest;
+            }
+
+            // ===== 更新滑块 =====
             function updateSlider(index, animate = true) {
                 if (isAnimating) return;
                 if (index < 0) index = 0;
                 if (index >= totalItems) index = totalItems - 1;
                 currentIndex = index;
 
-                const itemWidth = getItemWidth();
-                const totalWidth = totalItems * itemWidth;
-                const containerWidth = sliderTrack.parentElement.offsetWidth;
-                const centerOffset = getCenterOffset();
+                const translateX = calculateTranslate(index);
 
-                // 计算偏移：让选中的卡片居中
-                let translateX = -(index * itemWidth) + centerOffset;
-
-                // 边界限制（防止出现空白）
-                const maxTranslate = 0;
-                const minTranslate = -(totalWidth - containerWidth);
-                translateX = Math.max(minTranslate, Math.min(maxTranslate, translateX));
-
-                // 应用变换
                 if (animate) {
                     isAnimating = true;
                     sliderTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
@@ -551,16 +547,6 @@
                 }
             }
 
-            // ===== 获取最近的索引（基于当前偏移） =====
-            function getNearestIndex(translateX) {
-                const itemWidth = getItemWidth();
-                const centerOffset = getCenterOffset();
-                let rawIndex = -(translateX - centerOffset) / itemWidth;
-                let nearest = Math.round(rawIndex);
-                nearest = Math.max(0, Math.min(totalItems - 1, nearest));
-                return nearest;
-            }
-
             // ===== 拖拽逻辑 =====
             function dragStart(clientX) {
                 if (isAnimating) return;
@@ -569,7 +555,6 @@
                 prevTranslateX = currentTranslateX;
                 sliderTrack.classList.add('dragging');
                 sliderTrack.style.transition = 'none';
-                sliderTrack.style.cursor = 'grabbing';
             }
 
             function dragMove(clientX) {
@@ -578,9 +563,9 @@
                 let newTranslate = prevTranslateX + deltaX;
 
                 // 边界弹性
-                const itemWidth = getItemWidth();
-                const containerWidth = sliderTrack.parentElement.offsetWidth;
-                const totalWidth = totalItems * itemWidth;
+                const cardWidth = getCardWidth();
+                const containerWidth = getContainerWidth();
+                const totalWidth = totalItems * cardWidth;
                 const maxTranslate = 0;
                 const minTranslate = -(totalWidth - containerWidth);
 
@@ -598,11 +583,11 @@
                 if (!isDragging) return;
                 isDragging = false;
                 sliderTrack.classList.remove('dragging');
-                sliderTrack.style.cursor = 'grab';
 
                 const deltaX = clientX - startX;
 
                 if (Math.abs(deltaX) > 40) {
+                    // 滑动切换
                     if (deltaX < 0 && currentIndex < totalItems - 1) {
                         updateSlider(currentIndex + 1);
                     } else if (deltaX > 0 && currentIndex > 0) {
@@ -611,16 +596,18 @@
                         updateSlider(currentIndex);
                     }
                 } else {
-                    // 检测是否点击卡片
+                    // 点击检测
                     const nearest = getNearestIndex(currentTranslateX);
-                    if (nearest >= 0 && nearest < totalItems) {
-                        const cardRect = items[nearest].getBoundingClientRect();
-                        if (clientX >= cardRect.left && clientX <= cardRect.right) {
-                            const phase = items[nearest].dataset.phase;
-                            if (phase && nearest === currentIndex) {
-                                showPhase(phase);
-                                return;
-                            }
+                    // 检查点击位置是否在卡片上
+                    const trackRect = sliderTrack.getBoundingClientRect();
+                    const relX = clientX - trackRect.left;
+                    const cardWidth = getCardWidth();
+                    const clickedIndex = Math.round((relX - currentTranslateX) / cardWidth);
+                    if (clickedIndex >= 0 && clickedIndex < totalItems) {
+                        const phase = items[clickedIndex].dataset.phase;
+                        if (phase && clickedIndex === currentIndex) {
+                            showPhase(phase);
+                            return;
                         }
                     }
                     updateSlider(currentIndex);
@@ -695,7 +682,10 @@
                 mainPage.style.display = 'flex';
                 phaseDetails.forEach(p => p.classList.remove('active'));
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                setTimeout(() => updateSlider(currentIndex, false), 150);
+                // 等待 DOM 重绘后重新计算位置
+                requestAnimationFrame(() => {
+                    setTimeout(() => updateSlider(currentIndex, false), 50);
+                });
             }
 
             backBtn.addEventListener('click', function(e) {
@@ -703,7 +693,7 @@
                 goToMain();
             });
 
-            // ===== 窗口大小变化 =====
+            // ===== 窗口变化 =====
             let resizeTimer;
             window.addEventListener('resize', () => {
                 clearTimeout(resizeTimer);
@@ -735,19 +725,26 @@
                 }
             });
 
-            // ===== 阶段2小标题 =====
+            // ===== 小标题点击 =====
             document.querySelectorAll('#phase2Detail .sub-title').forEach(item => {
                 item.addEventListener('click', function() {
-                    alert('📌 您点击了: "' + this.textContent.trim() + '"\n(可在此处添加跳转或展开逻辑)');
+                    alert('📌 您点击了: "' + this.textContent.trim() + '"');
                 });
             });
 
             // ===== 初始化 =====
+            // 使用多次延迟确保 DOM 完全渲染后再计算位置
             window.addEventListener('load', () => {
-                setTimeout(() => updateSlider(1, false), 150);
+                setTimeout(() => {
+                    updateSlider(1, false);
+                }, 100);
+                // 再延迟一次确保万无一失
+                setTimeout(() => {
+                    updateSlider(1, false);
+                }, 300);
             });
 
-            console.log('✅ 通道转兵红色资源库 已加载');
+            console.log('✅ 滑动模块已加载，居中逻辑已修复');
         })();
     </script>
 
