@@ -124,41 +124,44 @@
         }
 
         /* ============================================ */
-        /* ★ 滑动式三阶段选择器 */
+        /* ★ 滑动式三阶段选择器（真正的手动滑动） */
         /* ============================================ */
         .slider-wrapper {
             width: 100%;
             max-width: 1100px;
             padding: 40px 20px;
-            overflow: hidden;
             position: relative;
             margin: 0 auto;
+            overflow: hidden;
         }
 
+        /* 滑动轨道 - 可拖拽 */
         .slider-track {
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 20px;
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            padding: 20px 0;
+            gap: 24px;
+            padding: 20px 10px;
             cursor: grab;
             user-select: none;
             -webkit-user-select: none;
+            touch-action: none;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
         }
 
-        .slider-track:active {
+        .slider-track.dragging {
             cursor: grabbing;
+            transition: none !important;
         }
 
         /* ===== 阶段选项卡片 ===== */
         .phase-slide-item {
-            flex: 0 0 240px;
-            min-height: 260px;
+            flex: 0 0 260px;
+            min-height: 280px;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(8px);
             border-radius: 20px;
-            padding: 30px 20px 25px;
+            padding: 35px 24px 30px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: pointer;
@@ -167,9 +170,9 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             transform: scale(0.85);
             opacity: 0.5;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         /* ★ 中间的卡片放大 + 高亮 */
@@ -225,7 +228,7 @@
             display: flex;
             justify-content: center;
             gap: 14px;
-            margin-top: 20px;
+            margin-top: 24px;
         }
 
         .slider-dots .dot {
@@ -249,37 +252,13 @@
             background: rgba(204, 0, 0, 0.5);
         }
 
-        /* ===== 导航箭头 ===== */
-        .slider-nav {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 20px;
-        }
-
-        .slider-nav button {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            color: #fff;
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .slider-nav button:hover {
-            background: rgba(204, 0, 0, 0.3);
-            border-color: #cc0000;
-            transform: scale(1.05);
-        }
-
-        .slider-nav button:active {
-            transform: scale(0.95);
+        /* ===== 滑动提示 ===== */
+        .slider-hint {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-top: 14px;
         }
 
         /* ===== 阶段详情页 ===== */
@@ -339,20 +318,15 @@
         /* ===== 响应式 ===== */
         @media (max-width: 768px) {
             .phase-slide-item {
-                flex: 0 0 180px;
-                min-height: 200px;
-                padding: 20px 16px;
+                flex: 0 0 200px;
+                min-height: 220px;
+                padding: 24px 18px;
             }
             .phase-slide-item .phase-title {
                 font-size: 1.2rem;
             }
             .phase-slide-item .phase-sub {
                 font-size: 0.75rem;
-            }
-            .slider-nav button {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
             }
             .nav-title {
                 font-size: 1.1rem;
@@ -386,9 +360,9 @@
                 font-size: 0.75rem;
             }
             .phase-slide-item {
-                flex: 0 0 150px;
-                min-height: 160px;
-                padding: 16px 12px;
+                flex: 0 0 160px;
+                min-height: 180px;
+                padding: 18px 14px;
             }
             .phase-slide-item .phase-title {
                 font-size: 1rem;
@@ -401,6 +375,9 @@
             }
             .main-container {
                 padding-top: 70px;
+            }
+            .slider-hint {
+                font-size: 0.65rem;
             }
         }
     </style>
@@ -455,16 +432,12 @@
 
             <!-- 小圆点指示器 -->
             <div class="slider-dots" id="sliderDots">
-                <span class="dot active" data-index="0"></span>
-                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="0"></span>
+                <span class="dot active" data-index="1"></span>
                 <span class="dot" data-index="2"></span>
             </div>
 
-            <!-- 导航箭头 -->
-            <div class="slider-nav">
-                <button id="prevBtn">‹</button>
-                <button id="nextBtn">›</button>
-            </div>
+            <div class="slider-hint">↔ 左右滑动查看三个阶段</div>
         </div>
 
     </div>
@@ -500,23 +473,52 @@
             const backBtn = document.getElementById('backBtn');
             const sliderTrack = document.getElementById('sliderTrack');
             const dots = document.querySelectorAll('.dot');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
             const items = document.querySelectorAll('.phase-slide-item');
 
             const phaseDetails = [phase1Detail, phase2Detail, phase3Detail];
-            let currentIndex = 1; // 默认中间（索引1）
+            const totalItems = items.length;
+            let currentIndex = 1; // 默认中间
             let isDragging = false;
             let startX = 0;
-            let currentTranslate = 0;
+            let currentTranslateX = 0;
+            let prevTranslateX = 0;
+            let animationID = 0;
             let isAnimating = false;
 
-            // ===== 更新滑块状态 =====
+            // ===== 获取卡片宽度（含间距） =====
+            function getItemWidth() {
+                return items[0].offsetWidth + 24; // width + gap
+            }
+
+            // ===== 更新滑块位置和样式 =====
             function updateSlider(index, animate = true) {
                 if (isAnimating) return;
                 if (index < 0) index = 0;
-                if (index > items.length - 1) index = items.length - 1;
+                if (index >= totalItems) index = totalItems - 1;
                 currentIndex = index;
+
+                const itemWidth = getItemWidth();
+                const containerWidth = sliderTrack.parentElement.offsetWidth;
+                const totalWidth = totalItems * itemWidth;
+                const centerOffset = (containerWidth - itemWidth) / 2;
+                let translateX = -(index * itemWidth) + centerOffset;
+
+                // 边界限制
+                const maxTranslate = 0;
+                const minTranslate = -(totalWidth - containerWidth);
+                translateX = Math.max(minTranslate, Math.min(maxTranslate, translateX));
+
+                // 应用变换
+                if (animate) {
+                    isAnimating = true;
+                    sliderTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                } else {
+                    sliderTrack.style.transition = 'none';
+                }
+
+                sliderTrack.style.transform = `translateX(${translateX}px)`;
+                currentTranslateX = translateX;
+                prevTranslateX = translateX;
 
                 // 更新卡片样式
                 items.forEach((item, i) => {
@@ -536,128 +538,139 @@
                     dot.classList.toggle('active', i === index);
                 });
 
-                // 滚动到对应位置（居中）
                 if (animate) {
-                    isAnimating = true;
-                    sliderTrack.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    setTimeout(() => {
+                        isAnimating = false;
+                    }, 550);
                 } else {
-                    sliderTrack.style.transition = 'none';
-                }
-
-                // 计算偏移使选中项居中
-                const containerWidth = sliderTrack.parentElement.offsetWidth;
-                const itemWidth = items[0].offsetWidth + 20; // 宽度 + gap
-                const totalWidth = items.length * itemWidth;
-                const centerOffset = (containerWidth - itemWidth) / 2;
-                const translateX = -(index * itemWidth) + centerOffset;
-
-                // 限制边界
-                const maxTranslate = 0;
-                const minTranslate = -(totalWidth - containerWidth);
-                const clamped = Math.max(minTranslate, Math.min(maxTranslate, translateX));
-
-                sliderTrack.style.transform = `translateX(${clamped}px)`;
-
-                setTimeout(() => {
                     isAnimating = false;
-                }, 550);
+                }
             }
 
-            // ===== 鼠标/触摸拖拽 =====
-            sliderTrack.addEventListener('mousedown', (e) => {
+            // ===== 计算最近的索引 =====
+            function getNearestIndex(translateX) {
+                const itemWidth = getItemWidth();
+                const containerWidth = sliderTrack.parentElement.offsetWidth;
+                const centerOffset = (containerWidth - itemWidth) / 2;
+                let rawIndex = -(translateX - centerOffset) / itemWidth;
+                let nearest = Math.round(rawIndex);
+                nearest = Math.max(0, Math.min(totalItems - 1, nearest));
+                return nearest;
+            }
+
+            // ===== 鼠标/触摸拖拽逻辑 =====
+            function dragStart(clientX) {
                 if (isAnimating) return;
                 isDragging = true;
-                startX = e.clientX;
-                sliderTrack.style.cursor = 'grabbing';
+                startX = clientX;
+                prevTranslateX = currentTranslateX;
+                sliderTrack.classList.add('dragging');
                 sliderTrack.style.transition = 'none';
-            });
+                sliderTrack.style.cursor = 'grabbing';
+            }
 
-            window.addEventListener('mousemove', (e) => {
+            function dragMove(clientX) {
                 if (!isDragging) return;
-                const diff = startX - e.clientX;
-                // 检测滑动方向，判断是否切换
-            });
+                const deltaX = clientX - startX;
+                const newTranslate = prevTranslateX + deltaX;
+                // 边界弹性限制
+                const itemWidth = getItemWidth();
+                const containerWidth = sliderTrack.parentElement.offsetWidth;
+                const totalWidth = totalItems * itemWidth;
+                const maxTranslate = 0;
+                const minTranslate = -(totalWidth - containerWidth);
+                // 添加弹性阻尼
+                let damped = newTranslate;
+                if (damped > maxTranslate) {
+                    damped = maxTranslate + (damped - maxTranslate) * 0.3;
+                } else if (damped < minTranslate) {
+                    damped = minTranslate + (damped - minTranslate) * 0.3;
+                }
+                sliderTrack.style.transform = `translateX(${damped}px)`;
+                currentTranslateX = damped;
+            }
 
-            window.addEventListener('mouseup', (e) => {
+            function dragEnd(clientX) {
                 if (!isDragging) return;
                 isDragging = false;
+                sliderTrack.classList.remove('dragging');
                 sliderTrack.style.cursor = 'grab';
-                // 根据滑动距离判断是否切换
-                const diff = startX - e.clientX;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0 && currentIndex < items.length - 1) {
+
+                const deltaX = clientX - startX;
+                // 如果滑动距离大于阈值，切换
+                if (Math.abs(deltaX) > 40) {
+                    if (deltaX < 0 && currentIndex < totalItems - 1) {
                         updateSlider(currentIndex + 1);
-                    } else if (diff < 0 && currentIndex > 0) {
+                    } else if (deltaX > 0 && currentIndex > 0) {
                         updateSlider(currentIndex - 1);
                     } else {
                         updateSlider(currentIndex);
                     }
                 } else {
+                    // 检查是否点击了卡片
+                    const trackRect = sliderTrack.getBoundingClientRect();
+                    const relX = clientX - trackRect.left;
+                    const itemWidth = getItemWidth();
+                    const containerWidth = sliderTrack.parentElement.offsetWidth;
+                    const centerOffset = (containerWidth - itemWidth) / 2;
+                    const rawIndex = -(currentTranslateX - centerOffset) / itemWidth;
+                    const nearest = Math.round(rawIndex);
+                    if (nearest >= 0 && nearest < totalItems) {
+                        const cardRect = items[nearest].getBoundingClientRect();
+                        if (clientX >= cardRect.left && clientX <= cardRect.right) {
+                            // 点击卡片，跳转详情
+                            const phase = items[nearest].dataset.phase;
+                            if (phase && nearest === currentIndex) {
+                                showPhase(phase);
+                                return;
+                            }
+                        }
+                    }
                     updateSlider(currentIndex);
+                }
+            }
+
+            // ===== 鼠标事件 =====
+            sliderTrack.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                dragStart(e.clientX);
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                dragMove(e.clientX);
+            });
+
+            window.addEventListener('mouseup', (e) => {
+                if (isDragging) {
+                    dragEnd(e.clientX);
                 }
             });
 
             // ===== 触摸事件 =====
-            let touchStartX = 0;
             sliderTrack.addEventListener('touchstart', (e) => {
-                if (isAnimating) return;
-                touchStartX = e.touches[0].clientX;
-                sliderTrack.style.transition = 'none';
+                const touch = e.touches[0];
+                dragStart(touch.clientX);
+            }, { passive: true });
+
+            sliderTrack.addEventListener('touchmove', (e) => {
+                const touch = e.touches[0];
+                dragMove(touch.clientX);
             }, { passive: true });
 
             sliderTrack.addEventListener('touchend', (e) => {
-                const diff = touchStartX - e.changedTouches[0].clientX;
-                if (Math.abs(diff) > 40) {
-                    if (diff > 0 && currentIndex < items.length - 1) {
-                        updateSlider(currentIndex + 1);
-                    } else if (diff < 0 && currentIndex > 0) {
-                        updateSlider(currentIndex - 1);
-                    } else {
-                        updateSlider(currentIndex);
-                    }
-                } else {
-                    // 点击卡片跳转详情
-                    const target = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-                    const card = target.closest('.phase-slide-item');
-                    if (card) {
-                        const phase = card.dataset.phase;
-                        if (phase) showPhase(phase);
-                    }
-                    updateSlider(currentIndex);
+                if (isDragging) {
+                    const touch = e.changedTouches[0];
+                    dragEnd(touch.clientX);
                 }
             }, { passive: true });
-
-            // ===== 点击卡片跳转详情 =====
-            items.forEach(card => {
-                card.addEventListener('click', function(e) {
-                    const phase = this.dataset.phase;
-                    if (phase) {
-                        // 如果点击的是当前激活的卡片，跳转详情
-                        if (this.classList.contains('active')) {
-                            showPhase(phase);
-                        } else {
-                            // 否则切换到该卡片
-                            const index = parseInt(this.dataset.phase) - 1;
-                            updateSlider(index);
-                        }
-                    }
-                });
-            });
 
             // ===== 小圆点点击 =====
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
-                    updateSlider(index);
+                    if (!isAnimating) {
+                        updateSlider(index);
+                    }
                 });
-            });
-
-            // ===== 导航箭头 =====
-            prevBtn.addEventListener('click', () => {
-                if (currentIndex > 0) updateSlider(currentIndex - 1);
-            });
-
-            nextBtn.addEventListener('click', () => {
-                if (currentIndex < items.length - 1) updateSlider(currentIndex + 1);
             });
 
             // ===== 键盘控制 =====
@@ -665,7 +678,7 @@
                 if (mainPage.style.display === 'none') return;
                 if (e.key === 'ArrowLeft' && currentIndex > 0) {
                     updateSlider(currentIndex - 1);
-                } else if (e.key === 'ArrowRight' && currentIndex < items.length - 1) {
+                } else if (e.key === 'ArrowRight' && currentIndex < totalItems - 1) {
                     updateSlider(currentIndex + 1);
                 }
             });
@@ -686,13 +699,23 @@
                 mainPage.style.display = 'flex';
                 phaseDetails.forEach(p => p.classList.remove('active'));
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                // 重新计算滑块位置
-                setTimeout(() => updateSlider(currentIndex, false), 100);
+                setTimeout(() => updateSlider(currentIndex, false), 150);
             }
 
             backBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 goToMain();
+            });
+
+            // ===== 窗口大小变化重新计算 =====
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (mainPage.style.display !== 'none') {
+                        updateSlider(currentIndex, false);
+                    }
+                }, 200);
             });
 
             // ===== 搜索功能 =====
@@ -723,25 +746,14 @@
                 });
             });
 
-            // ===== 窗口大小变化时重新计算 =====
-            let resizeTimer;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => {
-                    if (mainPage.style.display !== 'none') {
-                        updateSlider(currentIndex, false);
-                    }
-                }, 200);
-            });
-
             // ===== 初始化 =====
             window.addEventListener('load', () => {
-                setTimeout(() => updateSlider(1, false), 100);
+                setTimeout(() => updateSlider(1, false), 150);
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
             console.log('📌 三个阶段：危机酝酿 | 会议决策 | 实施转兵');
-            console.log('📌 滑动选择器已启用，支持拖拽、点击、键盘控制');
+            console.log('📌 支持鼠标/手指拖拽滑动，自动居中');
         })();
     </script>
 
