@@ -115,7 +115,7 @@
         }
 
         /* ============================================ */
-        /* ★ 滑动选择器 - 中间卡片居中，两边对称分布 */
+        /* ★ 滑动选择器 - 整个卡片组滑动，中间卡片居中 */
         /* ============================================ */
         .slider-wrapper {
             width: 100%;
@@ -123,13 +123,12 @@
             padding: 40px 0;
             position: relative;
             margin: 0 auto;
-            overflow: visible;
+            overflow: hidden;
         }
 
         .slider-track {
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 24px;
             padding: 20px 0;
             cursor: grab;
@@ -137,7 +136,7 @@
             -webkit-user-select: none;
             touch-action: none;
             will-change: transform;
-            /* ★ 移除任何 transform，让 flex 居中自然生效 */
+            /* transform 由 JS 控制，实现整体滑动 */
         }
 
         .slider-track.dragging {
@@ -145,7 +144,6 @@
             transition: none !important;
         }
 
-        /* ★ 卡片固定宽度，不伸缩 */
         .phase-slide-item {
             flex: 0 0 280px;
             min-height: 280px;
@@ -162,12 +160,11 @@
             justify-content: center;
             text-align: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            /* ★ 默认状态：缩小 + 半透明 */
             transform: scale(0.78);
             opacity: 0.35;
         }
 
-        /* ★ 中间的卡片：放大 + 高亮 + 红框 */
+        /* ★ 中间的卡片：放大 + 红框 + 高亮 */
         .phase-slide-item.active {
             transform: scale(1.08);
             opacity: 1;
@@ -177,13 +174,13 @@
             box-shadow: 0 8px 40px rgba(204, 0, 0, 0.35);
         }
 
-        /* ★ 旁边的卡片：稍微缩小 */
+        /* ★ 旁边的卡片 */
         .phase-slide-item.side {
             transform: scale(0.88);
             opacity: 0.55;
         }
 
-        /* ★ 最旁边的卡片：更小更透明（默认状态） */
+        /* ★ 最旁边的卡片 */
         .phase-slide-item.far {
             transform: scale(0.78);
             opacity: 0.35;
@@ -454,6 +451,7 @@
             ];
             const backBtn = document.getElementById('backBtn');
             const sliderTrack = document.getElementById('sliderTrack');
+            const sliderWrapper = document.getElementById('sliderWrapper');
             const dots = document.querySelectorAll('.dot');
             const items = document.querySelectorAll('.phase-slide-item');
 
@@ -461,10 +459,64 @@
             let currentIndex = 1;
             let isDragging = false;
             let startX = 0;
+            let currentTranslateX = 0;
+            let prevTranslateX = 0;
             let isAnimating = false;
 
-            // ===== 更新卡片样式（基于索引） =====
-            function updateCards(index) {
+            // ===== 获取卡片完整宽度（含 gap） =====
+            function getCardWidth() {
+                const rect = items[0].getBoundingClientRect();
+                const gap = 24;
+                return rect.width + gap;
+            }
+
+            // ===== 获取容器宽度 =====
+            function getContainerWidth() {
+                return sliderWrapper.getBoundingClientRect().width;
+            }
+
+            // ===== ★ 核心：计算使指定卡片居中的偏移量 =====
+            function calculateTranslate(index) {
+                const cardWidth = getCardWidth();
+                const containerWidth = getContainerWidth();
+                const totalWidth = totalItems * cardWidth;
+
+                // 目标：让第 index 张卡片正好在屏幕正中央
+                // 卡片左边界 = (容器宽度 - 卡片宽度) / 2
+                const targetLeft = (containerWidth - cardWidth) / 2;
+                // 第 index 张卡片的左边界 = index * cardWidth + translateX
+                // 所以 translateX = targetLeft - index * cardWidth
+                let translateX = targetLeft - index * cardWidth;
+
+                // 边界限制：不能超出左右边界
+                const maxTranslate = 0;
+                const minTranslate = -(totalWidth - containerWidth);
+                translateX = Math.max(minTranslate, Math.min(maxTranslate, translateX));
+
+                return translateX;
+            }
+
+            // ===== 更新滑块位置和卡片样式 =====
+            function updateSlider(index, animate = true) {
+                if (isAnimating) return;
+                if (index < 0) index = 0;
+                if (index >= totalItems) index = totalItems - 1;
+                currentIndex = index;
+
+                const translateX = calculateTranslate(index);
+
+                if (animate) {
+                    isAnimating = true;
+                    sliderTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                } else {
+                    sliderTrack.style.transition = 'none';
+                }
+
+                sliderTrack.style.transform = `translateX(${translateX}px)`;
+                currentTranslateX = translateX;
+                prevTranslateX = translateX;
+
+                // 更新卡片样式
                 items.forEach((item, i) => {
                     const offset = i - index;
                     item.classList.remove('active', 'side', 'far');
@@ -481,48 +533,33 @@
                 dots.forEach((dot, i) => {
                     dot.classList.toggle('active', i === index);
                 });
-            }
 
-            // ===== 滑动到指定索引 =====
-            function slideTo(index, animate = true) {
-                if (isAnimating) return;
-                if (index < 0) index = 0;
-                if (index >= totalItems) index = totalItems - 1;
-                currentIndex = index;
-
-                // ★ 核心：利用 flex 布局自动居中
-                // 只需要更新卡片样式，不需要手动计算 transform
-                updateCards(index);
-
-                // 平滑过渡动画（通过 CSS transition 自动处理）
                 if (animate) {
-                    isAnimating = true;
-                    // 加一个微小的延迟让动画生效
                     setTimeout(() => {
                         isAnimating = false;
                     }, 550);
+                } else {
+                    isAnimating = false;
                 }
             }
 
-            // ===== 获取点击的卡片索引 =====
-            function getClickedIndex(clientX) {
-                const trackRect = sliderTrack.getBoundingClientRect();
-                const itemsArray = Array.from(items);
-                for (let i = 0; i < itemsArray.length; i++) {
-                    const rect = itemsArray[i].getBoundingClientRect();
-                    // 扩大点击区域，方便点击
-                    if (clientX >= rect.left - 10 && clientX <= rect.right + 10) {
-                        return i;
-                    }
-                }
-                return -1;
+            // ===== 获取当前最接近的卡片索引 =====
+            function getNearestIndex(translateX) {
+                const cardWidth = getCardWidth();
+                const containerWidth = getContainerWidth();
+                const targetLeft = (containerWidth - cardWidth) / 2;
+                let rawIndex = (targetLeft - translateX) / cardWidth;
+                let nearest = Math.round(rawIndex);
+                nearest = Math.max(0, Math.min(totalItems - 1, nearest));
+                return nearest;
             }
 
-            // ===== 拖拽逻辑（基于 flex 布局） =====
+            // ===== 拖拽逻辑 =====
             function dragStart(clientX) {
                 if (isAnimating) return;
                 isDragging = true;
                 startX = clientX;
+                prevTranslateX = currentTranslateX;
                 sliderTrack.classList.add('dragging');
                 sliderTrack.style.transition = 'none';
             }
@@ -530,48 +567,54 @@
             function dragMove(clientX) {
                 if (!isDragging) return;
                 const deltaX = clientX - startX;
-                // 拖动时通过 transform 偏移实现滑动效果
-                // 但保持 flex 居中布局不变
-                const baseOffset = 0;
-                let offset = deltaX * 0.8; // 阻尼系数
-                // 限制偏移范围
-                const maxOffset = 200;
-                offset = Math.max(-maxOffset, Math.min(maxOffset, offset));
-                sliderTrack.style.transform = `translateX(${offset}px)`;
+                let newTranslate = prevTranslateX + deltaX;
+
+                // 边界弹性
+                const cardWidth = getCardWidth();
+                const containerWidth = getContainerWidth();
+                const totalWidth = totalItems * cardWidth;
+                const maxTranslate = 0;
+                const minTranslate = -(totalWidth - containerWidth);
+
+                if (newTranslate > maxTranslate) {
+                    newTranslate = maxTranslate + (newTranslate - maxTranslate) * 0.3;
+                } else if (newTranslate < minTranslate) {
+                    newTranslate = minTranslate + (newTranslate - minTranslate) * 0.3;
+                }
+
+                sliderTrack.style.transform = `translateX(${newTranslate}px)`;
+                currentTranslateX = newTranslate;
             }
 
             function dragEnd(clientX) {
                 if (!isDragging) return;
                 isDragging = false;
                 sliderTrack.classList.remove('dragging');
-                sliderTrack.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                sliderTrack.style.transform = 'translateX(0)';
 
                 const deltaX = clientX - startX;
 
-                if (Math.abs(deltaX) > 50) {
-                    // 滑动切换
+                if (Math.abs(deltaX) > 40) {
                     if (deltaX < 0 && currentIndex < totalItems - 1) {
-                        slideTo(currentIndex + 1);
+                        updateSlider(currentIndex + 1);
                     } else if (deltaX > 0 && currentIndex > 0) {
-                        slideTo(currentIndex - 1);
+                        updateSlider(currentIndex - 1);
                     } else {
-                        slideTo(currentIndex);
+                        updateSlider(currentIndex);
                     }
                 } else {
                     // 检测是否点击了卡片
-                    const clickedIndex = getClickedIndex(clientX);
+                    const trackRect = sliderTrack.getBoundingClientRect();
+                    const relX = clientX - trackRect.left;
+                    const cardWidth = getCardWidth();
+                    const clickedIndex = Math.round((relX - currentTranslateX) / cardWidth);
                     if (clickedIndex >= 0 && clickedIndex < totalItems) {
                         const phase = items[clickedIndex].dataset.phase;
                         if (phase && clickedIndex === currentIndex) {
                             showPhase(phase);
                             return;
-                        } else if (phase) {
-                            slideTo(clickedIndex);
-                            return;
                         }
                     }
-                    slideTo(currentIndex);
+                    updateSlider(currentIndex);
                 }
             }
 
@@ -582,11 +625,13 @@
             });
 
             window.addEventListener('mousemove', (e) => {
-                if (isDragging) dragMove(e.clientX);
+                dragMove(e.clientX);
             });
 
             window.addEventListener('mouseup', (e) => {
-                if (isDragging) dragEnd(e.clientX);
+                if (isDragging) {
+                    dragEnd(e.clientX);
+                }
             });
 
             // ===== 触摸事件 =====
@@ -613,7 +658,7 @@
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
                     if (!isAnimating) {
-                        slideTo(index);
+                        updateSlider(index);
                     }
                 });
             });
@@ -622,9 +667,9 @@
             document.addEventListener('keydown', (e) => {
                 if (mainPage.style.display === 'none') return;
                 if (e.key === 'ArrowLeft' && currentIndex > 0) {
-                    slideTo(currentIndex - 1);
+                    updateSlider(currentIndex - 1);
                 } else if (e.key === 'ArrowRight' && currentIndex < totalItems - 1) {
-                    slideTo(currentIndex + 1);
+                    updateSlider(currentIndex + 1);
                 }
             });
 
@@ -643,12 +688,9 @@
                 mainPage.style.display = 'flex';
                 phaseDetails.forEach(p => p.classList.remove('active'));
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                // 重置滑动位置
-                sliderTrack.style.transition = 'none';
-                sliderTrack.style.transform = 'translateX(0)';
-                setTimeout(() => {
-                    updateCards(currentIndex);
-                }, 50);
+                requestAnimationFrame(() => {
+                    setTimeout(() => updateSlider(currentIndex, false), 50);
+                });
             }
 
             backBtn.addEventListener('click', function(e) {
@@ -662,7 +704,7 @@
                 clearTimeout(resizeTimer);
                 resizeTimer = setTimeout(() => {
                     if (mainPage.style.display !== 'none') {
-                        updateCards(currentIndex);
+                        updateSlider(currentIndex, false);
                     }
                 }, 200);
             });
@@ -698,16 +740,15 @@
             // ===== 初始化 =====
             window.addEventListener('load', () => {
                 setTimeout(() => {
-                    slideTo(1, false);
+                    updateSlider(1, false);
                 }, 100);
                 setTimeout(() => {
-                    slideTo(1, false);
+                    updateSlider(1, false);
                 }, 300);
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 中间卡片高亮放大，两边卡片缩小半透明');
-            console.log('📌 滑动时中间卡片始终在屏幕正中央');
+            console.log('📌 整个卡片组滑动，中间卡片在屏幕正中央');
         })();
     </script>
 
