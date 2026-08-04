@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>通道转兵红色资源库</title>
+    <title>通道转兵红色资源库 - 血战湘江</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,6 @@
 
         body {
             font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
-            /* ★ 主页背景：湖南省地图 */
             background-image: url('湖南省地图.jpg');
             background-size: cover;
             background-position: center;
@@ -47,7 +46,6 @@
             gap: 18px;
         }
 
-        /* ★ 主页隐藏返回符号 */
         .back-btn {
             display: none;
             color: #fff;
@@ -187,14 +185,12 @@
             font-weight: 700;
         }
 
-        /* ★ 主页数字标蓝（年份等数字） */
         .phase-slide-item .phase-number .num {
             color: #1a73e8;
             font-weight: 900;
             font-size: 0.9rem;
         }
 
-        /* ★ 描述文字中的数字标蓝 */
         .phase-slide-item .phase-desc .blue-num {
             color: #1a73e8;
             font-weight: 700;
@@ -236,7 +232,7 @@
             display: block;
         }
 
-        /* ★ 背景图 - 渐变切换 */
+        /* ★ 背景图 */
         .detail-bg {
             position: absolute;
             top: 0;
@@ -274,29 +270,35 @@
             display: flex !important;
         }
 
-        /* ★ 底部对话容器 */
+        /* ============================================ */
+        /* ★ 底部对话容器 - 全宽 + 居中 + 透明 */
+        /* ============================================ */
         .dialogue-container {
             position: absolute;
-            bottom: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 900px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             z-index: 10;
             cursor: pointer;
             user-select: none;
+            padding: 0 20px 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* ★ 每段对话 - 黑色背景 + 模糊 */
+        /* ★ 每段对话 - 黑色背景 + 模糊 + 透明 */
         .dialogue-item {
             display: none;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 16px;
-            padding: 28px 36px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 1000px;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 32px 44px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 50px rgba(0, 0, 0, 0.5);
             animation: dialogueFadeIn 0.5s ease;
         }
 
@@ -307,7 +309,7 @@
         @keyframes dialogueFadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -316,10 +318,10 @@
         }
 
         .dialogue-item .dialogue-text {
-            font-size: 1.1rem;
-            line-height: 1.9;
+            font-size: 1.2rem;
+            line-height: 2;
             color: #f0f0f0;
-            text-align: left;
+            text-align: center;
             letter-spacing: 0.5px;
         }
 
@@ -328,43 +330,43 @@
             font-weight: 600;
         }
 
-        /* ★ 对话进度指示器 */
+        /* ★ 进度指示器 */
         .dialogue-progress {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-top: 18px;
+            gap: 14px;
+            margin-top: 20px;
         }
 
         .dialogue-progress .dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             transition: 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .dialogue-progress .dot.active {
             background: #cc0000;
             border-color: #cc0000;
-            box-shadow: 0 0 20px rgba(204, 0, 0, 0.3);
+            box-shadow: 0 0 24px rgba(204, 0, 0, 0.3);
             transform: scale(1.2);
         }
 
         /* ★ 点击提示 */
         .click-hint {
             text-align: center;
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.2);
             font-size: 0.75rem;
             letter-spacing: 2px;
-            margin-top: 12px;
+            margin-top: 14px;
             animation: pulseHint 2s ease-in-out infinite;
         }
 
         @keyframes pulseHint {
-            0%, 100% { opacity: 0.25; }
-            50% { opacity: 0.7; }
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.6; }
         }
 
         /* ===== 其他详情页占位 ===== */
@@ -373,7 +375,6 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background: #1a1a2e;
             color: #fff;
             font-size: 2rem;
             background-image: url('湖南省地图.jpg');
@@ -392,15 +393,14 @@
                 min-height: 300px;
             }
             .dialogue-item {
-                padding: 20px 24px;
+                padding: 24px 28px;
             }
             .dialogue-item .dialogue-text {
-                font-size: 0.95rem;
-                line-height: 1.7;
+                font-size: 1rem;
+                line-height: 1.8;
             }
             .dialogue-container {
-                bottom: 40px;
-                width: 94%;
+                padding: 0 16px 24px 16px;
             }
             .nav-title {
                 font-size: 1.1rem;
@@ -448,15 +448,15 @@
                 font-size: 0.75rem;
             }
             .dialogue-item {
-                padding: 16px 18px;
+                padding: 18px 20px;
+                border-radius: 16px;
             }
             .dialogue-item .dialogue-text {
-                font-size: 0.85rem;
-                line-height: 1.6;
+                font-size: 0.88rem;
+                line-height: 1.7;
             }
             .dialogue-container {
-                bottom: 30px;
-                width: 96%;
+                padding: 0 12px 20px 12px;
             }
             .click-hint {
                 font-size: 0.6rem;
@@ -464,6 +464,7 @@
             .dialogue-progress .dot {
                 width: 8px;
                 height: 8px;
+                gap: 10px;
             }
         }
     </style>
@@ -547,7 +548,7 @@
             </div>
         </nav>
 
-        <!-- ★ 底部对话容器 -->
+        <!-- ★ 底部对话容器 - 全宽 + 居中 -->
         <div class="dialogue-container" id="dialogueContainer">
             <!-- 5段对话 -->
             <div class="dialogue-item active" data-index="0">
@@ -749,7 +750,7 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 主页数字已标蓝，背景图为湖南省地图');
+            console.log('📌 第一部分黑色框已优化：全宽 + 居中 + 透明度提升');
         })();
     </script>
 
