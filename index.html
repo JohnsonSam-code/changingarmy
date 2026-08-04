@@ -250,7 +250,6 @@
             filter: blur(0px);
         }
 
-        /* ★ 背景模糊状态 */
         .detail-bg-wrapper img.blurred {
             filter: blur(16px);
             opacity: 0.6;
@@ -264,12 +263,11 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.25);
             z-index: 1;
+            transition: background 1.5s ease;
         }
 
-        /* ★ 结束画面遮罩（更深） */
         .detail-overlay.end {
-            background: rgba(0, 0, 0, 0.55);
-            transition: background 1.5s ease;
+            background: rgba(0, 0, 0, 0.60);
         }
 
         .phase-detail .top-nav {
@@ -389,7 +387,7 @@
         }
 
         /* ============================================ */
-        /* ★ 结束画面 - 中央图文 */
+        /* ★ 结束画面 - 中央图文（优化PNG布局） */
         /* ============================================ */
         .end-screen {
             position: absolute;
@@ -402,7 +400,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 30px;
+            padding: 50px 40px;
             opacity: 0;
             transition: opacity 1.5s ease;
         }
@@ -412,39 +410,54 @@
             opacity: 1;
         }
 
-        .end-screen .end-image {
-            max-width: 75%;
-            max-height: 45vh;
+        /* ★ 图片容器 - 适配PNG透明背景 */
+        .end-image-wrapper {
+            max-width: 70%;
+            max-height: 48vh;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.06);
             border-radius: 16px;
-            box-shadow: 0 8px 50px rgba(0, 0, 0, 0.6);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 30px;
+            padding: 16px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .end-image-wrapper .end-image {
+            max-width: 100%;
+            max-height: 44vh;
+            width: auto;
+            height: auto;
+            display: block;
             object-fit: contain;
         }
 
         .end-screen .end-text-box {
             max-width: 780px;
+            width: 100%;
             background: rgba(0, 0, 0, 0.50);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 20px;
-            padding: 30px 40px;
+            padding: 32px 44px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
             text-align: center;
         }
 
         .end-screen .end-text-box .end-title {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             color: #f7d98c;
             font-weight: 700;
             margin-bottom: 14px;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
         .end-screen .end-text-box .end-desc {
             font-size: 1.05rem;
-            line-height: 2;
+            line-height: 2.1;
             color: #e8e8f0;
             letter-spacing: 0.5px;
         }
@@ -456,11 +469,7 @@
         .end-screen .end-text-box .end-desc .red-num {
             color: #ff4444;
             font-weight: 700;
-            font-size: 1.2rem;
-        }
-        .end-screen .end-text-box .end-desc .blue-num-end {
-            color: #4a9eff;
-            font-weight: 700;
+            font-size: 1.3rem;
         }
 
         .phase-detail-placeholder {
@@ -475,6 +484,7 @@
             background-position: center;
         }
 
+        /* ===== 响应式 ===== */
         @media (max-width: 768px) {
             .slider-track {
                 flex-wrap: wrap;
@@ -500,18 +510,26 @@
             .search-wrapper input {
                 width: 100px;
             }
-            .end-screen .end-image {
-                max-width: 90%;
-                max-height: 35vh;
+            .end-image-wrapper {
+                max-width: 85%;
+                max-height: 38vh;
+                padding: 12px 16px;
+            }
+            .end-image-wrapper .end-image {
+                max-height: 34vh;
             }
             .end-screen .end-text-box {
-                padding: 24px 28px;
+                padding: 24px 30px;
             }
             .end-screen .end-text-box .end-title {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
             .end-screen .end-text-box .end-desc {
                 font-size: 0.95rem;
+                line-height: 1.9;
+            }
+            .end-screen {
+                padding: 30px 20px;
             }
         }
 
@@ -571,19 +589,29 @@
                 height: 8px;
                 gap: 10px;
             }
-            .end-screen .end-image {
-                max-width: 95%;
+            .end-image-wrapper {
+                max-width: 92%;
                 max-height: 30vh;
+                padding: 10px 12px;
+            }
+            .end-image-wrapper .end-image {
+                max-height: 26vh;
             }
             .end-screen .end-text-box {
                 padding: 18px 20px;
             }
             .end-screen .end-text-box .end-title {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             .end-screen .end-text-box .end-desc {
-                font-size: 0.85rem;
+                font-size: 0.82rem;
                 line-height: 1.8;
+            }
+            .end-screen .end-text-box .end-desc .red-num {
+                font-size: 1rem;
+            }
+            .end-screen {
+                padding: 20px 14px;
             }
         }
     </style>
@@ -651,8 +679,10 @@
 
         <!-- ★ 结束画面 -->
         <div class="end-screen" id="endScreen">
-            <!-- ★ 批注：请将 "红军人数变化图.jpg" 替换为您的图片 -->
-            <img class="end-image" src="红军人数变化图.png" alt="红军人数变化图">
+            <!-- ★ 批注：请将 "红军人数变化图.png" 替换为您的PNG图片 -->
+            <div class="end-image-wrapper">
+                <img class="end-image" src="红军人数变化图.png" alt="红军人数变化图">
+            </div>
             <div class="end-text-box">
                 <div class="end-title">📊 湘江战役 · 红军人数变化</div>
                 <div class="end-desc">
@@ -823,18 +853,12 @@
                 if (isEndScreenShown) return;
                 isEndScreenShown = true;
 
-                // 1. 背景图渐变模糊
                 if (bgImg) {
                     bgImg.classList.add('blurred');
                 }
-
-                // 2. 遮罩加深
                 overlay.classList.add('end');
-
-                // 3. 对话容器淡出
                 dialogueContainer.classList.add('fade-out');
 
-                // 4. 显示结束画面
                 setTimeout(() => {
                     endScreen.classList.add('show');
                 }, 600);
@@ -852,7 +876,6 @@
                         dot.classList.toggle('active', i <= currentDialogueIndex);
                     });
                 } else {
-                    // ★ 最后一段点击 → 触发结束画面
                     showEndScreen();
                 }
             }
@@ -897,7 +920,7 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 第一阶段结束后：背景模糊 + 人数变化图 + 总结文字');
+            console.log('📌 结束画面：PNG图片 + 居中布局');
         })();
     </script>
 
