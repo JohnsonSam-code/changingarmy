@@ -232,16 +232,22 @@
             display: block;
         }
 
-        /* ★ 背景图 - 湘江战役行军图 */
-        .detail-bg {
+        /* ★ ★ ★ 背景图 - 使用 img 标签 + 预加载 ★ ★ ★ */
+        .detail-bg-wrapper {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('湘江战役行军图.jpg');
-            background-size: cover;
-            background-position: center;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .detail-bg-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
             transition: opacity 1.2s ease;
             opacity: 1;
         }
@@ -253,7 +259,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.25);
+            z-index: 1;
         }
 
         /* ★ 顶部导航（详情页显示返回） */
@@ -271,7 +278,7 @@
         }
 
         /* ============================================ */
-        /* ★ 底部对话容器 - 全宽 + 居中 + 透明 */
+        /* ★ 底部对话容器 - 全宽 + 居中 + 高透明 */
         /* ============================================ */
         .dialogue-container {
             position: absolute;
@@ -287,18 +294,18 @@
             align-items: center;
         }
 
-        /* ★ 每段对话 - 黑色背景 + 模糊 + 透明 */
+        /* ★ ★ ★ 每段对话 - 更高透明度 ★ ★ ★ */
         .dialogue-item {
             display: none;
             width: 100%;
             max-width: 1000px;
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 32px 44px;
             border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 8px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 50px rgba(0, 0, 0, 0.3);
             animation: dialogueFadeIn 0.5s ease;
         }
 
@@ -323,6 +330,7 @@
             color: #f0f0f0;
             text-align: center;
             letter-spacing: 0.5px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .dialogue-item .dialogue-text .highlight {
@@ -530,8 +538,10 @@
     <!-- ★ 第一部分详情页：血战湘江 -->
     <!-- ============================================ -->
     <div class="phase-detail" id="phase1Detail">
-        <!-- ★ 背景图：湘江战役行军图 -->
-        <div class="detail-bg" id="detailBg"></div>
+        <!-- ★ ★ ★ 背景图 - 使用 img 标签 ★ ★ ★ -->
+        <div class="detail-bg-wrapper">
+            <img id="detailBgImg" src="湘江战役行军图.jpg" alt="湘江战役行军图">
+        </div>
         <div class="detail-overlay"></div>
 
         <!-- 顶部导航（显示返回符号） -->
@@ -548,10 +558,10 @@
             </div>
         </nav>
 
-        <!-- ★ 底部对话容器 - 五段话（事情发展顺序） -->
+        <!-- ★ 底部对话容器 -->
         <div class="dialogue-container" id="dialogueContainer">
 
-            <!-- 第1段：突破三道封锁线，湘江第四道封锁线 -->
+            <!-- 第1段 -->
             <div class="dialogue-item active" data-index="0">
                 <div class="dialogue-text">
                     <span class="highlight">1934年11月</span>，中央红军相继突破国民党在江西、广东、湖南的三道封锁线。<br>
@@ -559,7 +569,7 @@
                 </div>
             </div>
 
-            <!-- 第2段：中革军委下达强渡湘江命令 -->
+            <!-- 第2段 -->
             <div class="dialogue-item" data-index="1">
                 <div class="dialogue-text">
                     <span class="highlight">11月25日</span>，中革军委正式下达从湘南<span class="highlight">强渡湘江</span>、进军桂东北的作战命令。<br>
@@ -567,7 +577,7 @@
                 </div>
             </div>
 
-            <!-- 第3段：湘江战役打响，三大战场激战 -->
+            <!-- 第3段 -->
             <div class="dialogue-item" data-index="2">
                 <div class="dialogue-text">
                     <span class="highlight">11月28日</span>，湘江战役在灌阳新圩、兴安界首光华铺、全州觉山铺三大战场打响。<br>
@@ -575,7 +585,7 @@
                 </div>
             </div>
 
-            <!-- 第4段：激战至12月1日，全线进攻 -->
+            <!-- 第4段 -->
             <div class="dialogue-item" data-index="3">
                 <div class="dialogue-text">
                     <span class="highlight">12月1日</span>，敌人发动全线进攻，企图夺回渡口、围歼红军。<br>
@@ -583,7 +593,7 @@
                 </div>
             </div>
 
-            <!-- 第5段：中央机关和红军大部队渡过湘江 -->
+            <!-- 第5段 -->
             <div class="dialogue-item" data-index="4">
                 <div class="dialogue-text">
                     激战至当日<span class="highlight">17时</span>，中央机关和红军大部队终于渡过湘江。<br>
@@ -675,6 +685,7 @@
             const dialogueItems = document.querySelectorAll('.dialogue-item');
             const dots = document.querySelectorAll('.dialogue-progress .dot');
             const dialogueContainer = document.getElementById('dialogueContainer');
+            const bgImg = document.getElementById('detailBgImg');
 
             function resetDialogue() {
                 currentDialogueIndex = 0;
@@ -686,8 +697,10 @@
                     dot.classList.toggle('active', i === 0);
                     dot.style.opacity = '1';
                 });
-                const bg = document.getElementById('detailBg');
-                bg.style.opacity = '1';
+                // ★ 恢复背景图
+                if (bgImg) {
+                    bgImg.style.opacity = '1';
+                }
                 const hint = document.querySelector('.click-hint');
                 if (hint) hint.style.display = 'block';
             }
@@ -703,8 +716,10 @@
                     });
                 } else {
                     // ★ 最后一段点击后，背景图渐变消失
-                    const bg = document.getElementById('detailBg');
-                    bg.style.opacity = '0';
+                    if (bgImg) {
+                        bgImg.style.transition = 'opacity 1.2s ease';
+                        bgImg.style.opacity = '0';
+                    }
                     const hint = document.querySelector('.click-hint');
                     if (hint) hint.style.display = 'none';
                     dialogueItems.forEach(item => {
@@ -759,8 +774,8 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 第一部分五段对话已更新为湘江战役内容');
-            console.log('📌 背景图：湘江战役行军图');
+            console.log('📌 背景图使用 img 标签，加载更快');
+            console.log('📌 黑框透明度提升至 rgba(0,0,0,0.35)');
         })();
     </script>
 
