@@ -232,14 +232,14 @@
             display: block;
         }
 
-        /* ★ 背景图 */
+        /* ★ 背景图 - 湘江战役行军图 */
         .detail-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('血战湘江作战图.jpg');
+            background-image: url('湘江战役行军图.jpg');
             background-size: cover;
             background-position: center;
             transition: opacity 1.2s ease;
@@ -497,7 +497,7 @@
                     <div class="phase-number">阶段 <span class="num">01</span></div>
                     <div class="phase-title">血战湘江</div>
                     <div class="phase-desc">
-                        <span class="blue-num">1934</span>年<span class="blue-num">12</span>月，湘江血战之后，中央红军兵力从<span class="blue-num">8.6</span>万人锐减至<span class="blue-num">3</span>万余人。
+                        <span class="blue-num">1934</span>年<span class="blue-num">11</span>月，中央红军突破三道封锁线，蒋介石在湘江布下第四道封锁线。
                     </div>
                 </div>
 
@@ -530,7 +530,7 @@
     <!-- ★ 第一部分详情页：血战湘江 -->
     <!-- ============================================ -->
     <div class="phase-detail" id="phase1Detail">
-        <!-- 背景图 -->
+        <!-- ★ 背景图：湘江战役行军图 -->
         <div class="detail-bg" id="detailBg"></div>
         <div class="detail-overlay"></div>
 
@@ -548,37 +548,46 @@
             </div>
         </nav>
 
-        <!-- ★ 底部对话容器 - 全宽 + 居中 -->
+        <!-- ★ 底部对话容器 - 五段话（事情发展顺序） -->
         <div class="dialogue-container" id="dialogueContainer">
-            <!-- 5段对话 -->
+
+            <!-- 第1段：突破三道封锁线，湘江第四道封锁线 -->
             <div class="dialogue-item active" data-index="0">
                 <div class="dialogue-text">
-                    <span class="highlight">1934年12月1日</span>，湘江两岸，枪炮声整整响了五天五夜。
+                    <span class="highlight">1934年11月</span>，中央红军相继突破国民党在江西、广东、湖南的三道封锁线。<br>
+                    蒋介石在湘江构筑了<span class="highlight">第四道封锁线</span>，企图围歼红军于湘江以东。
                 </div>
             </div>
 
+            <!-- 第2段：中革军委下达强渡湘江命令 -->
             <div class="dialogue-item" data-index="1">
                 <div class="dialogue-text">
-                    中央红军从 <span class="highlight">8.6万人</span> 锐减至 <span class="highlight">3万余人</span>，湘江水被染成了红色。
+                    <span class="highlight">11月25日</span>，中革军委正式下达从湘南<span class="highlight">强渡湘江</span>、进军桂东北的作战命令。<br>
+                    湘桂军阀调集重兵，向中央红军发起猛烈进攻。
                 </div>
             </div>
 
+            <!-- 第3段：湘江战役打响，三大战场激战 -->
             <div class="dialogue-item" data-index="2">
                 <div class="dialogue-text">
-                    蒋介石调集 <span class="highlight">30万</span> 重兵，在红军北上湘西的路上布下"口袋阵"。
+                    <span class="highlight">11月28日</span>，湘江战役在灌阳新圩、兴安界首光华铺、全州觉山铺三大战场打响。<br>
+                    红一、三、五军团与敌军展开<span class="highlight">殊死搏斗</span>，为中央纵队争取渡江时间。
                 </div>
             </div>
 
+            <!-- 第4段：激战至12月1日，全线进攻 -->
             <div class="dialogue-item" data-index="3">
                 <div class="dialogue-text">
-                    前方是陷阱，后方是追兵，全军陷入了 <span class="highlight">前所未有的困境</span>。
+                    <span class="highlight">12月1日</span>，敌人发动全线进攻，企图夺回渡口、围歼红军。<br>
+                    红军指战员<span class="highlight">前仆后继</span>，用刺刀和手榴弹打退敌军一次次进攻。
                 </div>
             </div>
 
+            <!-- 第5段：中央机关和红军大部队渡过湘江 -->
             <div class="dialogue-item" data-index="4">
                 <div class="dialogue-text">
-                    下一步，该往哪里走？<br>
-                    <span style="color:#f7d98c;font-weight:700;">—— 历史，即将在通道转折。</span>
+                    激战至当日<span class="highlight">17时</span>，中央机关和红军大部队终于渡过湘江。<br>
+                    <span style="color:#f7d98c;font-weight:700;">—— 湘江血战，红军以巨大代价突破封锁，继续北上。</span>
                 </div>
             </div>
 
@@ -750,7 +759,8 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 第一部分黑色框已优化：全宽 + 居中 + 透明度提升');
+            console.log('📌 第一部分五段对话已更新为湘江战役内容');
+            console.log('📌 背景图：湘江战役行军图');
         })();
     </script>
 
