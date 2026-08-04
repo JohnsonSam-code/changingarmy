@@ -24,7 +24,6 @@
             overflow-y: auto;
         }
 
-        /* ===== 顶部导航栏 ===== */
         .top-nav {
             position: fixed;
             top: 0;
@@ -110,7 +109,6 @@
             transform: scale(0.97);
         }
 
-        /* ===== 主页（三阶段选择器） ===== */
         .main-container {
             padding-top: 80px;
             min-height: 100vh;
@@ -232,7 +230,6 @@
             display: block;
         }
 
-        /* ★ ★ ★ 背景图 - 使用 img 标签 + 预加载 ★ ★ ★ */
         .detail-bg-wrapper {
             position: absolute;
             top: 0;
@@ -248,11 +245,17 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: opacity 1.2s ease;
+            transition: opacity 1.2s ease, filter 1.5s ease;
             opacity: 1;
+            filter: blur(0px);
         }
 
-        /* ★ 遮罩层 */
+        /* ★ 背景模糊状态 */
+        .detail-bg-wrapper img.blurred {
+            filter: blur(16px);
+            opacity: 0.6;
+        }
+
         .detail-overlay {
             position: absolute;
             top: 0;
@@ -263,7 +266,12 @@
             z-index: 1;
         }
 
-        /* ★ 顶部导航（详情页显示返回） */
+        /* ★ 结束画面遮罩（更深） */
+        .detail-overlay.end {
+            background: rgba(0, 0, 0, 0.55);
+            transition: background 1.5s ease;
+        }
+
         .phase-detail .top-nav {
             position: absolute;
             top: 0;
@@ -278,7 +286,7 @@
         }
 
         /* ============================================ */
-        /* ★ 底部对话容器 - 全宽 + 居中 + 高透明 */
+        /* ★ 底部对话容器 */
         /* ============================================ */
         .dialogue-container {
             position: absolute;
@@ -288,24 +296,29 @@
             z-index: 10;
             cursor: pointer;
             user-select: none;
-            padding: 0 20px 30px 20px;
+            padding: 0 20px 50px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: opacity 1s ease;
         }
 
-        /* ★ ★ ★ 每段对话 - 更高透明度 ★ ★ ★ */
+        .dialogue-container.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
         .dialogue-item {
             display: none;
             width: 100%;
             max-width: 1000px;
-            background: rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.30);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             border-radius: 20px;
             padding: 32px 44px;
             border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 8px 50px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 50px rgba(0, 0, 0, 0.25);
             animation: dialogueFadeIn 0.5s ease;
         }
 
@@ -338,7 +351,6 @@
             font-weight: 600;
         }
 
-        /* ★ 进度指示器 */
         .dialogue-progress {
             display: flex;
             justify-content: center;
@@ -362,7 +374,6 @@
             transform: scale(1.2);
         }
 
-        /* ★ 点击提示 */
         .click-hint {
             text-align: center;
             color: rgba(255, 255, 255, 0.2);
@@ -377,7 +388,81 @@
             50% { opacity: 0.6; }
         }
 
-        /* ===== 其他详情页占位 ===== */
+        /* ============================================ */
+        /* ★ 结束画面 - 中央图文 */
+        /* ============================================ */
+        .end-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 30px;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .end-screen.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .end-screen .end-image {
+            max-width: 75%;
+            max-height: 45vh;
+            border-radius: 16px;
+            box-shadow: 0 8px 50px rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+            object-fit: contain;
+        }
+
+        .end-screen .end-text-box {
+            max-width: 780px;
+            background: rgba(0, 0, 0, 0.50);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 30px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .end-screen .end-text-box .end-title {
+            font-size: 1.6rem;
+            color: #f7d98c;
+            font-weight: 700;
+            margin-bottom: 14px;
+            letter-spacing: 2px;
+        }
+
+        .end-screen .end-text-box .end-desc {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: #e8e8f0;
+            letter-spacing: 0.5px;
+        }
+
+        .end-screen .end-text-box .end-desc .highlight {
+            color: #f7d98c;
+            font-weight: 700;
+        }
+        .end-screen .end-text-box .end-desc .red-num {
+            color: #ff4444;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .end-screen .end-text-box .end-desc .blue-num-end {
+            color: #4a9eff;
+            font-weight: 700;
+        }
+
         .phase-detail-placeholder {
             display: flex;
             align-items: center;
@@ -390,7 +475,6 @@
             background-position: center;
         }
 
-        /* ===== 响应式 ===== */
         @media (max-width: 768px) {
             .slider-track {
                 flex-wrap: wrap;
@@ -408,13 +492,26 @@
                 line-height: 1.8;
             }
             .dialogue-container {
-                padding: 0 16px 24px 16px;
+                padding: 0 16px 40px 16px;
             }
             .nav-title {
                 font-size: 1.1rem;
             }
             .search-wrapper input {
                 width: 100px;
+            }
+            .end-screen .end-image {
+                max-width: 90%;
+                max-height: 35vh;
+            }
+            .end-screen .end-text-box {
+                padding: 24px 28px;
+            }
+            .end-screen .end-text-box .end-title {
+                font-size: 1.3rem;
+            }
+            .end-screen .end-text-box .end-desc {
+                font-size: 0.95rem;
             }
         }
 
@@ -464,7 +561,7 @@
                 line-height: 1.7;
             }
             .dialogue-container {
-                padding: 0 12px 20px 12px;
+                padding: 0 12px 30px 12px;
             }
             .click-hint {
                 font-size: 0.6rem;
@@ -474,12 +571,25 @@
                 height: 8px;
                 gap: 10px;
             }
+            .end-screen .end-image {
+                max-width: 95%;
+                max-height: 30vh;
+            }
+            .end-screen .end-text-box {
+                padding: 18px 20px;
+            }
+            .end-screen .end-text-box .end-title {
+                font-size: 1.1rem;
+            }
+            .end-screen .end-text-box .end-desc {
+                font-size: 0.85rem;
+                line-height: 1.8;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== 顶部导航栏 ===== -->
     <nav class="top-nav">
         <div class="nav-left">
             <a href="#" class="back-btn" id="backBtn">
@@ -493,13 +603,11 @@
         </div>
     </nav>
 
-    <!-- ===== 主页 ===== -->
     <div class="main-container" id="mainPage">
 
         <div class="slider-wrapper">
             <div class="slider-track">
 
-                <!-- 选项框1：血战湘江 -->
                 <div class="phase-slide-item" data-phase="1">
                     <img class="phase-image" src="血战湘江.jpg" alt="血战湘江" loading="lazy">
                     <div class="phase-number">阶段 <span class="num">01</span></div>
@@ -509,7 +617,6 @@
                     </div>
                 </div>
 
-                <!-- 选项框2：通道会议 -->
                 <div class="phase-slide-item" data-phase="2">
                     <img class="phase-image" src="通道会议.jpg" alt="通道会议" loading="lazy">
                     <div class="phase-number">阶段 <span class="num">02</span></div>
@@ -519,7 +626,6 @@
                     </div>
                 </div>
 
-                <!-- 选项框3：通道转兵 -->
                 <div class="phase-slide-item" data-phase="3">
                     <img class="phase-image" src="通道转兵.jpg" alt="通道转兵" loading="lazy">
                     <div class="phase-number">阶段 <span class="num">03</span></div>
@@ -538,13 +644,25 @@
     <!-- ★ 第一部分详情页：血战湘江 -->
     <!-- ============================================ -->
     <div class="phase-detail" id="phase1Detail">
-        <!-- ★ ★ ★ 背景图 - 使用 img 标签 ★ ★ ★ -->
         <div class="detail-bg-wrapper">
             <img id="detailBgImg" src="湘江战役行军图.jpg" alt="湘江战役行军图">
         </div>
-        <div class="detail-overlay"></div>
+        <div class="detail-overlay" id="detailOverlay"></div>
 
-        <!-- 顶部导航（显示返回符号） -->
+        <!-- ★ 结束画面 -->
+        <div class="end-screen" id="endScreen">
+            <!-- ★ 批注：请将 "红军人数变化图.jpg" 替换为您的图片 -->
+            <img class="end-image" src="红军人数变化图.jpg" alt="红军人数变化图">
+            <div class="end-text-box">
+                <div class="end-title">📊 湘江战役 · 红军人数变化</div>
+                <div class="end-desc">
+                    中央红军经过英勇奋战，突破了国民党军第四道封锁线，挫败了蒋介石企图歼灭红军于湘江以东的计划。<br><br>
+                    但此役也是中央红军长征中损失最大的一次。中央红军渡过湘江后（连同前三次突破封锁线）由长征开始时的
+                    <span class="highlight">8.6万余人</span> 锐减为 <span class="red-num">3万余人</span>（包括非战斗减员）。
+                </div>
+            </div>
+        </div>
+
         <nav class="top-nav">
             <div class="nav-left">
                 <a href="#" class="back-btn" id="backBtnDetail">
@@ -558,10 +676,8 @@
             </div>
         </nav>
 
-        <!-- ★ 底部对话容器 -->
         <div class="dialogue-container" id="dialogueContainer">
 
-            <!-- 第1段 -->
             <div class="dialogue-item active" data-index="0">
                 <div class="dialogue-text">
                     <span class="highlight">1934年11月</span>，中央红军相继突破国民党在江西、广东、湖南的三道封锁线。<br>
@@ -569,7 +685,6 @@
                 </div>
             </div>
 
-            <!-- 第2段 -->
             <div class="dialogue-item" data-index="1">
                 <div class="dialogue-text">
                     <span class="highlight">11月25日</span>，中革军委正式下达从湘南<span class="highlight">强渡湘江</span>、进军桂东北的作战命令。<br>
@@ -577,7 +692,6 @@
                 </div>
             </div>
 
-            <!-- 第3段 -->
             <div class="dialogue-item" data-index="2">
                 <div class="dialogue-text">
                     <span class="highlight">11月28日</span>，湘江战役在灌阳新圩、兴安界首光华铺、全州觉山铺三大战场打响。<br>
@@ -585,7 +699,6 @@
                 </div>
             </div>
 
-            <!-- 第4段 -->
             <div class="dialogue-item" data-index="3">
                 <div class="dialogue-text">
                     <span class="highlight">12月1日</span>，敌人发动全线进攻，企图夺回渡口、围歼红军。<br>
@@ -593,15 +706,12 @@
                 </div>
             </div>
 
-            <!-- 第5段 -->
             <div class="dialogue-item" data-index="4">
                 <div class="dialogue-text">
-                    激战至当日<span class="highlight">17时</span>，中央机关和红军大部队终于渡过湘江。<br>
-                    <span style="color:#f7d98c;font-weight:700;">—— 湘江血战，红军以巨大代价突破封锁，继续北上。</span>
+                    激战至当日<span class="highlight">17时</span>，中央机关和红军大部队终于渡过湘江。
                 </div>
             </div>
 
-            <!-- 进度指示器 -->
             <div class="dialogue-progress" id="dialogueProgress">
                 <span class="dot active"></span>
                 <span class="dot"></span>
@@ -614,7 +724,6 @@
         </div>
     </div>
 
-    <!-- ===== 其他详情页 ===== -->
     <div class="phase-detail" id="phase2Detail">
         <div class="phase-detail-placeholder">
             通道会议 - 建设中
@@ -629,7 +738,6 @@
 
     <script>
         (function() {
-            // ===== DOM 引用 =====
             const mainPage = document.getElementById('mainPage');
             const phaseDetails = [
                 document.getElementById('phase1Detail'),
@@ -640,7 +748,6 @@
             const backBtnDetail = document.getElementById('backBtnDetail');
             const items = document.querySelectorAll('.phase-slide-item');
 
-            // ===== 点击卡片跳转详情 =====
             items.forEach(card => {
                 card.addEventListener('click', function() {
                     const phase = this.dataset.phase;
@@ -659,7 +766,6 @@
                 });
             });
 
-            // ===== 返回主页 =====
             function goToMain() {
                 mainPage.style.display = 'flex';
                 phaseDetails.forEach(p => p.classList.remove('active'));
@@ -678,7 +784,7 @@
             });
 
             // ============================================
-            // ★ 血战湘江 - 五段对话逻辑
+            // ★ 血战湘江 - 五段对话 + 结束画面
             // ============================================
             let currentDialogueIndex = 0;
             const totalDialogues = 5;
@@ -686,9 +792,14 @@
             const dots = document.querySelectorAll('.dialogue-progress .dot');
             const dialogueContainer = document.getElementById('dialogueContainer');
             const bgImg = document.getElementById('detailBgImg');
+            const overlay = document.getElementById('detailOverlay');
+            const endScreen = document.getElementById('endScreen');
+
+            let isEndScreenShown = false;
 
             function resetDialogue() {
                 currentDialogueIndex = 0;
+                isEndScreenShown = false;
                 dialogueItems.forEach((item, i) => {
                     item.classList.toggle('active', i === 0);
                     item.style.opacity = '1';
@@ -697,15 +808,41 @@
                     dot.classList.toggle('active', i === 0);
                     dot.style.opacity = '1';
                 });
-                // ★ 恢复背景图
+                dialogueContainer.classList.remove('fade-out');
                 if (bgImg) {
+                    bgImg.classList.remove('blurred');
                     bgImg.style.opacity = '1';
                 }
+                overlay.classList.remove('end');
+                endScreen.classList.remove('show');
                 const hint = document.querySelector('.click-hint');
                 if (hint) hint.style.display = 'block';
             }
 
+            function showEndScreen() {
+                if (isEndScreenShown) return;
+                isEndScreenShown = true;
+
+                // 1. 背景图渐变模糊
+                if (bgImg) {
+                    bgImg.classList.add('blurred');
+                }
+
+                // 2. 遮罩加深
+                overlay.classList.add('end');
+
+                // 3. 对话容器淡出
+                dialogueContainer.classList.add('fade-out');
+
+                // 4. 显示结束画面
+                setTimeout(() => {
+                    endScreen.classList.add('show');
+                }, 600);
+            }
+
             function nextDialogue() {
+                if (isEndScreenShown) return;
+
                 if (currentDialogueIndex < totalDialogues - 1) {
                     currentDialogueIndex++;
                     dialogueItems.forEach((item, i) => {
@@ -715,35 +852,22 @@
                         dot.classList.toggle('active', i <= currentDialogueIndex);
                     });
                 } else {
-                    // ★ 最后一段点击后，背景图渐变消失
-                    if (bgImg) {
-                        bgImg.style.transition = 'opacity 1.2s ease';
-                        bgImg.style.opacity = '0';
-                    }
-                    const hint = document.querySelector('.click-hint');
-                    if (hint) hint.style.display = 'none';
-                    dialogueItems.forEach(item => {
-                        item.style.transition = 'opacity 1s ease';
-                        item.style.opacity = '0';
-                    });
-                    dots.forEach(dot => {
-                        dot.style.transition = 'opacity 0.8s ease';
-                        dot.style.opacity = '0';
-                    });
+                    // ★ 最后一段点击 → 触发结束画面
+                    showEndScreen();
                 }
             }
 
-            // ★ 点击对话容器前进
             dialogueContainer.addEventListener('click', function(e) {
                 if (e.target.closest('.dialogue-progress')) return;
                 if (e.target.closest('.click-hint')) return;
+                if (isEndScreenShown) return;
                 nextDialogue();
             });
 
-            // ★ 进度点点击
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', function(e) {
                     e.stopPropagation();
+                    if (isEndScreenShown) return;
                     if (index <= currentDialogueIndex + 1 && index < totalDialogues) {
                         while (currentDialogueIndex < index) {
                             nextDialogue();
@@ -752,7 +876,6 @@
                 });
             });
 
-            // ===== 搜索 =====
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
 
@@ -774,8 +897,7 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 背景图使用 img 标签，加载更快');
-            console.log('📌 黑框透明度提升至 rgba(0,0,0,0.35)');
+            console.log('📌 第一阶段结束后：背景模糊 + 人数变化图 + 总结文字');
         })();
     </script>
 
