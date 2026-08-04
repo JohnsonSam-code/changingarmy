@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>通道转兵红色资源库 - 血战湘江</title>
+    <title>通道转兵红色资源库</title>
     <style>
         * {
             margin: 0;
@@ -13,14 +13,19 @@
 
         body {
             font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            /* ★ 主页背景：湖南省地图 */
+            background-image: url('湖南省地图.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             background-color: #1a1a2e;
             color: #fff;
             min-height: 100vh;
-            overflow: hidden;
-            height: 100vh;
+            overflow-y: auto;
         }
 
-        /* ===== 顶部导航栏（主页不显示返回符号） ===== */
+        /* ===== 顶部导航栏 ===== */
         .top-nav {
             position: fixed;
             top: 0;
@@ -59,7 +64,6 @@
             transform: scale(1.05);
         }
 
-        /* ★ 在详情页显示返回符号 */
         .phase-detail.active .back-btn {
             display: flex;
         }
@@ -183,11 +187,17 @@
             font-weight: 700;
         }
 
-        /* ★ 主页数字标红 */
+        /* ★ 主页数字标蓝（年份等数字） */
         .phase-slide-item .phase-number .num {
-            color: #cc0000;
+            color: #1a73e8;
             font-weight: 900;
             font-size: 0.9rem;
+        }
+
+        /* ★ 描述文字中的数字标蓝 */
+        .phase-slide-item .phase-desc .blue-num {
+            color: #1a73e8;
+            font-weight: 700;
         }
 
         .phase-slide-item .phase-title {
@@ -357,6 +367,20 @@
             50% { opacity: 0.7; }
         }
 
+        /* ===== 其他详情页占位 ===== */
+        .phase-detail-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #1a1a2e;
+            color: #fff;
+            font-size: 2rem;
+            background-image: url('湖南省地图.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
         /* ===== 响应式 ===== */
         @media (max-width: 768px) {
             .slider-track {
@@ -449,7 +473,6 @@
     <!-- ===== 顶部导航栏 ===== -->
     <nav class="top-nav">
         <div class="nav-left">
-            <!-- ★ 主页隐藏返回符号（由CSS控制） -->
             <a href="#" class="back-btn" id="backBtn">
                 <span>←</span>
             </a>
@@ -473,7 +496,7 @@
                     <div class="phase-number">阶段 <span class="num">01</span></div>
                     <div class="phase-title">血战湘江</div>
                     <div class="phase-desc">
-                        1934年12月，湘江血战之后，中央红军兵力从8.6万人锐减至3万余人。
+                        <span class="blue-num">1934</span>年<span class="blue-num">12</span>月，湘江血战之后，中央红军兵力从<span class="blue-num">8.6</span>万人锐减至<span class="blue-num">3</span>万余人。
                     </div>
                 </div>
 
@@ -483,7 +506,7 @@
                     <div class="phase-number">阶段 <span class="num">02</span></div>
                     <div class="phase-title">通道会议</div>
                     <div class="phase-desc">
-                        1934年12月12日，中革军委在通道恭城书院召开紧急军事会议。
+                        <span class="blue-num">1934</span>年<span class="blue-num">12</span>月<span class="blue-num">12</span>日，中革军委在通道恭城书院召开紧急军事会议。
                     </div>
                 </div>
 
@@ -493,7 +516,7 @@
                     <div class="phase-number">阶段 <span class="num">03</span></div>
                     <div class="phase-title">通道转兵</div>
                     <div class="phase-desc">
-                        通道会议后，中央红军分两路向西疾进，一举跳出敌军包围圈。
+                        <span class="blue-num">12</span>月<span class="blue-num">18</span>日，红军抵达贵州黎平，转兵战略正式实现。
                     </div>
                 </div>
 
@@ -571,15 +594,15 @@
         </div>
     </div>
 
-    <!-- ===== 其他详情页（占位） ===== -->
+    <!-- ===== 其他详情页 ===== -->
     <div class="phase-detail" id="phase2Detail">
-        <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#1a1a2e;color:#fff;font-size:2rem;">
+        <div class="phase-detail-placeholder">
             通道会议 - 建设中
         </div>
     </div>
 
     <div class="phase-detail" id="phase3Detail">
-        <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#1a1a2e;color:#fff;font-size:2rem;">
+        <div class="phase-detail-placeholder">
             通道转兵 - 建设中
         </div>
     </div>
@@ -602,15 +625,11 @@
                 card.addEventListener('click', function() {
                     const phase = this.dataset.phase;
                     if (phase) {
-                        // 隐藏主页
                         mainPage.style.display = 'none';
-                        // 隐藏所有详情页
                         phaseDetails.forEach(p => p.classList.remove('active'));
-                        // 显示对应详情页
                         const target = document.getElementById('phase' + phase + 'Detail');
                         if (target) {
                             target.classList.add('active');
-                            // 如果是血战湘江，重置对话
                             if (phase === '1') {
                                 resetDialogue();
                             }
@@ -651,66 +670,56 @@
                 currentDialogueIndex = 0;
                 dialogueItems.forEach((item, i) => {
                     item.classList.toggle('active', i === 0);
+                    item.style.opacity = '1';
                 });
                 dots.forEach((dot, i) => {
                     dot.classList.toggle('active', i === 0);
+                    dot.style.opacity = '1';
                 });
-                // 重置背景图渐变（无文字）
                 const bg = document.getElementById('detailBg');
                 bg.style.opacity = '1';
+                const hint = document.querySelector('.click-hint');
+                if (hint) hint.style.display = 'block';
             }
 
             function nextDialogue() {
                 if (currentDialogueIndex < totalDialogues - 1) {
                     currentDialogueIndex++;
-                    // 切换对话
                     dialogueItems.forEach((item, i) => {
                         item.classList.toggle('active', i === currentDialogueIndex);
                     });
-                    // 更新进度点
                     dots.forEach((dot, i) => {
                         dot.classList.toggle('active', i <= currentDialogueIndex);
                     });
                 } else {
-                    // ★ 最后一段点击后，背景图渐变消失（过渡效果）
+                    // ★ 最后一段点击后，背景图渐变消失
                     const bg = document.getElementById('detailBg');
                     bg.style.opacity = '0';
-                    // 点击提示消失
                     const hint = document.querySelector('.click-hint');
                     if (hint) hint.style.display = 'none';
-                    // 对话淡出
                     dialogueItems.forEach(item => {
                         item.style.transition = 'opacity 1s ease';
                         item.style.opacity = '0';
                     });
-                    // 进度点消失
                     dots.forEach(dot => {
                         dot.style.transition = 'opacity 0.8s ease';
                         dot.style.opacity = '0';
                     });
-                    // 显示完成状态
-                    setTimeout(() => {
-                        const container = document.getElementById('dialogueContainer');
-                        // 可以在这里添加完成后的效果，比如显示一个"继续"按钮
-                        // 暂时不做额外操作
-                    }, 1000);
                 }
             }
 
-            // ★ 点击对话容器前进到下一段
+            // ★ 点击对话容器前进
             dialogueContainer.addEventListener('click', function(e) {
-                // 防止点击进度点或提示文字时触发多次
                 if (e.target.closest('.dialogue-progress')) return;
                 if (e.target.closest('.click-hint')) return;
                 nextDialogue();
             });
 
-            // ★ 进度点点击跳转
+            // ★ 进度点点击
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', function(e) {
                     e.stopPropagation();
                     if (index <= currentDialogueIndex + 1 && index < totalDialogues) {
-                        // 允许跳转到下一段或当前段
                         while (currentDialogueIndex < index) {
                             nextDialogue();
                         }
@@ -740,8 +749,7 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 血战湘江 - 5段对话模型已就绪');
-            console.log('📌 点击屏幕进入下一段对话');
+            console.log('📌 主页数字已标蓝，背景图为湖南省地图');
         })();
     </script>
 
