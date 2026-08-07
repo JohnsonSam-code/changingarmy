@@ -37,6 +37,8 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .nav-left {
@@ -62,29 +64,57 @@
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
+        /* ★ 搜索框 - 带下拉列表 */
         .nav-search {
             display: flex;
             align-items: center;
             background: rgba(255, 255, 255, 0.08);
             border-radius: 30px;
-            padding: 6px 6px 6px 16px;
+            padding: 4px 4px 4px 14px;
             border: 1px solid rgba(255, 255, 255, 0.06);
+            gap: 4px;
+            flex-wrap: wrap;
         }
         .nav-search input {
             background: transparent;
             border: none;
-            padding: 6px 10px;
+            padding: 6px 8px;
             font-size: 0.85rem;
             color: #fff;
             outline: none;
-            width: 140px;
+            width: 120px;
+            min-width: 70px;
         }
         .nav-search input::placeholder {
             color: #888;
         }
+
+        .nav-search select {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            color: #ddd;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23888'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            padding-right: 24px;
+            min-width: 70px;
+        }
+        .nav-search select option {
+            background: #1a1a2e;
+            color: #f0f0f0;
+        }
+
         .nav-search button {
             background: #cc0000;
             border: none;
@@ -97,20 +127,6 @@
         }
         .nav-search button:hover {
             background: #b30000;
-        }
-
-        .nav-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #cc0000, #880000);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #fff;
-            cursor: pointer;
         }
 
         /* ===== 主容器 ===== */
@@ -127,52 +143,70 @@
         }
 
         /* ============================================ */
-        /* ★ 分类Tab（一行） */
+        /* ★ 统计框 */
         /* ============================================ */
-        .tabs-row {
-            display: flex;
-            gap: 6px;
-            padding: 8px 0 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            flex-wrap: wrap;
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            padding: 20px 0 30px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.06);
         }
 
-        .tab-item {
-            padding: 8px 22px;
-            border-radius: 30px;
-            font-size: 0.9rem;
+        .stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 18px 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: 0.3s;
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .stat-item .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f7d98c;
+            display: block;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: 0.25s;
-            border: 1px solid transparent;
-            background: transparent;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            margin-top: 4px;
         }
 
-        .tab-item:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .tab-item.active {
-            color: #fff;
-            background: rgba(204, 0, 0, 0.25);
-            border-color: rgba(204, 0, 0, 0.3);
-        }
-
-        .tab-item .tab-icon {
+        .stat-item .stat-icon {
+            font-size: 1.2rem;
             margin-right: 6px;
         }
 
         /* ============================================ */
-        /* ★ 卡片网格 */
+        /* ★ 三大板块标题 */
+        /* ============================================ */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            padding: 28px 0 16px;
+            letter-spacing: 2px;
+        }
+        .section-title .red {
+            color: #cc0000;
+        }
+
+        /* ============================================ */
+        /* ★ 三大板块卡片（中间偏下） */
         /* ============================================ */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
-            padding: 28px 0 20px;
+            padding: 10px 0 30px;
         }
 
         .resource-card {
@@ -194,7 +228,7 @@
 
         .resource-card .card-image {
             width: 100%;
-            height: 170px;
+            height: 180px;
             object-fit: cover;
             display: block;
             background: #2a2a4a;
@@ -230,6 +264,96 @@
             background: rgba(204, 0, 0, 0.15);
             color: #f7d98c;
             border: 1px solid rgba(204, 0, 0, 0.1);
+        }
+
+        /* ============================================ */
+        /* ★ 红色分割线 */
+        /* ============================================ */
+        .divider-red {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #cc0000, #cc0000, transparent);
+            margin: 20px 0 10px;
+            opacity: 0.6;
+        }
+
+        /* ============================================ */
+        /* ★ 分割线下方 - 附加内容标题 */
+        /* ============================================ */
+        .extra-section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #f0f0f0;
+            padding: 16px 0 12px;
+            letter-spacing: 1px;
+        }
+        .extra-section-title .red {
+            color: #cc0000;
+        }
+
+        /* ============================================ */
+        /* ★ 附加内容（红军遗物、电报文件等） */
+        /* ============================================ */
+        .extra-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+            padding: 10px 0 20px;
+        }
+
+        .extra-card {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .extra-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(204, 0, 0, 0.15);
+        }
+
+        .extra-card .card-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            display: block;
+            background: #2a2a4a;
+        }
+
+        .extra-card .card-body {
+            padding: 14px 16px 16px;
+        }
+
+        .extra-card .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f0f0f0;
+            margin-bottom: 3px;
+        }
+
+        .extra-card .card-sub {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 8px;
+        }
+
+        .extra-card .card-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .extra-card .card-tag {
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: rgba(204, 0, 0, 0.12);
+            color: #f7d98c;
+            border: 1px solid rgba(204, 0, 0, 0.08);
         }
 
         /* ============================================ */
@@ -293,45 +417,54 @@
         @media (max-width: 768px) {
             .top-nav {
                 padding: 12px 16px;
-                flex-wrap: wrap;
-                gap: 8px;
             }
             .nav-title {
                 font-size: 1rem;
             }
             .nav-search input {
-                width: 100px;
+                width: 80px;
                 font-size: 0.75rem;
             }
+            .nav-search select {
+                font-size: 0.65rem;
+                padding: 3px 8px;
+                padding-right: 20px;
+                min-width: 55px;
+            }
             .nav-search {
-                padding: 4px 4px 4px 12px;
+                padding: 4px 4px 4px 10px;
             }
             .nav-search button {
                 padding: 4px 10px;
                 font-size: 0.65rem;
             }
-            .nav-avatar {
-                width: 30px;
-                height: 30px;
-                font-size: 0.7rem;
-            }
             .content-wrapper {
                 padding: 20px 16px 40px;
             }
             .cards-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
                 gap: 16px;
             }
             .resource-card .card-image {
-                height: 130px;
+                height: 140px;
             }
-            .tab-item {
-                padding: 6px 14px;
-                font-size: 0.78rem;
+            .extra-grid {
+                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+                gap: 14px;
             }
-            .tabs-row {
-                gap: 4px;
-                padding: 4px 0 14px 0;
+            .extra-card .card-image {
+                height: 110px;
+            }
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .stat-item .stat-number {
+                font-size: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.2rem;
+                padding: 20px 0 12px;
             }
             .pagination-info {
                 flex-direction: column;
@@ -346,7 +479,7 @@
                 gap: 12px;
             }
             .resource-card .card-image {
-                height: 100px;
+                height: 110px;
             }
             .resource-card .card-body {
                 padding: 10px 12px 14px;
@@ -361,17 +494,58 @@
                 font-size: 0.55rem;
                 padding: 2px 8px;
             }
+            .extra-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .extra-card .card-image {
+                height: 90px;
+            }
+            .extra-card .card-body {
+                padding: 10px 12px 12px;
+            }
+            .extra-card .card-title {
+                font-size: 0.8rem;
+            }
+            .extra-card .card-sub {
+                font-size: 0.65rem;
+            }
+            .extra-card .card-tag {
+                font-size: 0.5rem;
+                padding: 1px 6px;
+            }
+            .stats-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .stat-item {
+                padding: 12px 10px;
+            }
+            .stat-item .stat-number {
+                font-size: 1.2rem;
+            }
+            .stat-item .stat-label {
+                font-size: 0.65rem;
+            }
+            .section-title {
+                font-size: 1rem;
+            }
+            .extra-section-title {
+                font-size: 0.95rem;
+            }
             .nav-search input {
-                width: 70px;
+                width: 60px;
                 font-size: 0.7rem;
             }
-            .tab-item {
-                padding: 4px 10px;
-                font-size: 0.7rem;
+            .nav-search select {
+                font-size: 0.6rem;
+                padding: 2px 6px;
+                padding-right: 16px;
+                min-width: 45px;
             }
             .pagination-info .pages .page-btn {
-                padding: 4px 10px;
-                font-size: 0.7rem;
+                padding: 4px 8px;
+                font-size: 0.65rem;
             }
         }
     </style>
@@ -385,11 +559,28 @@
             <span class="nav-title">通道转兵<span class="red">红色资源库</span></span>
         </div>
         <div class="nav-right">
+            <!-- ★ 搜索框 - 带下拉列表 -->
             <div class="nav-search">
                 <input type="text" placeholder="搜索资源..." id="searchInput">
+                <select id="yearSelect">
+                    <option value="">年份</option>
+                    <option value="1934">1934</option>
+                    <option value="1935">1935</option>
+                    <option value="1936">1936</option>
+                    <option value="全部">全部年份</option>
+                </select>
+                <select id="categorySelect">
+                    <option value="">分类</option>
+                    <option value="湘江战役">湘江战役</option>
+                    <option value="通道会议">通道会议</option>
+                    <option value="通道转兵">通道转兵</option>
+                    <option value="影像">影像</option>
+                    <option value="文献">文献</option>
+                    <option value="文物">文物</option>
+                    <option value="全部">全部分类</option>
+                </select>
                 <button id="searchBtn">搜索</button>
             </div>
-            <div class="nav-avatar">👤</div>
         </div>
     </nav>
 
@@ -397,60 +588,106 @@
     <div class="main-container">
         <div class="content-wrapper">
 
-            <!-- ===== 分类Tab（一行） ===== -->
-            <div class="tabs-row" id="tabsRow">
-                <span class="tab-item active" data-tab="all"><span class="tab-icon">📋</span>全部</span>
-                <span class="tab-item" data-tab="xuejiang"><span class="tab-icon">⚔️</span>血战湘江</span>
-                <span class="tab-item" data-tab="tongdao"><span class="tab-icon">🏛️</span>通道会议</span>
-                <span class="tab-item" data-tab="zhuanbing"><span class="tab-icon">🔄</span>通道转兵</span>
-                <span class="tab-item" data-tab="image"><span class="tab-icon">📷</span>影像</span>
-                <span class="tab-item" data-tab="document"><span class="tab-icon">📄</span>文献</span>
+            <!-- ========================================== -->
+            <!-- ★ 统计框 -->
+            <!-- ========================================== -->
+            <div class="stats-row">
+                <div class="stat-item">
+                    <span class="stat-number">1,284</span>
+                    <span class="stat-label"><span class="stat-icon">📄</span>图文总数</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">386</span>
+                    <span class="stat-label"><span class="stat-icon">📷</span>影像资料</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">512</span>
+                    <span class="stat-label"><span class="stat-icon">📜</span>文献档案</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">128</span>
+                    <span class="stat-label"><span class="stat-icon">🏺</span>革命文物</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">258</span>
+                    <span class="stat-label"><span class="stat-icon">🗺️</span>地图/路线</span>
+                </div>
             </div>
 
-            <!-- ===== 卡片网格 ===== -->
-            <div class="cards-grid" id="cardsGrid">
+            <!-- ========================================== -->
+            <!-- ★ 三大板块标题 -->
+            <!-- ========================================== -->
+            <div class="section-title">
+                📖 <span class="red">三大转折</span> · 红色记忆
+            </div>
 
-                <!-- 卡片1：湘江战役行军图 -->
-                <div class="resource-card" data-category="xuejiang">
+            <!-- ========================================== -->
+            <!-- ★ 三大板块卡片（中间偏下） -->
+            <!-- ========================================== -->
+            <div class="cards-grid">
+
+                <!-- 卡片1：湘江战役 -->
+                <div class="resource-card" data-category="湘江战役">
                     <img class="card-image" src="湘江战役行军图.jpg" alt="湘江战役行军图">
                     <div class="card-body">
-                        <div class="card-title">湘江战役行军图</div>
-                        <div class="card-sub">1934年11月 · 军事地图</div>
+                        <div class="card-title">⚔️ 血战湘江</div>
+                        <div class="card-sub">1934年11月 · 湘江两岸</div>
                         <div class="card-tags">
                             <span class="card-tag">#长征</span>
                             <span class="card-tag">#湘江战役</span>
+                            <span class="card-tag">#突围</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 卡片2：通道会议旧址照片 -->
-                <div class="resource-card" data-category="tongdao">
+                <!-- 卡片2：通道会议 -->
+                <div class="resource-card" data-category="通道会议">
                     <img class="card-image" src="通道会议.jpg" alt="通道会议旧址">
                     <div class="card-body">
-                        <div class="card-title">通道会议旧址</div>
-                        <div class="card-sub">1934年12月 · 恭城书院</div>
+                        <div class="card-title">🏛️ 通道会议</div>
+                        <div class="card-sub">1934年12月12日 · 恭城书院</div>
                         <div class="card-tags">
                             <span class="card-tag">#会议</span>
-                            <span class="card-tag">#通道</span>
+                            <span class="card-tag">#转折</span>
+                            <span class="card-tag">#决策</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 卡片3：通道转兵路线图 -->
-                <div class="resource-card" data-category="zhuanbing">
+                <!-- 卡片3：通道转兵 -->
+                <div class="resource-card" data-category="通道转兵">
                     <img class="card-image" src="通道转兵.jpg" alt="通道转兵路线图">
                     <div class="card-body">
-                        <div class="card-title">通道转兵路线图</div>
-                        <div class="card-sub">1934年12月 · 战略路线</div>
+                        <div class="card-title">🔄 通道转兵</div>
+                        <div class="card-sub">1934年12月 · 西进贵州</div>
                         <div class="card-tags">
-                            <span class="card-tag">#转折</span>
                             <span class="card-tag">#转兵</span>
+                            <span class="card-tag">#战略</span>
+                            <span class="card-tag">#胜利</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 卡片4：红军遗物 -->
-                <div class="resource-card" data-category="image">
+            </div>
+
+            <!-- ========================================== -->
+            <!-- ★ 红色分割线 -->
+            <!-- ========================================== -->
+            <div class="divider-red"></div>
+
+            <!-- ========================================== -->
+            <!-- ★ 附加内容标题 -->
+            <!-- ========================================== -->
+            <div class="extra-section-title">
+                📦 <span class="red">革命遗存</span> · 历史见证
+            </div>
+
+            <!-- ========================================== -->
+            <!-- ★ 附加内容（红军遗物、电报文件等） -->
+            <!-- ========================================== -->
+            <div class="extra-grid">
+
+                <div class="extra-card">
                     <img class="card-image" src="红军遗物.jpg" alt="红军遗物">
                     <div class="card-body">
                         <div class="card-title">红军遗物</div>
@@ -462,8 +699,7 @@
                     </div>
                 </div>
 
-                <!-- 卡片5：电报文件 -->
-                <div class="resource-card" data-category="document">
+                <div class="extra-card">
                     <img class="card-image" src="电报文件.jpg" alt="电报文件">
                     <div class="card-body">
                         <div class="card-title">"万万火急"电令</div>
@@ -475,8 +711,7 @@
                     </div>
                 </div>
 
-                <!-- 卡片6：人物肖像 -->
-                <div class="resource-card" data-category="image">
+                <div class="extra-card">
                     <img class="card-image" src="人物肖像.jpg" alt="人物肖像">
                     <div class="card-body">
                         <div class="card-title">红军将领肖像</div>
@@ -488,8 +723,7 @@
                     </div>
                 </div>
 
-                <!-- 卡片7：作战命令 -->
-                <div class="resource-card" data-category="document">
+                <div class="extra-card">
                     <img class="card-image" src="作战命令.jpg" alt="作战命令">
                     <div class="card-body">
                         <div class="card-title">强渡湘江作战命令</div>
@@ -501,8 +735,7 @@
                     </div>
                 </div>
 
-                <!-- 卡片8：战场遗址 -->
-                <div class="resource-card" data-category="xuejiang">
+                <div class="extra-card">
                     <img class="card-image" src="战场遗址.jpg" alt="战场遗址">
                     <div class="card-body">
                         <div class="card-title">湘江战役遗址</div>
@@ -514,8 +747,7 @@
                     </div>
                 </div>
 
-                <!-- 卡片9：会议记录 -->
-                <div class="resource-card" data-category="tongdao">
+                <div class="extra-card">
                     <img class="card-image" src="会议记录.jpg" alt="会议记录">
                     <div class="card-body">
                         <div class="card-title">通道会议记录</div>
@@ -529,7 +761,9 @@
 
             </div>
 
-            <!-- ===== 分页信息 ===== -->
+            <!-- ========================================== -->
+            <!-- ★ 分页信息 -->
+            <!-- ========================================== -->
             <div class="pagination-info">
                 <div class="total">
                     共 <span class="num">1,284</span> 条资源  ·  第 <span class="num">1</span> / 43 页
@@ -550,40 +784,25 @@
 
     <script>
         (function() {
-            // ===== Tab切换 =====
-            const tabs = document.querySelectorAll('.tab-item');
-            const cards = document.querySelectorAll('.resource-card');
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // 更新Tab状态
-                    tabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-
-                    const category = this.dataset.tab;
-
-                    // 筛选卡片
-                    cards.forEach(card => {
-                        if (category === 'all') {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = card.dataset.category === category ? 'block' : 'none';
-                        }
-                    });
-                });
-            });
-
             // ===== 搜索功能 =====
             const searchInput = document.getElementById('searchInput');
+            const yearSelect = document.getElementById('yearSelect');
+            const categorySelect = document.getElementById('categorySelect');
             const searchBtn = document.getElementById('searchBtn');
 
             function handleSearch() {
                 const keyword = searchInput.value.trim();
-                if (keyword === '') {
-                    alert('请输入搜索关键词');
-                    return;
-                }
-                alert('🔍 搜索关键词: "' + keyword + '"\n(搜索功能暂未实现，仅展示UI)');
+                const year = yearSelect.value;
+                const category = categorySelect.value;
+
+                let message = '🔍 搜索条件：\n';
+                message += `📝 关键词: "${keyword || '(空)'}"\n`;
+                message += `📅 年份: ${year || '不限'}\n`;
+                message += `📂 分类: ${category || '不限'}\n`;
+                message += `\n(搜索功能暂未实现，仅展示筛选条件)`;
+
+                alert(message);
+                console.log('搜索条件:', { keyword, year, category });
             }
 
             searchBtn.addEventListener('click', handleSearch);
@@ -594,8 +813,9 @@
                 }
             });
 
-            // ===== 卡片点击效果 =====
-            cards.forEach(card => {
+            // ===== 卡片点击 =====
+            const allCards = document.querySelectorAll('.resource-card, .extra-card');
+            allCards.forEach(card => {
                 card.addEventListener('click', function() {
                     const title = this.querySelector('.card-title')?.textContent || '资源';
                     alert('📖 您点击了: "' + title + '"\n(详情页暂未实现)');
@@ -609,7 +829,6 @@
                     if (this.textContent.includes('页') || this.textContent.includes('…')) return;
                     pageBtns.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
-                    // 更新页码显示
                     const totalSpan = document.querySelector('.pagination-info .total .num:last-child');
                     if (totalSpan) {
                         totalSpan.textContent = this.textContent;
@@ -617,9 +836,10 @@
                 });
             });
 
-            console.log('✅ 资源展示页面已加载');
-            console.log('📌 分类Tab: 全部 | 血战湘江 | 通道会议 | 通道转兵 | 影像 | 文献');
-            console.log('📌 共 9 张卡片展示');
+            console.log('✅ 通道转兵红色资源库 已加载');
+            console.log('📌 统计框: 图文总数 1,284 | 影像 386 | 文献 512 | 文物 128 | 地图 258');
+            console.log('📌 三大板块: 血战湘江 | 通道会议 | 通道转兵');
+            console.log('📌 附加内容: 红军遗物 | 电报文件 | 人物肖像 | 作战命令 | 战场遗址 | 会议记录');
         })();
     </script>
 
