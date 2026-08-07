@@ -68,7 +68,6 @@
             flex-wrap: wrap;
         }
 
-        /* ★ 搜索框 - 带下拉列表 */
         .nav-search {
             display: flex;
             align-items: center;
@@ -129,17 +128,21 @@
             background: #b30000;
         }
 
-        /* ===== 主容器 ===== */
+        /* ===== 主容器 - 使用flex实现垂直居中 ===== */
         .main-container {
             padding-top: 80px;
             min-height: 100vh;
             background: rgba(0, 0, 0, 0.30);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .content-wrapper {
             max-width: 1280px;
             margin: 0 auto;
             padding: 30px 24px 60px;
+            width: 100%;
         }
 
         /* ============================================ */
@@ -194,19 +197,22 @@
             color: #fff;
             padding: 28px 0 16px;
             letter-spacing: 2px;
+            text-align: center;
         }
         .section-title .red {
             color: #cc0000;
         }
 
         /* ============================================ */
-        /* ★ 三大板块卡片（中间偏下） */
+        /* ★ 三大板块卡片 - 居中 + 自动填充 */
         /* ============================================ */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
             padding: 10px 0 30px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
         .resource-card {
@@ -217,6 +223,8 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
             transition: 0.3s;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
 
         .resource-card:hover {
@@ -228,19 +236,22 @@
 
         .resource-card .card-image {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
             display: block;
             background: #2a2a4a;
         }
 
         .resource-card .card-body {
-            padding: 16px 18px 18px;
+            padding: 18px 20px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .resource-card .card-title {
-            font-size: 1.05rem;
-            font-weight: 600;
+            font-size: 1.15rem;
+            font-weight: 700;
             color: #f0f0f0;
             margin-bottom: 4px;
         }
@@ -255,6 +266,7 @@
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
+            margin-top: auto;
         }
 
         .resource-card .card-tag {
@@ -271,14 +283,15 @@
         /* ============================================ */
         .divider-red {
             width: 100%;
+            max-width: 1100px;
+            margin: 20px auto 10px;
             height: 2px;
             background: linear-gradient(to right, transparent, #cc0000, #cc0000, transparent);
-            margin: 20px 0 10px;
             opacity: 0.6;
         }
 
         /* ============================================ */
-        /* ★ 分割线下方 - 附加内容标题 */
+        /* ★ 附加内容标题 */
         /* ============================================ */
         .extra-section-title {
             font-size: 1.2rem;
@@ -286,19 +299,22 @@
             color: #f0f0f0;
             padding: 16px 0 12px;
             letter-spacing: 1px;
+            text-align: center;
         }
         .extra-section-title .red {
             color: #cc0000;
         }
 
         /* ============================================ */
-        /* ★ 附加内容（红军遗物、电报文件等） */
+        /* ★ 附加内容 */
         /* ============================================ */
         .extra-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 18px;
             padding: 10px 0 20px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
         .extra-card {
@@ -308,6 +324,8 @@
             border: 1px solid rgba(255, 255, 255, 0.04);
             transition: 0.3s;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
 
         .extra-card:hover {
@@ -326,6 +344,9 @@
 
         .extra-card .card-body {
             padding: 14px 16px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .extra-card .card-title {
@@ -345,6 +366,7 @@
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
+            margin-top: auto;
         }
 
         .extra-card .card-tag {
@@ -367,6 +389,8 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             flex-wrap: wrap;
             gap: 12px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
         .pagination-info .total {
@@ -414,6 +438,16 @@
         }
 
         /* ===== 响应式 ===== */
+        @media (max-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 18px;
+            }
+            .resource-card .card-image {
+                height: 170px;
+            }
+        }
+
         @media (max-width: 768px) {
             .top-nav {
                 padding: 12px 16px;
@@ -442,11 +476,17 @@
                 padding: 20px 16px 40px;
             }
             .cards-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 16px;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 14px;
             }
             .resource-card .card-image {
                 height: 140px;
+            }
+            .resource-card .card-title {
+                font-size: 1rem;
+            }
+            .resource-card .card-body {
+                padding: 14px 16px 16px;
             }
             .extra-grid {
                 grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
@@ -456,7 +496,7 @@
                 height: 110px;
             }
             .stats-row {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 12px;
             }
             .stat-item .stat-number {
@@ -473,62 +513,37 @@
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 600px) {
             .cards-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
+                grid-template-columns: 1fr;
+                gap: 16px;
+                max-width: 400px;
             }
             .resource-card .card-image {
-                height: 110px;
-            }
-            .resource-card .card-body {
-                padding: 10px 12px 14px;
-            }
-            .resource-card .card-title {
-                font-size: 0.85rem;
-            }
-            .resource-card .card-sub {
-                font-size: 0.7rem;
-            }
-            .resource-card .card-tag {
-                font-size: 0.55rem;
-                padding: 2px 8px;
+                height: 200px;
             }
             .extra-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 10px;
+                gap: 12px;
             }
             .extra-card .card-image {
-                height: 90px;
-            }
-            .extra-card .card-body {
-                padding: 10px 12px 12px;
-            }
-            .extra-card .card-title {
-                font-size: 0.8rem;
-            }
-            .extra-card .card-sub {
-                font-size: 0.65rem;
-            }
-            .extra-card .card-tag {
-                font-size: 0.5rem;
-                padding: 1px 6px;
+                height: 100px;
             }
             .stats-row {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
             }
             .stat-item {
-                padding: 12px 10px;
+                padding: 14px 12px;
             }
             .stat-item .stat-number {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             .stat-item .stat-label {
-                font-size: 0.65rem;
+                font-size: 0.7rem;
             }
             .section-title {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             .extra-section-title {
                 font-size: 0.95rem;
@@ -544,8 +559,35 @@
                 min-width: 45px;
             }
             .pagination-info .pages .page-btn {
-                padding: 4px 8px;
+                padding: 4px 10px;
+                font-size: 0.7rem;
+            }
+            .resource-card .card-title {
+                font-size: 1.05rem;
+            }
+            .resource-card .card-sub {
+                font-size: 0.75rem;
+            }
+            .extra-card .card-title {
+                font-size: 0.82rem;
+            }
+            .extra-card .card-sub {
                 font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .extra-grid {
+                grid-template-columns: 1fr;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            .extra-card .card-image {
+                height: 150px;
+            }
+            .stats-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
             }
         }
     </style>
@@ -559,7 +601,6 @@
             <span class="nav-title">通道转兵<span class="red">红色资源库</span></span>
         </div>
         <div class="nav-right">
-            <!-- ★ 搜索框 - 带下拉列表 -->
             <div class="nav-search">
                 <input type="text" placeholder="搜索资源..." id="searchInput">
                 <select id="yearSelect">
@@ -584,7 +625,7 @@
         </div>
     </nav>
 
-    <!-- ===== 主内容 ===== -->
+    <!-- ===== 主容器 - 垂直居中 ===== -->
     <div class="main-container">
         <div class="content-wrapper">
 
@@ -622,11 +663,10 @@
             </div>
 
             <!-- ========================================== -->
-            <!-- ★ 三大板块卡片（中间偏下） -->
+            <!-- ★ 三大板块卡片 - 居中 + 自动填充 -->
             <!-- ========================================== -->
             <div class="cards-grid">
 
-                <!-- 卡片1：湘江战役 -->
                 <div class="resource-card" data-category="湘江战役">
                     <img class="card-image" src="湘江战役行军图.jpg" alt="湘江战役行军图">
                     <div class="card-body">
@@ -640,7 +680,6 @@
                     </div>
                 </div>
 
-                <!-- 卡片2：通道会议 -->
                 <div class="resource-card" data-category="通道会议">
                     <img class="card-image" src="通道会议.jpg" alt="通道会议旧址">
                     <div class="card-body">
@@ -654,7 +693,6 @@
                     </div>
                 </div>
 
-                <!-- 卡片3：通道转兵 -->
                 <div class="resource-card" data-category="通道转兵">
                     <img class="card-image" src="通道转兵.jpg" alt="通道转兵路线图">
                     <div class="card-body">
@@ -683,7 +721,7 @@
             </div>
 
             <!-- ========================================== -->
-            <!-- ★ 附加内容（红军遗物、电报文件等） -->
+            <!-- ★ 附加内容 -->
             <!-- ========================================== -->
             <div class="extra-grid">
 
@@ -837,9 +875,7 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 统计框: 图文总数 1,284 | 影像 386 | 文献 512 | 文物 128 | 地图 258');
-            console.log('📌 三大板块: 血战湘江 | 通道会议 | 通道转兵');
-            console.log('📌 附加内容: 红军遗物 | 电报文件 | 人物肖像 | 作战命令 | 战场遗址 | 会议记录');
+            console.log('📌 三大板块居中显示，自动填充屏幕');
         })();
     </script>
 
