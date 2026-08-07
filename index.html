@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>通道转兵红色资源库 - 血战湘江</title>
     <style>
+        /* ===== 全局样式 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -24,6 +25,7 @@
             overflow-y: auto;
         }
 
+        /* ===== 顶部导航栏 ===== */
         .top-nav {
             position: fixed;
             top: 0;
@@ -37,6 +39,8 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 2px solid rgba(204, 0, 0, 0.3);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .nav-left {
@@ -72,14 +76,18 @@
             letter-spacing: 2px;
         }
 
+        /* ===== ★ 搜索框 - 包含下拉列表 ===== */
         .search-wrapper {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.10);
+            border-radius: 40px;
             padding: 4px 4px 4px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 6px;
+            flex-wrap: wrap;
         }
+
         .search-wrapper input {
             background: transparent;
             border: none;
@@ -87,28 +95,63 @@
             font-size: 0.9rem;
             color: #fff;
             outline: none;
-            width: 160px;
+            width: 140px;
+            min-width: 80px;
         }
         .search-wrapper input::placeholder {
             color: #aaa;
             font-size: 0.85rem;
         }
+
+        /* ★ 下拉列表样式 */
+        .search-wrapper select {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            color: #f0f0f0;
+            outline: none;
+            cursor: pointer;
+            transition: 0.2s;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23aaaaaa'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+            min-width: 100px;
+        }
+
+        .search-wrapper select:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .search-wrapper select option {
+            background: #1a1a2e;
+            color: #f0f0f0;
+        }
+
+        /* ★ 搜索按钮 */
         .search-btn {
             background: #cc0000;
             border: none;
             border-radius: 30px;
-            padding: 8px 16px;
+            padding: 8px 18px;
             color: #fff;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
             font-size: 0.85rem;
+            white-space: nowrap;
         }
         .search-btn:hover {
             background: #b30000;
             transform: scale(0.97);
         }
 
+        /* ===== 主页（三阶段选择器） ===== */
         .main-container {
             padding-top: 80px;
             min-height: 100vh;
@@ -387,7 +430,7 @@
         }
 
         /* ============================================ */
-        /* ★ 结束画面 - 图片下移 */
+        /* ★ 结束画面 */
         /* ============================================ */
         .end-screen {
             position: absolute;
@@ -410,7 +453,6 @@
             opacity: 1;
         }
 
-        /* ★ 图片容器 - 整体下移 */
         .end-image-wrapper {
             max-width: 68%;
             max-height: 44vh;
@@ -423,7 +465,6 @@
             padding: 16px 20px;
             border: 1px solid rgba(255, 255, 255, 0.06);
             box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
-            /* ★ 关键：整体下移 */
             transform: translateY(30px);
         }
 
@@ -447,7 +488,6 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
             text-align: center;
-            /* ★ 文字框也跟随下移 */
             transform: translateY(20px);
         }
 
@@ -511,8 +551,22 @@
             .nav-title {
                 font-size: 1.1rem;
             }
+            .search-wrapper {
+                padding: 4px 4px 4px 12px;
+            }
             .search-wrapper input {
                 width: 100px;
+                font-size: 0.8rem;
+            }
+            .search-wrapper select {
+                font-size: 0.75rem;
+                padding: 4px 10px;
+                padding-right: 26px;
+                min-width: 80px;
+            }
+            .search-btn {
+                padding: 6px 14px;
+                font-size: 0.75rem;
             }
             .end-image-wrapper {
                 max-width: 82%;
@@ -562,19 +616,29 @@
             }
             .top-nav {
                 padding: 12px 16px;
-                flex-wrap: wrap;
-                gap: 10px;
             }
             .nav-title {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
+            }
+            .search-wrapper {
+                padding: 4px 4px 4px 10px;
+                width: 100%;
+                justify-content: center;
             }
             .search-wrapper input {
-                width: 80px;
-                font-size: 0.8rem;
+                width: 70px;
+                font-size: 0.75rem;
+                padding: 6px 6px;
+            }
+            .search-wrapper select {
+                font-size: 0.7rem;
+                padding: 4px 8px;
+                padding-right: 22px;
+                min-width: 60px;
             }
             .search-btn {
-                padding: 6px 12px;
-                font-size: 0.75rem;
+                padding: 5px 10px;
+                font-size: 0.7rem;
             }
             .dialogue-item {
                 padding: 18px 20px;
@@ -626,6 +690,7 @@
 </head>
 <body>
 
+    <!-- ===== 顶部导航栏 ===== -->
     <nav class="top-nav">
         <div class="nav-left">
             <a href="#" class="back-btn" id="backBtn">
@@ -633,12 +698,29 @@
             </a>
             <span class="nav-title">通道转兵红色资源库</span>
         </div>
+        <!-- ★ 搜索框 - 包含下拉列表 -->
         <div class="search-wrapper">
             <input type="text" id="searchInput" placeholder="搜索内容">
+            <select id="yearSelect">
+                <option value="">年份</option>
+                <option value="1934">1934</option>
+                <option value="1935">1935</option>
+                <option value="1936">1936</option>
+                <option value="全部">全部年份</option>
+            </select>
+            <select id="themeSelect">
+                <option value="">主题</option>
+                <option value="血战湘江">血战湘江</option>
+                <option value="通道会议">通道会议</option>
+                <option value="通道转兵">通道转兵</option>
+                <option value="长征">长征</option>
+                <option value="全部">全部主题</option>
+            </select>
             <button class="search-btn" id="searchBtn">搜索</button>
         </div>
     </nav>
 
+    <!-- ===== 主页 ===== -->
     <div class="main-container" id="mainPage">
 
         <div class="slider-wrapper">
@@ -685,7 +767,6 @@
         </div>
         <div class="detail-overlay" id="detailOverlay"></div>
 
-        <!-- ★ 结束画面 -->
         <div class="end-screen" id="endScreen">
             <div class="end-image-wrapper">
                 <img class="end-image" src="红军人数变化图.png" alt="红军人数变化图">
@@ -708,8 +789,23 @@
                 <span class="nav-title">血战湘江</span>
             </div>
             <div class="search-wrapper">
-                <input type="text" placeholder="搜索内容" style="width:160px;">
-                <button class="search-btn">搜索</button>
+                <input type="text" id="searchInputDetail" placeholder="搜索内容">
+                <select id="yearSelectDetail">
+                    <option value="">年份</option>
+                    <option value="1934">1934</option>
+                    <option value="1935">1935</option>
+                    <option value="1936">1936</option>
+                    <option value="全部">全部年份</option>
+                </select>
+                <select id="themeSelectDetail">
+                    <option value="">主题</option>
+                    <option value="血战湘江">血战湘江</option>
+                    <option value="通道会议">通道会议</option>
+                    <option value="通道转兵">通道转兵</option>
+                    <option value="长征">长征</option>
+                    <option value="全部">全部主题</option>
+                </select>
+                <button class="search-btn" id="searchBtnDetail">搜索</button>
             </div>
         </nav>
 
@@ -775,6 +871,76 @@
 
     <script>
         (function() {
+            // ===== 主页搜索功能 =====
+            const searchInput = document.getElementById('searchInput');
+            const yearSelect = document.getElementById('yearSelect');
+            const themeSelect = document.getElementById('themeSelect');
+            const searchBtn = document.getElementById('searchBtn');
+
+            // ===== 详情页搜索功能 =====
+            const searchInputDetail = document.getElementById('searchInputDetail');
+            const yearSelectDetail = document.getElementById('yearSelectDetail');
+            const themeSelectDetail = document.getElementById('themeSelectDetail');
+            const searchBtnDetail = document.getElementById('searchBtnDetail');
+
+            // ★ 通用搜索处理函数
+            function handleSearch(input, year, theme, isDetail = false) {
+                const keyword = input.value.trim();
+                const yearVal = year.value;
+                const themeVal = theme.value;
+
+                let message = '🔍 搜索条件：\n';
+                message += `📝 关键词: "${keyword || '(空)'}"\n`;
+                message += `📅 年份: ${yearVal || '不限'}\n`;
+                message += `🏷️ 主题: ${themeVal || '不限'}\n`;
+                message += `\n(搜索功能暂未实现，仅展示筛选条件)`;
+
+                alert(message);
+
+                // 未来可在此处接入真实搜索逻辑
+                console.log('搜索条件:', { keyword, year: yearVal, theme: themeVal });
+            }
+
+            // ===== 绑定主页搜索事件 =====
+            searchBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                handleSearch(searchInput, yearSelect, themeSelect, false);
+            });
+
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSearch(searchInput, yearSelect, themeSelect, false);
+                }
+            });
+
+            // 下拉列表变化时也可触发搜索（可选）
+            yearSelect.addEventListener('change', function() {
+                // 自动搜索（可根据需要启用）
+                // handleSearch(searchInput, yearSelect, themeSelect, false);
+            });
+
+            themeSelect.addEventListener('change', function() {
+                // 自动搜索（可根据需要启用）
+                // handleSearch(searchInput, yearSelect, themeSelect, false);
+            });
+
+            // ===== 绑定详情页搜索事件 =====
+            searchBtnDetail.addEventListener('click', function(e) {
+                e.preventDefault();
+                handleSearch(searchInputDetail, yearSelectDetail, themeSelectDetail, true);
+            });
+
+            searchInputDetail.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSearch(searchInputDetail, yearSelectDetail, themeSelectDetail, true);
+                }
+            });
+
+            // ============================================
+            // ★ 原有逻辑：导航、对话等
+            // ============================================
             const mainPage = document.getElementById('mainPage');
             const phaseDetails = [
                 document.getElementById('phase1Detail'),
@@ -820,6 +986,9 @@
                 goToMain();
             });
 
+            // ============================================
+            // ★ 血战湘江 - 五段对话
+            // ============================================
             let currentDialogueIndex = 0;
             const totalDialogues = 5;
             const dialogueItems = document.querySelectorAll('.dialogue-item');
@@ -903,28 +1072,8 @@
                 });
             });
 
-            const searchInput = document.getElementById('searchInput');
-            const searchBtn = document.getElementById('searchBtn');
-
-            function handleSearch() {
-                const query = searchInput.value.trim();
-                if (query === '') {
-                    alert('请输入搜索内容');
-                    return;
-                }
-                alert('🔍 您搜索了: "' + query + '"\n(搜索功能暂未实现)');
-            }
-
-            searchBtn.addEventListener('click', handleSearch);
-            searchInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleSearch();
-                }
-            });
-
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 结束画面图片已下移');
+            console.log('📌 搜索框已升级：年份 + 主题 下拉列表');
         })();
     </script>
 
