@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>通道转兵红色资源库</title>
+    <title>通道转兵红色资源库 - 血战湘江</title>
     <style>
         * {
             margin: 0;
@@ -21,6 +21,8 @@
             background-color: #1a1a2e;
             color: #fff;
             min-height: 100vh;
+            overflow: hidden;
+            height: 100vh;
         }
 
         /* ===== 顶部导航栏 ===== */
@@ -47,8 +49,23 @@
             gap: 14px;
         }
 
-        .nav-icon {
+        .back-btn {
+            color: #fff;
             font-size: 1.4rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .back-btn:hover {
+            color: #ff6b6b;
+            transform: scale(1.05);
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
         }
 
         .nav-title {
@@ -128,329 +145,164 @@
             background: #b30000;
         }
 
-        /* ===== 主容器 - 使用flex实现垂直居中 ===== */
+        /* ============================================ */
+        /* ★ 主内容 - 全屏展示 */
+        /* ============================================ */
         .main-container {
-            padding-top: 80px;
-            min-height: 100vh;
-            background: rgba(0, 0, 0, 0.30);
+            padding-top: 70px;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.40);
             display: flex;
             flex-direction: column;
+            align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .content-wrapper {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 30px 24px 60px;
+        /* ============================================ */
+        /* ★ 图片容器 - 居中 */
+        /* ============================================ */
+        .image-container {
             width: 100%;
-        }
-
-        /* ============================================ */
-        /* ★ 统计框 */
-        /* ============================================ */
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
-            padding: 20px 0 30px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .stat-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 14px;
-            padding: 18px 16px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: 0.3s;
-        }
-
-        .stat-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-2px);
-        }
-
-        .stat-item .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #f7d98c;
-            display: block;
-        }
-
-        .stat-item .stat-label {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 4px;
-        }
-
-        .stat-item .stat-icon {
-            font-size: 1.2rem;
-            margin-right: 6px;
-        }
-
-        /* ============================================ */
-        /* ★ 三大板块标题 */
-        /* ============================================ */
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #fff;
-            padding: 28px 0 16px;
-            letter-spacing: 2px;
-            text-align: center;
-        }
-        .section-title .red {
-            color: #cc0000;
-        }
-
-        /* ============================================ */
-        /* ★ 三大板块卡片 - 居中 + 自动填充 */
-        /* ============================================ */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            padding: 10px 0 30px;
             max-width: 1100px;
-            margin: 0 auto;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 30px 10px;
+            position: relative;
+            min-height: 0;
         }
 
-        .resource-card {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(8px);
+        .image-container img {
+            max-width: 100%;
+            max-height: 58vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.8s ease;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .image-container img.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .image-container img.visible {
+            opacity: 1;
+        }
+
+        /* ============================================ */
+        /* ★ 文字框 - 偏下 + 模糊 + 黄色细线 */
+        /* ============================================ */
+        .text-container {
+            width: 100%;
+            max-width: 1100px;
+            padding: 0 30px 40px 30px;
+            flex-shrink: 0;
+        }
+
+        .text-box {
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             border-radius: 16px;
-            overflow: hidden;
+            padding: 24px 36px 30px;
             border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: 0.3s;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
             cursor: pointer;
-            display: flex;
-            flex-direction: column;
+            user-select: none;
+            transition: 0.3s;
+            position: relative;
         }
 
-        .resource-card:hover {
-            transform: translateY(-6px);
-            background: rgba(255, 255, 255, 0.10);
-            border-color: rgba(204, 0, 0, 0.2);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        .text-box:hover {
+            background: rgba(0, 0, 0, 0.55);
         }
 
-        .resource-card .card-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-            background: #2a2a4a;
-        }
-
-        .resource-card .card-body {
-            padding: 18px 20px 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .resource-card .card-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #f0f0f0;
-            margin-bottom: 4px;
-        }
-
-        .resource-card .card-sub {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 10px;
-        }
-
-        .resource-card .card-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: auto;
-        }
-
-        .resource-card .card-tag {
-            font-size: 0.65rem;
-            padding: 3px 12px;
-            border-radius: 20px;
-            background: rgba(204, 0, 0, 0.15);
-            color: #f7d98c;
-            border: 1px solid rgba(204, 0, 0, 0.1);
-        }
-
-        /* ============================================ */
-        /* ★ 红色分割线 */
-        /* ============================================ */
-        .divider-red {
-            width: 100%;
-            max-width: 1100px;
-            margin: 20px auto 10px;
+        /* ★ 黄色细线 - 顶端 */
+        .text-box .yellow-line {
+            position: absolute;
+            top: 0;
+            left: 10%;
+            width: 80%;
             height: 2px;
-            background: linear-gradient(to right, transparent, #cc0000, #cc0000, transparent);
-            opacity: 0.6;
+            background: linear-gradient(to right, transparent, #f7d98c, #f7d98c, transparent);
+            opacity: 0.7;
         }
 
-        /* ============================================ */
-        /* ★ 附加内容标题 */
-        /* ============================================ */
-        .extra-section-title {
-            font-size: 1.2rem;
-            font-weight: 600;
+        .text-box .text-content {
+            font-size: 1.1rem;
+            line-height: 2;
             color: #f0f0f0;
-            padding: 16px 0 12px;
-            letter-spacing: 1px;
             text-align: center;
-        }
-        .extra-section-title .red {
-            color: #cc0000;
-        }
-
-        /* ============================================ */
-        /* ★ 附加内容 */
-        /* ============================================ */
-        .extra-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 18px;
-            padding: 10px 0 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .extra-card {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: 0.3s;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .extra-card:hover {
-            transform: translateY(-4px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(204, 0, 0, 0.15);
-        }
-
-        .extra-card .card-image {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            display: block;
-            background: #2a2a4a;
-        }
-
-        .extra-card .card-body {
-            padding: 14px 16px 16px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .extra-card .card-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #f0f0f0;
-            margin-bottom: 3px;
-        }
-
-        .extra-card .card-sub {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.4);
-            margin-bottom: 8px;
-        }
-
-        .extra-card .card-tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-top: auto;
-        }
-
-        .extra-card .card-tag {
-            font-size: 0.6rem;
-            padding: 2px 10px;
-            border-radius: 20px;
-            background: rgba(204, 0, 0, 0.12);
-            color: #f7d98c;
-            border: 1px solid rgba(204, 0, 0, 0.08);
-        }
-
-        /* ============================================ */
-        /* ★ 分页信息 */
-        /* ============================================ */
-        .pagination-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 0 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            flex-wrap: wrap;
-            gap: 12px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .pagination-info .total {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.4);
             letter-spacing: 0.5px;
-        }
-
-        .pagination-info .total .num {
-            color: #f7d98c;
-            font-weight: 600;
-        }
-
-        .pagination-info .pages {
+            min-height: 80px;
             display: flex;
-            gap: 6px;
             align-items: center;
+            justify-content: center;
+            padding-top: 12px;
         }
 
-        .pagination-info .pages .page-btn {
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.4);
-            background: transparent;
-            border: 1px solid transparent;
-            cursor: pointer;
-            transition: 0.2s;
+        .text-box .text-content .highlight {
+            color: #f7d98c;
+            font-weight: 700;
+        }
+        .text-box .text-content .red-num {
+            color: #ff4444;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
-        .pagination-info .pages .page-btn:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.06);
+        /* ★ 进度指示器 */
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
         }
 
-        .pagination-info .pages .page-btn.active {
-            color: #fff;
-            background: rgba(204, 0, 0, 0.25);
-            border-color: rgba(204, 0, 0, 0.2);
+        .progress-indicator .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .pagination-info .pages .page-dots {
-            color: rgba(255, 255, 255, 0.2);
-            padding: 0 4px;
+        .progress-indicator .dot.active {
+            background: #cc0000;
+            border-color: #cc0000;
+            box-shadow: 0 0 20px rgba(204, 0, 0, 0.3);
+            transform: scale(1.2);
+        }
+
+        /* ★ 点击提示 */
+        .click-hint {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            animation: pulseHint 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseHint {
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.5; }
         }
 
         /* ===== 响应式 ===== */
-        @media (max-width: 1024px) {
-            .cards-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 18px;
-            }
-            .resource-card .card-image {
-                height: 170px;
-            }
-        }
-
         @media (max-width: 768px) {
             .top-nav {
-                padding: 12px 16px;
+                padding: 10px 16px;
             }
             .nav-title {
                 font-size: 1rem;
@@ -472,122 +324,74 @@
                 padding: 4px 10px;
                 font-size: 0.65rem;
             }
-            .content-wrapper {
-                padding: 20px 16px 40px;
+            .back-btn {
+                font-size: 1.1rem;
             }
-            .cards-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 14px;
+
+            .image-container {
+                padding: 10px 16px 5px;
             }
-            .resource-card .card-image {
-                height: 140px;
+            .image-container img {
+                max-height: 45vh;
             }
-            .resource-card .card-title {
-                font-size: 1rem;
+            .text-container {
+                padding: 0 16px 30px 16px;
             }
-            .resource-card .card-body {
-                padding: 14px 16px 16px;
+            .text-box {
+                padding: 18px 22px 22px;
             }
-            .extra-grid {
-                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-                gap: 14px;
+            .text-box .text-content {
+                font-size: 0.95rem;
+                line-height: 1.8;
+                min-height: 60px;
             }
-            .extra-card .card-image {
-                height: 110px;
+            .text-box .yellow-line {
+                left: 5%;
+                width: 90%;
             }
-            .stats-row {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
-            }
-            .stat-item .stat-number {
-                font-size: 1.5rem;
-            }
-            .section-title {
-                font-size: 1.2rem;
-                padding: 20px 0 12px;
-            }
-            .pagination-info {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
+            .click-hint {
+                font-size: 0.6rem;
             }
         }
 
-        @media (max-width: 600px) {
-            .cards-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-                max-width: 400px;
+        @media (max-width: 480px) {
+            .image-container img {
+                max-height: 35vh;
             }
-            .resource-card .card-image {
-                height: 200px;
+            .text-box .text-content {
+                font-size: 0.85rem;
+                line-height: 1.7;
+                min-height: 50px;
+                padding-top: 8px;
             }
-            .extra-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
+            .text-box {
+                padding: 14px 16px 18px;
             }
-            .extra-card .card-image {
-                height: 100px;
+            .text-container {
+                padding: 0 12px 20px 12px;
             }
-            .stats-row {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
+            .image-container {
+                padding: 8px 10px 0px;
             }
-            .stat-item {
-                padding: 14px 12px;
-            }
-            .stat-item .stat-number {
-                font-size: 1.3rem;
-            }
-            .stat-item .stat-label {
-                font-size: 0.7rem;
-            }
-            .section-title {
-                font-size: 1.1rem;
-            }
-            .extra-section-title {
-                font-size: 0.95rem;
+            .progress-indicator .dot {
+                width: 8px;
+                height: 8px;
             }
             .nav-search input {
-                width: 60px;
+                width: 55px;
                 font-size: 0.7rem;
             }
             .nav-search select {
-                font-size: 0.6rem;
+                font-size: 0.55rem;
                 padding: 2px 6px;
                 padding-right: 16px;
-                min-width: 45px;
+                min-width: 40px;
             }
-            .pagination-info .pages .page-btn {
-                padding: 4px 10px;
-                font-size: 0.7rem;
+            .nav-title {
+                font-size: 0.85rem;
             }
-            .resource-card .card-title {
-                font-size: 1.05rem;
-            }
-            .resource-card .card-sub {
-                font-size: 0.75rem;
-            }
-            .extra-card .card-title {
-                font-size: 0.82rem;
-            }
-            .extra-card .card-sub {
-                font-size: 0.65rem;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .extra-grid {
-                grid-template-columns: 1fr;
-                max-width: 300px;
-                margin: 0 auto;
-            }
-            .extra-card .card-image {
-                height: 150px;
-            }
-            .stats-row {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
+            .back-btn {
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -597,6 +401,9 @@
     <!-- ===== 顶部导航栏 ===== -->
     <nav class="top-nav">
         <div class="nav-left">
+            <a href="#" class="back-btn" id="backBtn">
+                <span>←</span>
+            </a>
             <span class="nav-icon">🏛️</span>
             <span class="nav-title">通道转兵<span class="red">红色资源库</span></span>
         </div>
@@ -625,208 +432,123 @@
         </div>
     </nav>
 
-    <!-- ===== 主容器 - 垂直居中 ===== -->
-    <div class="main-container">
-        <div class="content-wrapper">
+    <!-- ===== 主内容 ===== -->
+    <div class="main-container" id="mainContainer">
 
-            <!-- ========================================== -->
-            <!-- ★ 统计框 -->
-            <!-- ========================================== -->
-            <div class="stats-row">
-                <div class="stat-item">
-                    <span class="stat-number">1,284</span>
-                    <span class="stat-label"><span class="stat-icon">📄</span>图文总数</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">386</span>
-                    <span class="stat-label"><span class="stat-icon">📷</span>影像资料</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">512</span>
-                    <span class="stat-label"><span class="stat-icon">📜</span>文献档案</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">128</span>
-                    <span class="stat-label"><span class="stat-icon">🏺</span>革命文物</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">258</span>
-                    <span class="stat-label"><span class="stat-icon">🗺️</span>地图/路线</span>
-                </div>
-            </div>
-
-            <!-- ========================================== -->
-            <!-- ★ 三大板块标题 -->
-            <!-- ========================================== -->
-            <div class="section-title">
-                📖 <span class="red">三大转折</span> · 红色记忆
-            </div>
-
-            <!-- ========================================== -->
-            <!-- ★ 三大板块卡片 - 居中 + 自动填充 -->
-            <!-- ========================================== -->
-            <div class="cards-grid">
-
-                <div class="resource-card" data-category="湘江战役">
-                    <img class="card-image" src="湘江战役行军图.jpg" alt="湘江战役行军图">
-                    <div class="card-body">
-                        <div class="card-title">⚔️ 血战湘江</div>
-                        <div class="card-sub">1934年11月 · 湘江两岸</div>
-                        <div class="card-tags">
-                            <span class="card-tag">#长征</span>
-                            <span class="card-tag">#湘江战役</span>
-                            <span class="card-tag">#突围</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="resource-card" data-category="通道会议">
-                    <img class="card-image" src="通道会议.jpg" alt="通道会议旧址">
-                    <div class="card-body">
-                        <div class="card-title">🏛️ 通道会议</div>
-                        <div class="card-sub">1934年12月12日 · 恭城书院</div>
-                        <div class="card-tags">
-                            <span class="card-tag">#会议</span>
-                            <span class="card-tag">#转折</span>
-                            <span class="card-tag">#决策</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="resource-card" data-category="通道转兵">
-                    <img class="card-image" src="通道转兵.jpg" alt="通道转兵路线图">
-                    <div class="card-body">
-                        <div class="card-title">🔄 通道转兵</div>
-                        <div class="card-sub">1934年12月 · 西进贵州</div>
-                        <div class="card-tags">
-                            <span class="card-tag">#转兵</span>
-                            <span class="card-tag">#战略</span>
-                            <span class="card-tag">#胜利</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- ========================================== -->
-            <!-- ★ 红色分割线 -->
-            <!-- ========================================== -->
-            <div class="divider-red"></div>
-
-            <!-- ========================================== -->
-            <!-- ★ 附加内容标题 -->
-            <!-- ========================================== -->
-            <div class="extra-section-title">
-                📦 <span class="red">革命遗存</span> · 历史见证
-            </div>
-
-            <!-- ========================================== -->
-            <!-- ★ 附加内容 -->
-            <!-- ========================================== -->
-            <div class="extra-grid">
-
-                <div class="extra-card">
-                    <img class="card-image" src="红军遗物.jpg" alt="红军遗物">
-                    <div class="card-body">
-                        <div class="card-title">红军遗物</div>
-                        <div class="card-sub">1934年 · 革命文物</div>
-                        <div class="card-tags">
-                            <span class="card-tag">#文物</span>
-                            <span class="card-tag">#遗物</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="extra-card">
-                    <img class="card-image" src="电报文件.jpg" alt="电报文件">
-                    <div class="card-body">
-                        <div class="card-title">"万万火急"电令</div>
-                        <div class="card-sub">1934年12月12日 · 军事电报</div>
-                        <div class="card-tags">
-                            <span class="card-tag">#文献</span>
-                            <span class="card-tag">#电报</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="extra-card">
-                    <img class="card-image" src="人物肖像.jpg" alt="人物肖像">
-                    <div class="card-body">
-                        <div class="card-title">红军将领肖像</div>
-                        <div class="card-sub">1934年 · 人物影像</div>
-                        <div class="card-tags">
-                            <span class="card-tag">#人物</span>
-                            <span class="card-tag">#将领</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="extra-card">
-                    <img class="card-image" src="作战命令.jpg" alt="作战命令">
-                    <div class="card-body">
-                        <div class="card-title">强渡湘江作战命令</div>
-                        <div class="card-sub">1934年11月25日 · 军事命令</div>
-                        <div class="card-tags">
-                            <span class="card-tag">#文献</span>
-                            <span class="card-tag">#作战命令</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="extra-card">
-                    <img class="card-image" src="战场遗址.jpg" alt="战场遗址">
-                    <div class="card-body">
-                        <div class="card-title">湘江战役遗址</div>
-                        <div class="card-sub">觉山铺 · 光华铺 · 新圩</div>
-                        <div class="card-tags">
-                            <span class="card-tag">#遗址</span>
-                            <span class="card-tag">#湘江</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="extra-card">
-                    <img class="card-image" src="会议记录.jpg" alt="会议记录">
-                    <div class="card-body">
-                        <div class="card-title">通道会议记录</div>
-                        <div class="card-sub">1934年12月12日 · 会议纪要</div>
-                        <div class="card-tags">
-                            <span class="card-tag">#文献</span>
-                            <span class="card-tag">#会议</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- ========================================== -->
-            <!-- ★ 分页信息 -->
-            <!-- ========================================== -->
-            <div class="pagination-info">
-                <div class="total">
-                    共 <span class="num">1,284</span> 条资源  ·  第 <span class="num">1</span> / 43 页
-                </div>
-                <div class="pages">
-                    <span class="page-btn" style="color:rgba(255,255,255,0.2);">‹ 上一页</span>
-                    <span class="page-btn active">1</span>
-                    <span class="page-btn">2</span>
-                    <span class="page-btn">3</span>
-                    <span class="page-dots">…</span>
-                    <span class="page-btn">43</span>
-                    <span class="page-btn" style="color:rgba(255,255,255,0.4);">下一页 ›</span>
-                </div>
-            </div>
-
+        <!-- 图片容器 -->
+        <div class="image-container" id="imageContainer">
+            <!-- 第一张图：血战湘江.jpg -->
+            <img id="img1" src="血战湘江.jpg" alt="血战湘江" class="visible">
+            <!-- 第二张图：红军人数变化图.png -->
+            <img id="img2" src="红军人数变化图.png" alt="红军人数变化图" class="hidden">
         </div>
+
+        <!-- 文字框 -->
+        <div class="text-container">
+            <div class="text-box" id="textBox">
+                <div class="yellow-line"></div>
+                <div class="text-content" id="textContent">
+                    <span>湘江战役，中央红军经过英勇奋战，突破了国民党军第四道封锁线，<br>挫败了蒋介石企图歼灭红军于湘江以东的计划。</span>
+                </div>
+                <div class="progress-indicator" id="progressIndicator">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                </div>
+                <div class="click-hint">点击文字框 · 进入下一段</div>
+            </div>
+        </div>
+
     </div>
 
     <script>
         (function() {
+            // ===== DOM 引用 =====
+            const img1 = document.getElementById('img1');
+            const img2 = document.getElementById('img2');
+            const textContent = document.getElementById('textContent');
+            const dots = document.querySelectorAll('.dot');
+            const textBox = document.getElementById('textBox');
+            const backBtn = document.getElementById('backBtn');
+
+            let currentStep = 0; // 0: 第一段, 1: 第二段
+            const totalSteps = 2;
+
+            // ===== 两段文字内容 =====
+            const texts = [
+                `湘江战役，中央红军经过英勇奋战，突破了国民党军第四道封锁线，<br>挫败了蒋介石企图歼灭红军于湘江以东的计划。`,
+                `但此役也是中央红军长征中损失最大的一次。中央红军渡过湘江后<br>（连同前三次突破封锁线）由长征开始时的 <span class="highlight">8.6万余人</span> 锐减为 <span class="red-num">3万余人</span>（包括非战斗减员）。`
+            ];
+
+            // ===== 切换到指定步骤 =====
+            function goToStep(step) {
+                if (step < 0 || step >= totalSteps) return;
+                currentStep = step;
+
+                // 更新文字
+                textContent.innerHTML = texts[step];
+
+                // 更新进度点
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === step);
+                });
+
+                // ★ 图片淡入淡出切换
+                if (step === 0) {
+                    // 显示 img1，隐藏 img2
+                    img1.classList.remove('hidden');
+                    img1.classList.add('visible');
+                    img2.classList.remove('visible');
+                    img2.classList.add('hidden');
+                } else {
+                    // 显示 img2，隐藏 img1
+                    img2.classList.remove('hidden');
+                    img2.classList.add('visible');
+                    img1.classList.remove('visible');
+                    img1.classList.add('hidden');
+                }
+            }
+
+            // ===== 点击文字框前进 =====
+            textBox.addEventListener('click', function(e) {
+                // 如果点击的是进度点，不触发
+                if (e.target.closest('.dot')) return;
+                if (e.target.closest('.click-hint')) return;
+
+                if (currentStep < totalSteps - 1) {
+                    goToStep(currentStep + 1);
+                } else {
+                    // 最后一段点击后，可以增加提示或保持
+                    // 这里可以不做操作，或显示已完成
+                    const hint = document.querySelector('.click-hint');
+                    if (hint) {
+                        hint.textContent = '✅ 已阅读完毕';
+                        hint.style.color = 'rgba(247, 217, 140, 0.3)';
+                    }
+                }
+            });
+
+            // ===== 进度点点击 =====
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (index <= currentStep + 1 && index < totalSteps) {
+                        goToStep(index);
+                    }
+                });
+            });
+
+            // ===== 返回按钮 =====
+            backBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('🔙 返回上级页面（此处可接入实际返回逻辑）');
+                // window.history.back();
+            });
+
             // ===== 搜索功能 =====
             const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
             const yearSelect = document.getElementById('yearSelect');
             const categorySelect = document.getElementById('categorySelect');
-            const searchBtn = document.getElementById('searchBtn');
 
             function handleSearch() {
                 const keyword = searchInput.value.trim();
@@ -837,10 +559,9 @@
                 message += `📝 关键词: "${keyword || '(空)'}"\n`;
                 message += `📅 年份: ${year || '不限'}\n`;
                 message += `📂 分类: ${category || '不限'}\n`;
-                message += `\n(搜索功能暂未实现，仅展示筛选条件)`;
+                message += `\n(搜索功能暂未实现)`;
 
                 alert(message);
-                console.log('搜索条件:', { keyword, year, category });
             }
 
             searchBtn.addEventListener('click', handleSearch);
@@ -851,31 +572,13 @@
                 }
             });
 
-            // ===== 卡片点击 =====
-            const allCards = document.querySelectorAll('.resource-card, .extra-card');
-            allCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const title = this.querySelector('.card-title')?.textContent || '资源';
-                    alert('📖 您点击了: "' + title + '"\n(详情页暂未实现)');
-                });
-            });
+            // ===== 初始化 =====
+            goToStep(0);
 
-            // ===== 分页点击 =====
-            const pageBtns = document.querySelectorAll('.page-btn');
-            pageBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (this.textContent.includes('页') || this.textContent.includes('…')) return;
-                    pageBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    const totalSpan = document.querySelector('.pagination-info .total .num:last-child');
-                    if (totalSpan) {
-                        totalSpan.textContent = this.textContent;
-                    }
-                });
-            });
-
-            console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 三大板块居中显示，自动填充屏幕');
+            console.log('✅ 血战湘江 - 两段点击式展示已加载');
+            console.log('📌 第一段图片: 血战湘江.jpg');
+            console.log('📌 第二段图片: 红军人数变化图.png');
+            console.log('📌 点击文字框切换段落，图片淡入淡出切换');
         })();
     </script>
 
