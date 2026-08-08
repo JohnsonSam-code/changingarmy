@@ -1057,4 +1057,205 @@
     <!-- ============================================ -->
     <!-- ★ 血战湘江 详情覆盖层 -->
     <!-- ============================================ -->
-    <div class="detail-overlay" id="detailOver
+    <div class="detail-overlay" id="detailOverlay">
+        <!-- 导航 -->
+        <div class="detail-nav">
+            <span class="back-detail-btn" id="backDetailBtn">← 返回</span>
+            <span class="detail-title">⚔️ <span class="red">血战湘江</span></span>
+            <span style="width:80px;"></span>
+        </div>
+
+        <!-- 图片容器 -->
+        <div class="detail-image-container" id="detailImageContainer">
+            <img id="detailImg1" src="血战湘江.jpg" alt="血战湘江" class="visible">
+            <img id="detailImg2" src="红军人数变化图.png" alt="红军人数变化图" class="hidden">
+        </div>
+
+        <!-- 文字框 -->
+        <div class="detail-text-container">
+            <div class="detail-text-box" id="detailTextBox">
+                <div class="yellow-line"></div>
+                <div class="text-content" id="detailTextContent">
+                    <span>湘江战役，中央红军经过英勇奋战，突破了国民党军第四道封锁线，<br>挫败了蒋介石企图歼灭红军于湘江以东的计划。</span>
+                </div>
+                <div class="detail-progress" id="detailProgress">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                </div>
+                <div class="detail-hint">点击文字框 · 进入下一段</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // =============================================
+            // ★ 主页交互
+            // =============================================
+            const cardXuejiang = document.getElementById('cardXuejiang');
+            const detailOverlay = document.getElementById('detailOverlay');
+            const backDetailBtn = document.getElementById('backDetailBtn');
+
+            // 点击"血战湘江"卡片 → 打开详情
+            cardXuejiang.addEventListener('click', function() {
+                detailOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                // 重置到第一段
+                goToStep(0);
+            });
+
+            // 返回按钮 → 关闭详情
+            backDetailBtn.addEventListener('click', function() {
+                detailOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // 点击背景关闭（点击overlay本身）
+            detailOverlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    detailOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // =============================================
+            // ★ 详情页 - 两段图文切换
+            // =============================================
+            const img1 = document.getElementById('detailImg1');
+            const img2 = document.getElementById('detailImg2');
+            const textContent = document.getElementById('detailTextContent');
+            const dots = document.querySelectorAll('.detail-progress .dot');
+            const textBox = document.getElementById('detailTextBox');
+
+            let currentStep = 0;
+            const totalSteps = 2;
+
+            const texts = [
+                `湘江战役，中央红军经过英勇奋战，突破了国民党军第四道封锁线，<br>挫败了蒋介石企图歼灭红军于湘江以东的计划。`,
+                `但此役也是中央红军长征中损失最大的一次。中央红军渡过湘江后<br>（连同前三次突破封锁线）由长征开始时的 <span class="highlight">8.6万余人</span> 锐减为 <span class="red-num">3万余人</span>（包括非战斗减员）。`
+            ];
+
+            function goToStep(step) {
+                if (step < 0 || step >= totalSteps) return;
+                currentStep = step;
+
+                textContent.innerHTML = texts[step];
+
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === step);
+                });
+
+                if (step === 0) {
+                    img1.classList.remove('hidden');
+                    img1.classList.add('visible');
+                    img2.classList.remove('visible');
+                    img2.classList.add('hidden');
+                } else {
+                    img2.classList.remove('hidden');
+                    img2.classList.add('visible');
+                    img1.classList.remove('visible');
+                    img1.classList.add('hidden');
+                }
+
+                // 更新提示文字
+                const hint = document.querySelector('.detail-hint');
+                if (step === totalSteps - 1) {
+                    hint.textContent = '✅ 已阅读完毕';
+                    hint.style.color = 'rgba(247, 217, 140, 0.3)';
+                } else {
+                    hint.textContent = '点击文字框 · 进入下一段';
+                    hint.style.color = 'rgba(255,255,255,0.15)';
+                }
+            }
+
+            // 点击文字框前进
+            textBox.addEventListener('click', function(e) {
+                if (e.target.closest('.dot')) return;
+                if (e.target.closest('.detail-hint')) return;
+
+                if (currentStep < totalSteps - 1) {
+                    goToStep(currentStep + 1);
+                }
+            });
+
+            // 点击进度点跳转
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (index <= currentStep + 1 && index < totalSteps) {
+                        goToStep(index);
+                    }
+                });
+            });
+
+            // =============================================
+            // ★ 搜索功能（主页）
+            // =============================================
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const yearSelect = document.getElementById('yearSelect');
+            const categorySelect = document.getElementById('categorySelect');
+
+            function handleSearch() {
+                const keyword = searchInput.value.trim();
+                const year = yearSelect.value;
+                const category = categorySelect.value;
+
+                let message = '🔍 搜索条件：\n';
+                message += `📝 关键词: "${keyword || '(空)'}"\n`;
+                message += `📅 年份: ${year || '不限'}\n`;
+                message += `📂 分类: ${category || '不限'}\n`;
+                message += `\n(搜索功能暂未实现)`;
+
+                alert(message);
+            }
+
+            searchBtn.addEventListener('click', handleSearch);
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSearch();
+                }
+            });
+
+            // =============================================
+            // ★ 其他卡片点击（占位）
+            // =============================================
+            const otherCards = document.querySelectorAll('.resource-card:not(#cardXuejiang), .extra-card');
+            otherCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('.card-title')?.textContent || '资源';
+                    alert('📖 您点击了: "' + title + '"\n(详情页暂未实现)');
+                });
+            });
+
+            // =============================================
+            // ★ 分页点击
+            // =============================================
+            const pageBtns = document.querySelectorAll('.page-btn');
+            pageBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (this.textContent.includes('页') || this.textContent.includes('…')) return;
+                    pageBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const totalSpan = document.querySelector('.pagination-info .total .num:last-child');
+                    if (totalSpan) {
+                        totalSpan.textContent = this.textContent;
+                    }
+                });
+            });
+
+            // =============================================
+            // ★ 初始化
+            // =============================================
+            goToStep(0);
+
+            console.log('✅ 通道转兵红色资源库 已加载');
+            console.log('📌 点击"血战湘江"卡片进入两段图文展示');
+            console.log('📌 第一段图片: 血战湘江.jpg');
+            console.log('📌 第二段图片: 红军人数变化图.png');
+        })();
+    </script>
+
+</body>
+</html>
