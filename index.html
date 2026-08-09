@@ -30,8 +30,8 @@
             left: 0;
             width: 100%;
             padding: 14px 30px;
-            background: rgba(0, 0, 0, 0.80);
-            backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.60);
+            backdrop-filter: blur(8px);
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -71,10 +71,10 @@
         .nav-search {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.06);
             border-radius: 30px;
             padding: 4px 4px 4px 14px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             gap: 4px;
             flex-wrap: wrap;
         }
@@ -93,8 +93,8 @@
         }
 
         .nav-search select {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 20px;
             padding: 4px 10px;
             font-size: 0.75rem;
@@ -132,7 +132,7 @@
         .main-container {
             padding-top: 80px;
             min-height: 100vh;
-            background: rgba(0, 0, 0, 0.30);
+            background: rgba(0, 0, 0, 0.20);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -438,7 +438,7 @@
         }
 
         /* ============================================ */
-        /* ★ 详情页 - 覆盖层 */
+        /* ★ 血战湘江 详情覆盖层 - 升级版 */
         /* ============================================ */
         .detail-overlay {
             display: none;
@@ -448,13 +448,11 @@
             width: 100%;
             height: 100vh;
             z-index: 2000;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.20);
             overflow: hidden;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 70px 30px 40px;
+            padding: 65px 0 0 0;
         }
 
         .detail-overlay.active {
@@ -464,10 +462,10 @@
         /* ★ 详情页内部导航 */
         .detail-nav {
             position: absolute;
-            top: 14px;
+            top: 12px;
             left: 0;
             width: 100%;
-            padding: 10px 30px;
+            padding: 8px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -476,25 +474,26 @@
 
         .detail-nav .back-detail-btn {
             color: #fff;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             text-decoration: none;
             cursor: pointer;
             transition: 0.2s;
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.06);
-            padding: 8px 18px;
+            background: rgba(0, 0, 0, 0.30);
+            backdrop-filter: blur(6px);
+            padding: 6px 16px;
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
         .detail-nav .back-detail-btn:hover {
             color: #ff6b6b;
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.10);
         }
 
         .detail-nav .detail-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: #fff;
         }
@@ -502,136 +501,153 @@
             color: #cc0000;
         }
 
-        /* ★ 详情页图片容器 */
-        .detail-image-container {
+        .detail-nav .detail-spacer {
+            width: 80px;
+        }
+
+        /* ★ 顶部区域 - 图片 + 简介（占页面3/4） */
+        .detail-top {
             width: 100%;
-            max-width: 1100px;
+            flex: 0 0 75%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 0 4px;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        /* ★ 图片 - 横向拉满 */
+        .detail-hero {
+            width: 100%;
+            padding: 0 20px;
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px 20px;
-            position: relative;
             min-height: 0;
+        }
+
+        .detail-hero img {
             width: 100%;
-        }
-
-        .detail-image-container img {
-            max-width: 100%;
-            max-height: 58vh;
+            max-height: 52vh;
             object-fit: contain;
-            border-radius: 12px;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-            transition: opacity 0.8s ease;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            border-radius: 10px;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .detail-image-container img.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .detail-image-container img.visible {
-            opacity: 1;
-        }
-
-        /* ★ 详情页文字框 */
-        .detail-text-container {
+        /* ★ 战斗简介 - 模糊对话框 */
+        .detail-brief {
             width: 100%;
             max-width: 1100px;
-            padding: 0 20px 30px 20px;
+            padding: 0 20px 6px 20px;
             flex-shrink: 0;
         }
 
-        .detail-text-box {
-            background: rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: 16px;
-            padding: 22px 36px 26px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-            cursor: pointer;
-            user-select: none;
-            transition: 0.3s;
-            position: relative;
+        .detail-brief .brief-content {
+            background: rgba(0, 0, 0, 0.20);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 14px;
+            padding: 14px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            text-align: center;
         }
 
-        .detail-text-box:hover {
-            background: rgba(0, 0, 0, 0.55);
+        .detail-brief .brief-content p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #f0f0f0;
+            letter-spacing: 0.5px;
         }
 
-        .detail-text-box .yellow-line {
-            position: absolute;
-            top: 0;
-            left: 10%;
-            width: 80%;
+        .detail-brief .brief-content .highlight {
+            color: #f7d98c;
+            font-weight: 600;
+        }
+        .detail-brief .brief-content .red-num {
+            color: #ff4444;
+            font-weight: 700;
+        }
+
+        /* ★ 黄色分割线（3/4位置） */
+        .detail-divider {
+            width: 90%;
+            max-width: 1100px;
             height: 2px;
             background: linear-gradient(to right, transparent, #f7d98c, #f7d98c, transparent);
-            opacity: 0.7;
+            opacity: 0.6;
+            flex-shrink: 0;
+            margin: 2px 0;
         }
 
-        .detail-text-box .text-content {
-            font-size: 1.1rem;
-            line-height: 2;
-            color: #f0f0f0;
-            text-align: center;
-            letter-spacing: 0.5px;
-            min-height: 70px;
+        /* ★ 底部区域 - 4张图片（占页面1/4） */
+        .detail-bottom {
+            width: 100%;
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-top: 10px;
+            padding: 6px 20px 16px;
+            min-height: 0;
         }
 
-        .detail-text-box .text-content .highlight {
-            color: #f7d98c;
-            font-weight: 700;
-        }
-        .detail-text-box .text-content .red-num {
-            color: #ff4444;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .detail-progress {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 14px;
+        .detail-bottom-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            width: 100%;
+            max-width: 1100px;
+            height: 100%;
+            align-content: center;
         }
 
-        .detail-progress .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
+        .detail-bottom-item {
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
             transition: 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            max-height: 170px;
         }
 
-        .detail-progress .dot.active {
-            background: #cc0000;
-            border-color: #cc0000;
-            box-shadow: 0 0 20px rgba(204, 0, 0, 0.3);
-            transform: scale(1.2);
+        .detail-bottom-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(204, 0, 0, 0.15);
         }
 
-        .detail-hint {
+        .detail-bottom-item img {
+            width: 100%;
+            height: 65%;
+            object-fit: cover;
+            display: block;
+            background: #2a2a4a;
+        }
+
+        .detail-bottom-item .item-label {
+            padding: 5px 10px 7px;
             text-align: center;
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            margin-top: 10px;
-            animation: pulseHint 2s ease-in-out infinite;
+            font-size: 0.75rem;
+            color: #e0e0e0;
+            line-height: 1.4;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.10);
         }
 
-        @keyframes pulseHint {
-            0%, 100% { opacity: 0.15; }
-            50% { opacity: 0.5; }
+        .detail-bottom-item .item-label .highlight {
+            color: #f7d98c;
+            font-weight: 600;
         }
 
         /* ===== 响应式 ===== */
@@ -643,31 +659,41 @@
             .resource-card .card-image {
                 height: 170px;
             }
+            .detail-bottom-grid {
+                gap: 12px;
+            }
+            .detail-bottom-item .item-label {
+                font-size: 0.7rem;
+                padding: 4px 8px 6px;
+            }
+            .detail-brief .brief-content p {
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 768px) {
             .top-nav {
-                padding: 10px 16px;
+                padding: 8px 16px;
             }
             .nav-title {
                 font-size: 1rem;
             }
             .nav-search input {
-                width: 80px;
-                font-size: 0.75rem;
+                width: 70px;
+                font-size: 0.7rem;
             }
             .nav-search select {
-                font-size: 0.65rem;
-                padding: 3px 8px;
-                padding-right: 20px;
-                min-width: 55px;
+                font-size: 0.6rem;
+                padding: 2px 6px;
+                padding-right: 16px;
+                min-width: 50px;
             }
             .nav-search {
-                padding: 4px 4px 4px 10px;
+                padding: 2px 2px 2px 8px;
             }
             .nav-search button {
                 padding: 4px 10px;
-                font-size: 0.65rem;
+                font-size: 0.6rem;
             }
             .content-wrapper {
                 padding: 20px 16px 40px;
@@ -711,37 +737,55 @@
 
             /* 详情页响应式 */
             .detail-overlay {
-                padding: 60px 16px 30px;
+                padding: 58px 0 0 0;
             }
             .detail-nav {
-                padding: 8px 16px;
+                padding: 6px 16px;
             }
             .detail-nav .back-detail-btn {
-                font-size: 1rem;
-                padding: 6px 14px;
+                font-size: 0.9rem;
+                padding: 4px 12px;
             }
             .detail-nav .detail-title {
-                font-size: 1rem;
-            }
-            .detail-image-container {
-                padding: 5px 10px;
-            }
-            .detail-image-container img {
-                max-height: 45vh;
-            }
-            .detail-text-container {
-                padding: 0 10px 20px 10px;
-            }
-            .detail-text-box {
-                padding: 16px 20px 20px;
-            }
-            .detail-text-box .text-content {
                 font-size: 0.95rem;
-                line-height: 1.8;
-                min-height: 55px;
             }
-            .detail-hint {
+            .detail-nav .detail-spacer {
+                width: 60px;
+            }
+            .detail-hero {
+                padding: 0 12px;
+            }
+            .detail-hero img {
+                max-height: 38vh;
+            }
+            .detail-brief {
+                padding: 0 12px 4px 12px;
+            }
+            .detail-brief .brief-content {
+                padding: 10px 16px;
+            }
+            .detail-brief .brief-content p {
+                font-size: 0.82rem;
+                line-height: 1.6;
+            }
+            .detail-divider {
+                width: 92%;
+            }
+            .detail-bottom {
+                padding: 4px 12px 12px;
+            }
+            .detail-bottom-grid {
+                gap: 10px;
+            }
+            .detail-bottom-item {
+                max-height: 130px;
+            }
+            .detail-bottom-item img {
+                height: 60%;
+            }
+            .detail-bottom-item .item-label {
                 font-size: 0.6rem;
+                padding: 3px 6px 5px;
             }
         }
 
@@ -781,45 +825,56 @@
                 font-size: 0.95rem;
             }
             .nav-search input {
-                width: 60px;
-                font-size: 0.7rem;
+                width: 50px;
+                font-size: 0.65rem;
             }
             .nav-search select {
-                font-size: 0.6rem;
-                padding: 2px 6px;
-                padding-right: 16px;
-                min-width: 45px;
+                font-size: 0.55rem;
+                padding: 2px 4px;
+                padding-right: 14px;
+                min-width: 40px;
             }
             .pagination-info .pages .page-btn {
                 padding: 4px 10px;
                 font-size: 0.7rem;
             }
-
-            /* 详情页小屏 */
-            .detail-image-container img {
-                max-height: 35vh;
+            .detail-hero img {
+                max-height: 28vh;
             }
-            .detail-text-box .text-content {
-                font-size: 0.85rem;
-                line-height: 1.7;
-                min-height: 45px;
+            .detail-brief .brief-content p {
+                font-size: 0.72rem;
+                line-height: 1.5;
             }
-            .detail-text-box {
-                padding: 14px 16px 18px;
+            .detail-brief .brief-content {
+                padding: 8px 12px;
             }
-            .detail-progress .dot {
-                width: 8px;
-                height: 8px;
+            .detail-bottom-grid {
+                gap: 6px;
             }
-            .detail-overlay {
-                padding: 50px 12px 20px;
+            .detail-bottom-item {
+                max-height: 100px;
+                border-radius: 8px;
+            }
+            .detail-bottom-item img {
+                height: 55%;
+            }
+            .detail-bottom-item .item-label {
+                font-size: 0.5rem;
+                padding: 2px 4px 4px;
+                line-height: 1.2;
             }
             .detail-nav .detail-title {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
             }
             .detail-nav .back-detail-btn {
-                font-size: 0.85rem;
-                padding: 4px 12px;
+                font-size: 0.75rem;
+                padding: 3px 10px;
+            }
+            .detail-nav .detail-spacer {
+                width: 40px;
+            }
+            .detail-overlay {
+                padding: 50px 0 0 0;
             }
         }
 
@@ -835,6 +890,16 @@
             .stats-row {
                 grid-template-columns: 1fr 1fr;
                 gap: 8px;
+            }
+            .detail-bottom-item .item-label {
+                font-size: 0.45rem;
+                padding: 1px 3px 3px;
+            }
+            .detail-bottom-item {
+                max-height: 80px;
+            }
+            .detail-hero img {
+                max-height: 22vh;
             }
         }
     </style>
@@ -1055,34 +1120,60 @@
     </div>
 
     <!-- ============================================ -->
-    <!-- ★ 血战湘江 详情覆盖层 -->
+    <!-- ★ 血战湘江 详情覆盖层 - 升级版 -->
     <!-- ============================================ -->
     <div class="detail-overlay" id="detailOverlay">
         <!-- 导航 -->
         <div class="detail-nav">
             <span class="back-detail-btn" id="backDetailBtn">← 返回</span>
             <span class="detail-title">⚔️ <span class="red">血战湘江</span></span>
-            <span style="width:80px;"></span>
+            <span class="detail-spacer"></span>
         </div>
 
-        <!-- 图片容器 -->
-        <div class="detail-image-container" id="detailImageContainer">
-            <img id="detailImg1" src="血战湘江.jpg" alt="血战湘江" class="visible">
-            <img id="detailImg2" src="红军人数变化图.png" alt="红军人数变化图" class="hidden">
+        <!-- 顶部区域：图片 + 简介（占3/4） -->
+        <div class="detail-top">
+            <div class="detail-hero">
+                <img src="血战湘江.jpg" alt="血战湘江">
+            </div>
+            <div class="detail-brief">
+                <div class="brief-content">
+                    <p>
+                        湘江战役，中央红军经过英勇奋战，突破了国民党军第四道封锁线，
+                        挫败了蒋介石企图歼灭红军于湘江以东的计划。
+                        但此役也是中央红军长征中损失最大的一次。
+                        中央红军渡过湘江后由长征开始时的 <span class="highlight">8.6万余人</span> 锐减为 <span class="red-num">3万余人</span>。
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <!-- 文字框 -->
-        <div class="detail-text-container">
-            <div class="detail-text-box" id="detailTextBox">
-                <div class="yellow-line"></div>
-                <div class="text-content" id="detailTextContent">
-                    <span>湘江战役，中央红军经过英勇奋战，突破了国民党军第四道封锁线，<br>挫败了蒋介石企图歼灭红军于湘江以东的计划。</span>
+        <!-- 黄色分割线（3/4位置） -->
+        <div class="detail-divider"></div>
+
+        <!-- 底部区域：4张图片（占1/4） -->
+        <div class="detail-bottom">
+            <div class="detail-bottom-grid">
+
+                <div class="detail-bottom-item">
+                    <img src="湘江战役行军图.jpg" alt="湘江战役行军图">
+                    <div class="item-label">📜 <span class="highlight">行军路线</span></div>
                 </div>
-                <div class="detail-progress" id="detailProgress">
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
+
+                <div class="detail-bottom-item">
+                    <img src="战场遗址.jpg" alt="战场遗址">
+                    <div class="item-label">🏚️ <span class="highlight">战场遗址</span></div>
                 </div>
-                <div class="detail-hint">点击文字框 · 进入下一段</div>
+
+                <div class="detail-bottom-item">
+                    <img src="红军遗物.jpg" alt="红军遗物">
+                    <div class="item-label">🎖️ <span class="highlight">红军遗物</span></div>
+                </div>
+
+                <div class="detail-bottom-item">
+                    <img src="数风流人物.jpg" alt="数风流人物">
+                    <div class="item-label">👤 <span class="highlight">数风流人物</span></div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -1100,8 +1191,6 @@
             cardXuejiang.addEventListener('click', function() {
                 detailOverlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                // 重置到第一段
-                goToStep(0);
             });
 
             // 返回按钮 → 关闭详情
@@ -1110,7 +1199,7 @@
                 document.body.style.overflow = 'auto';
             });
 
-            // 点击背景关闭（点击overlay本身）
+            // 点击背景关闭
             detailOverlay.addEventListener('click', function(e) {
                 if (e.target === this) {
                     detailOverlay.classList.remove('active');
@@ -1119,77 +1208,7 @@
             });
 
             // =============================================
-            // ★ 详情页 - 两段图文切换
-            // =============================================
-            const img1 = document.getElementById('detailImg1');
-            const img2 = document.getElementById('detailImg2');
-            const textContent = document.getElementById('detailTextContent');
-            const dots = document.querySelectorAll('.detail-progress .dot');
-            const textBox = document.getElementById('detailTextBox');
-
-            let currentStep = 0;
-            const totalSteps = 2;
-
-            const texts = [
-                `湘江战役，中央红军经过英勇奋战，突破了国民党军第四道封锁线，<br>挫败了蒋介石企图歼灭红军于湘江以东的计划。`,
-                `但此役也是中央红军长征中损失最大的一次。中央红军渡过湘江后<br>（连同前三次突破封锁线）由长征开始时的 <span class="highlight">8.6万余人</span> 锐减为 <span class="red-num">3万余人</span>（包括非战斗减员）。`
-            ];
-
-            function goToStep(step) {
-                if (step < 0 || step >= totalSteps) return;
-                currentStep = step;
-
-                textContent.innerHTML = texts[step];
-
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === step);
-                });
-
-                if (step === 0) {
-                    img1.classList.remove('hidden');
-                    img1.classList.add('visible');
-                    img2.classList.remove('visible');
-                    img2.classList.add('hidden');
-                } else {
-                    img2.classList.remove('hidden');
-                    img2.classList.add('visible');
-                    img1.classList.remove('visible');
-                    img1.classList.add('hidden');
-                }
-
-                // 更新提示文字
-                const hint = document.querySelector('.detail-hint');
-                if (step === totalSteps - 1) {
-                    hint.textContent = '✅ 已阅读完毕';
-                    hint.style.color = 'rgba(247, 217, 140, 0.3)';
-                } else {
-                    hint.textContent = '点击文字框 · 进入下一段';
-                    hint.style.color = 'rgba(255,255,255,0.15)';
-                }
-            }
-
-            // 点击文字框前进
-            textBox.addEventListener('click', function(e) {
-                if (e.target.closest('.dot')) return;
-                if (e.target.closest('.detail-hint')) return;
-
-                if (currentStep < totalSteps - 1) {
-                    goToStep(currentStep + 1);
-                }
-            });
-
-            // 点击进度点跳转
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    if (index <= currentStep + 1 && index < totalSteps) {
-                        goToStep(index);
-                    }
-                });
-            });
-
-            // =============================================
-            // ★ 搜索功能（主页）
+            // ★ 搜索功能
             // =============================================
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
@@ -1219,13 +1238,23 @@
             });
 
             // =============================================
-            // ★ 其他卡片点击（占位）
+            // ★ 其他卡片点击
             // =============================================
             const otherCards = document.querySelectorAll('.resource-card:not(#cardXuejiang), .extra-card');
             otherCards.forEach(card => {
                 card.addEventListener('click', function() {
                     const title = this.querySelector('.card-title')?.textContent || '资源';
                     alert('📖 您点击了: "' + title + '"\n(详情页暂未实现)');
+                });
+            });
+
+            // =============================================
+            // ★ 详情页底部卡片点击
+            // =============================================
+            document.querySelectorAll('.detail-bottom-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const label = this.querySelector('.item-label')?.textContent.trim() || '资源';
+                    alert('📖 您点击了: "' + label + '"\n(详情页暂未实现)');
                 });
             });
 
@@ -1245,15 +1274,10 @@
                 });
             });
 
-            // =============================================
-            // ★ 初始化
-            // =============================================
-            goToStep(0);
-
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 点击"血战湘江"卡片进入两段图文展示');
-            console.log('📌 第一段图片: 血战湘江.jpg');
-            console.log('📌 第二段图片: 红军人数变化图.png');
+            console.log('📌 点击"血战湘江"卡片进入升级版详情页');
+            console.log('📌 图片横向拉满，简介占3/4，底部4张图片占1/4');
+            console.log('📌 背景黑度降低，对话框模糊');
         })();
     </script>
 
