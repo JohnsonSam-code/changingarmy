@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>通道转兵红色资源库 - 血战湘江</title>
+    <title>通道转兵红色资源库</title>
     <style>
         * {
             margin: 0;
@@ -21,8 +21,6 @@
             background-color: #1a1a2e;
             color: #fff;
             min-height: 100vh;
-            overflow: hidden;
-            height: 100vh;
         }
 
         /* ===== 顶部导航栏 ===== */
@@ -31,9 +29,9 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 12px 30px;
-            background: rgba(0, 0, 0, 0.50);
-            backdrop-filter: blur(10px);
+            padding: 14px 30px;
+            background: rgba(0, 0, 0, 0.60);
+            backdrop-filter: blur(8px);
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -49,27 +47,12 @@
             gap: 14px;
         }
 
-        .back-btn {
-            color: #fff;
-            font-size: 1.3rem;
-            text-decoration: none;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .back-btn:hover {
-            color: #ff6b6b;
-            transform: scale(1.05);
-        }
-
         .nav-icon {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
         }
 
         .nav-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #ffffff;
             letter-spacing: 2px;
@@ -88,9 +71,9 @@
         .nav-search {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.06);
             border-radius: 30px;
-            padding: 3px 3px 3px 12px;
+            padding: 4px 4px 4px 14px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             gap: 4px;
             flex-wrap: wrap;
@@ -98,12 +81,12 @@
         .nav-search input {
             background: transparent;
             border: none;
-            padding: 5px 6px;
-            font-size: 0.8rem;
+            padding: 6px 8px;
+            font-size: 0.85rem;
             color: #fff;
             outline: none;
-            width: 100px;
-            min-width: 60px;
+            width: 120px;
+            min-width: 70px;
         }
         .nav-search input::placeholder {
             color: #888;
@@ -113,8 +96,8 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 20px;
-            padding: 3px 8px;
-            font-size: 0.7rem;
+            padding: 4px 10px;
+            font-size: 0.75rem;
             color: #ddd;
             outline: none;
             cursor: pointer;
@@ -122,9 +105,9 @@
             -webkit-appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23888'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 6px center;
-            padding-right: 20px;
-            min-width: 60px;
+            background-position: right 8px center;
+            padding-right: 24px;
+            min-width: 70px;
         }
         .nav-search select option {
             background: #1a1a2e;
@@ -135,9 +118,9 @@
             background: #cc0000;
             border: none;
             border-radius: 30px;
-            padding: 5px 12px;
+            padding: 6px 14px;
             color: #fff;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: 0.2s;
         }
@@ -145,41 +128,358 @@
             background: #b30000;
         }
 
-        /* ============================================ */
-        /* ★ 主内容 - 可滚动 */
-        /* ============================================ */
+        /* ===== 主容器 ===== */
         .main-container {
-            padding-top: 65px;
+            padding-top: 80px;
+            min-height: 100vh;
+            background: rgba(0, 0, 0, 0.20);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .content-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 30px 24px 60px;
+            width: 100%;
+        }
+
+        /* ============================================ */
+        /* ★ 统计框 */
+        /* ============================================ */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            padding: 20px 0 30px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 18px 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: 0.3s;
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .stat-item .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f7d98c;
+            display: block;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 4px;
+        }
+
+        .stat-item .stat-icon {
+            font-size: 1.2rem;
+            margin-right: 6px;
+        }
+
+        /* ============================================ */
+        /* ★ 三大板块标题 */
+        /* ============================================ */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            padding: 28px 0 16px;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+        .section-title .red {
+            color: #cc0000;
+        }
+
+        /* ============================================ */
+        /* ★ 三大板块卡片 - 居中 + 自动填充 */
+        /* ============================================ */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            padding: 10px 0 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .resource-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.10);
+            border-color: rgba(204, 0, 0, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .resource-card .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            background: #2a2a4a;
+        }
+
+        .resource-card .card-body {
+            padding: 18px 20px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-card .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #f0f0f0;
+            margin-bottom: 4px;
+        }
+
+        .resource-card .card-sub {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .resource-card .card-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+
+        .resource-card .card-tag {
+            font-size: 0.65rem;
+            padding: 3px 12px;
+            border-radius: 20px;
+            background: rgba(204, 0, 0, 0.15);
+            color: #f7d98c;
+            border: 1px solid rgba(204, 0, 0, 0.1);
+        }
+
+        /* ============================================ */
+        /* ★ 红色分割线 */
+        /* ============================================ */
+        .divider-red {
+            width: 100%;
+            max-width: 1100px;
+            margin: 20px auto 10px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #cc0000, #cc0000, transparent);
+            opacity: 0.6;
+        }
+
+        /* ============================================ */
+        /* ★ 附加内容标题 */
+        /* ============================================ */
+        .extra-section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #f0f0f0;
+            padding: 16px 0 12px;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        .extra-section-title .red {
+            color: #cc0000;
+        }
+
+        /* ============================================ */
+        /* ★ 附加内容 */
+        /* ============================================ */
+        .extra-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+            padding: 10px 0 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .extra-card {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .extra-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(204, 0, 0, 0.15);
+        }
+
+        .extra-card .card-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            display: block;
+            background: #2a2a4a;
+        }
+
+        .extra-card .card-body {
+            padding: 14px 16px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .extra-card .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f0f0f0;
+            margin-bottom: 3px;
+        }
+
+        .extra-card .card-sub {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 8px;
+        }
+
+        .extra-card .card-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+
+        .extra-card .card-tag {
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: rgba(204, 0, 0, 0.12);
+            color: #f7d98c;
+            border: 1px solid rgba(204, 0, 0, 0.08);
+        }
+
+        /* ============================================ */
+        /* ★ 分页信息 */
+        /* ============================================ */
+        .pagination-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            flex-wrap: wrap;
+            gap: 12px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .pagination-info .total {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .pagination-info .total .num {
+            color: #f7d98c;
+            font-weight: 600;
+        }
+
+        .pagination-info .pages {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .pagination-info .pages .page-btn {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            background: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .pagination-info .pages .page-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .pagination-info .pages .page-btn.active {
+            color: #fff;
+            background: rgba(204, 0, 0, 0.25);
+            border-color: rgba(204, 0, 0, 0.2);
+        }
+
+        .pagination-info .pages .page-dots {
+            color: rgba(255, 255, 255, 0.2);
+            padding: 0 4px;
+        }
+
+        /* ============================================ */
+        /* ★ 血战湘江 详情覆盖层 - 升级版 */
+        /* ============================================ */
+        .detail-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100vh;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             overflow-y: auto;
             overflow-x: hidden;
-            background: rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            flex-direction: column;
+            align-items: center;
+            padding: 65px 0 30px 0;
             scroll-behavior: smooth;
         }
 
+        .detail-overlay.active {
+            display: flex;
+        }
+
         /* 自定义滚动条 */
-        .main-container::-webkit-scrollbar {
+        .detail-overlay::-webkit-scrollbar {
             width: 6px;
         }
-        .main-container::-webkit-scrollbar-track {
+        .detail-overlay::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
         }
-        .main-container::-webkit-scrollbar-thumb {
+        .detail-overlay::-webkit-scrollbar-thumb {
             background: rgba(204, 0, 0, 0.4);
             border-radius: 10px;
         }
-        .main-container::-webkit-scrollbar-thumb:hover {
+        .detail-overlay::-webkit-scrollbar-thumb:hover {
             background: rgba(204, 0, 0, 0.6);
         }
 
-        /* ============================================ */
-        /* ★ 内容容器 */
-        /* ============================================ */
-        .content-scroll {
+        .detail-content {
             max-width: 1280px;
             margin: 0 auto;
             padding: 10px 24px 40px;
@@ -187,29 +487,67 @@
             min-height: 100%;
         }
 
-        /* ============================================ */
-        /* ★ 顶部区域 - 图片 + 简介 */
-        /* ============================================ */
-        .top-section {
+        /* 详情页内部导航 */
+        .detail-nav {
+            position: sticky;
+            top: 0;
+            left: 0;
             width: 100%;
+            padding: 10px 30px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding: 5px 0 8px;
+            justify-content: space-between;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.30);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
-        /* ★ 图片 - 横向拉满，点击放大 */
-        .hero-image-wrapper {
+        .detail-nav .back-detail-btn {
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .detail-nav .back-detail-btn:hover {
+            color: #ff6b6b;
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        .detail-nav .detail-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .detail-nav .detail-title .red {
+            color: #cc0000;
+        }
+
+        .detail-nav .detail-spacer {
+            width: 80px;
+        }
+
+        /* ★ 图片 - 点击放大 */
+        .detail-hero-wrapper {
             width: 100%;
             padding: 0 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: 0.3s;
+            position: relative;
         }
 
-        .hero-image-wrapper img {
+        .detail-hero-wrapper img {
             width: 100%;
             max-height: 55vh;
             object-fit: contain;
@@ -218,12 +556,12 @@
             transition: 0.3s;
         }
 
-        .hero-image-wrapper img:hover {
+        .detail-hero-wrapper img:hover {
             transform: scale(1.01);
             box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
         }
 
-        .hero-image-wrapper .click-hint-badge {
+        .detail-hero-wrapper .click-hint-badge {
             position: absolute;
             bottom: 12px;
             right: 20px;
@@ -237,18 +575,14 @@
             pointer-events: none;
         }
 
-        .hero-image-wrapper {
-            position: relative;
-        }
-
         /* ★ 战斗简介 - 模糊对话框 */
-        .brief-box {
+        .detail-brief {
             width: 100%;
             max-width: 1100px;
             padding: 0 10px 6px 10px;
         }
 
-        .brief-box .brief-content {
+        .detail-brief .brief-content {
             background: rgba(0, 0, 0, 0.20);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -258,26 +592,24 @@
             text-align: center;
         }
 
-        .brief-box .brief-content p {
+        .detail-brief .brief-content p {
             font-size: 1rem;
             line-height: 1.8;
             color: #f0f0f0;
             letter-spacing: 0.5px;
         }
 
-        .brief-box .brief-content .highlight {
+        .detail-brief .brief-content .highlight {
             color: #f7d98c;
             font-weight: 600;
         }
-        .brief-box .brief-content .red-num {
+        .detail-brief .brief-content .red-num {
             color: #ff4444;
             font-weight: 700;
         }
 
-        /* ============================================ */
         /* ★ 黄色分割线 */
-        /* ============================================ */
-        .divider-yellow {
+        .detail-divider {
             width: 90%;
             max-width: 1100px;
             height: 2px;
@@ -286,15 +618,13 @@
             margin: 6px auto 12px;
         }
 
-        /* ============================================ */
-        /* ★ 底部区域 - 4张图片 */
-        /* ============================================ */
-        .bottom-section {
+        /* ★ 底部4张图片 */
+        .detail-bottom {
             width: 100%;
             padding: 4px 0 16px;
         }
 
-        .bottom-grid {
+        .detail-bottom-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 18px;
@@ -303,7 +633,7 @@
             margin: 0 auto;
         }
 
-        .bottom-item {
+        .detail-bottom-item {
             background: rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
@@ -316,14 +646,14 @@
             flex-direction: column;
         }
 
-        .bottom-item:hover {
+        .detail-bottom-item:hover {
             transform: translateY(-4px);
             background: rgba(255, 255, 255, 0.06);
             border-color: rgba(204, 0, 0, 0.15);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .bottom-item img {
+        .detail-bottom-item img {
             width: 100%;
             height: 160px;
             object-fit: cover;
@@ -333,11 +663,11 @@
             cursor: pointer;
         }
 
-        .bottom-item img:hover {
+        .detail-bottom-item img:hover {
             transform: scale(1.02);
         }
 
-        .bottom-item .item-label {
+        .detail-bottom-item .item-label {
             padding: 10px 12px 12px;
             text-align: center;
             font-size: 0.8rem;
@@ -350,15 +680,33 @@
             background: rgba(0, 0, 0, 0.10);
         }
 
-        .bottom-item .item-label .highlight {
+        .detail-bottom-item .item-label .highlight {
             color: #f7d98c;
             font-weight: 600;
         }
 
-        /* ============================================ */
+        /* ★ 滚动提示 */
+        .detail-scroll-hint {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            padding: 4px 0 8px;
+            animation: pulseHint 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseHint {
+            0%,
+            100% {
+                opacity: 0.15;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
         /* ★ 图片放大模态框 */
-        /* ============================================ */
-        .lightbox {
+        .detail-lightbox {
             display: none;
             position: fixed;
             top: 0;
@@ -375,11 +723,11 @@
             cursor: pointer;
         }
 
-        .lightbox.active {
+        .detail-lightbox.active {
             display: flex;
         }
 
-        .lightbox img {
+        .detail-lightbox img {
             max-width: 95%;
             max-height: 90vh;
             object-fit: contain;
@@ -399,7 +747,7 @@
             }
         }
 
-        .lightbox .close-hint {
+        .detail-lightbox .close-hint {
             position: absolute;
             bottom: 30px;
             left: 50%;
@@ -413,39 +761,29 @@
             backdrop-filter: blur(4px);
         }
 
-        /* ============================================ */
-        /* ★ 滚动提示 */
-        /* ============================================ */
-        .scroll-hint {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            padding: 4px 0 8px;
-            animation: pulseHint 2.5s ease-in-out infinite;
-        }
-
-        @keyframes pulseHint {
-            0%, 100% { opacity: 0.15; }
-            50% { opacity: 0.5; }
-        }
-
         /* ===== 响应式 ===== */
         @media (max-width: 1024px) {
-            .bottom-grid {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 18px;
+            }
+            .resource-card .card-image {
+                height: 170px;
+            }
+            .detail-bottom-grid {
                 gap: 14px;
             }
-            .bottom-item img {
+            .detail-bottom-item img {
                 height: 140px;
             }
-            .bottom-item .item-label {
+            .detail-bottom-item .item-label {
                 font-size: 0.7rem;
                 padding: 8px 10px 10px;
             }
-            .brief-box .brief-content p {
+            .detail-brief .brief-content p {
                 font-size: 0.9rem;
             }
-            .hero-image-wrapper img {
+            .detail-hero-wrapper img {
                 max-height: 45vh;
             }
         }
@@ -474,88 +812,148 @@
                 padding: 4px 10px;
                 font-size: 0.6rem;
             }
-            .back-btn {
+            .content-wrapper {
+                padding: 20px 16px 40px;
+            }
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 14px;
+            }
+            .resource-card .card-image {
+                height: 140px;
+            }
+            .resource-card .card-title {
                 font-size: 1rem;
             }
-
-            .main-container {
-                padding-top: 58px;
+            .resource-card .card-body {
+                padding: 14px 16px 16px;
             }
-            .content-scroll {
+            .extra-grid {
+                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+                gap: 14px;
+            }
+            .extra-card .card-image {
+                height: 110px;
+            }
+            .stats-row {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+            }
+            .stat-item .stat-number {
+                font-size: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.2rem;
+                padding: 20px 0 12px;
+            }
+            .pagination-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            /* 详情页响应式 */
+            .detail-overlay {
+                padding: 58px 0 20px 0;
+            }
+            .detail-nav {
+                padding: 6px 16px;
+            }
+            .detail-nav .back-detail-btn {
+                font-size: 0.9rem;
+                padding: 4px 12px;
+            }
+            .detail-nav .detail-title {
+                font-size: 0.95rem;
+            }
+            .detail-content {
                 padding: 6px 16px 30px;
             }
-
-            .hero-image-wrapper img {
+            .detail-hero-wrapper img {
                 max-height: 38vh;
             }
-            .brief-box .brief-content {
+            .detail-brief {
+                padding: 0 10px 4px 10px;
+            }
+            .detail-brief .brief-content {
                 padding: 12px 18px;
             }
-            .brief-box .brief-content p {
+            .detail-brief .brief-content p {
                 font-size: 0.82rem;
                 line-height: 1.6;
             }
-
-            .bottom-grid {
-                gap: 12px;
-            }
-            .bottom-item img {
-                height: 120px;
-            }
-            .bottom-item .item-label {
-                font-size: 0.65rem;
-                padding: 6px 8px 8px;
-            }
-
-            .divider-yellow {
+            .detail-divider {
                 width: 92%;
                 margin: 4px auto 8px;
             }
-
-            .lightbox {
+            .detail-bottom {
+                padding: 4px 0 12px;
+            }
+            .detail-bottom-grid {
+                gap: 12px;
+            }
+            .detail-bottom-item img {
+                height: 120px;
+            }
+            .detail-bottom-item .item-label {
+                font-size: 0.65rem;
+                padding: 6px 8px 8px;
+            }
+            .detail-scroll-hint {
+                font-size: 0.6rem;
+            }
+            .detail-lightbox {
                 padding: 20px;
             }
-            .lightbox img {
+            .detail-lightbox img {
                 max-width: 98%;
                 max-height: 85vh;
             }
-            .lightbox .close-hint {
+            .detail-lightbox .close-hint {
                 font-size: 0.65rem;
                 padding: 6px 16px;
                 bottom: 20px;
             }
         }
 
-        @media (max-width: 480px) {
-            .hero-image-wrapper img {
-                max-height: 30vh;
+        @media (max-width: 600px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                max-width: 400px;
             }
-            .brief-box .brief-content p {
-                font-size: 0.72rem;
-                line-height: 1.5;
+            .resource-card .card-image {
+                height: 200px;
             }
-            .brief-box .brief-content {
-                padding: 10px 14px;
+            .extra-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
             }
-
-            .bottom-grid {
+            .extra-card .card-image {
+                height: 100px;
+            }
+            .stats-row {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
             }
-            .bottom-item img {
-                height: 110px;
+            .stat-item {
+                padding: 14px 12px;
             }
-            .bottom-item .item-label {
-                font-size: 0.55rem;
-                padding: 4px 6px 6px;
+            .stat-item .stat-number {
+                font-size: 1.3rem;
             }
-
-            .nav-title {
-                font-size: 0.85rem;
+            .stat-item .stat-label {
+                font-size: 0.7rem;
+            }
+            .section-title {
+                font-size: 1.1rem;
+            }
+            .extra-section-title {
+                font-size: 0.95rem;
             }
             .nav-search input {
                 width: 50px;
-                font-size: 0.6rem;
+                font-size: 0.65rem;
             }
             .nav-search select {
                 font-size: 0.55rem;
@@ -563,36 +961,54 @@
                 padding-right: 14px;
                 min-width: 40px;
             }
-            .nav-search button {
-                padding: 3px 8px;
+            .pagination-info .pages .page-btn {
+                padding: 4px 10px;
+                font-size: 0.7rem;
+            }
+            .detail-hero-wrapper img {
+                max-height: 30vh;
+            }
+            .detail-brief .brief-content p {
+                font-size: 0.72rem;
+                line-height: 1.5;
+            }
+            .detail-brief .brief-content {
+                padding: 10px 14px;
+            }
+            .detail-bottom-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .detail-bottom-item img {
+                height: 110px;
+            }
+            .detail-bottom-item .item-label {
                 font-size: 0.55rem;
+                padding: 4px 6px 6px;
             }
-            .nav-icon {
-                font-size: 0.9rem;
+            .detail-nav .detail-title {
+                font-size: 0.8rem;
             }
-            .back-btn {
-                font-size: 0.85rem;
+            .detail-nav .back-detail-btn {
+                font-size: 0.75rem;
+                padding: 3px 10px;
             }
-
-            .content-scroll {
+            .detail-content {
                 padding: 4px 12px 20px;
             }
-            .divider-yellow {
-                width: 95%;
-            }
-            .lightbox {
+            .detail-lightbox {
                 padding: 12px;
             }
-            .lightbox img {
+            .detail-lightbox img {
                 max-width: 100%;
                 max-height: 80vh;
             }
-            .lightbox .close-hint {
+            .detail-lightbox .close-hint {
                 font-size: 0.55rem;
                 padding: 4px 12px;
                 bottom: 14px;
             }
-            .scroll-hint {
+            .detail-scroll-hint {
                 font-size: 0.55rem;
             }
         }
@@ -603,15 +1019,12 @@
     <!-- ===== 顶部导航栏 ===== -->
     <nav class="top-nav">
         <div class="nav-left">
-            <a href="#" class="back-btn" id="backBtn">
-                <span>←</span>
-            </a>
             <span class="nav-icon">🏛️</span>
             <span class="nav-title">通道转兵<span class="red">红色资源库</span></span>
         </div>
         <div class="nav-right">
             <div class="nav-search">
-                <input type="text" placeholder="搜索..." id="searchInput">
+                <input type="text" placeholder="搜索资源..." id="searchInput">
                 <select id="yearSelect">
                     <option value="">年份</option>
                     <option value="1934">1934</option>
@@ -634,69 +1047,252 @@
         </div>
     </nav>
 
-    <!-- ===== 主内容 - 可滚动 + 背景模糊 ===== -->
-    <div class="main-container" id="mainContainer">
+    <!-- ===== 主页面 ===== -->
+    <div class="main-container" id="mainPage">
+        <div class="content-wrapper">
 
-        <div class="content-scroll">
+            <!-- 统计框 -->
+            <div class="stats-row">
+                <div class="stat-item">
+                    <span class="stat-number">1,284</span>
+                    <span class="stat-label"><span class="stat-icon">📄</span>图文总数</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">386</span>
+                    <span class="stat-label"><span class="stat-icon">📷</span>影像资料</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">512</span>
+                    <span class="stat-label"><span class="stat-icon">📜</span>文献档案</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">128</span>
+                    <span class="stat-label"><span class="stat-icon">🏺</span>革命文物</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">258</span>
+                    <span class="stat-label"><span class="stat-icon">🗺️</span>地图/路线</span>
+                </div>
+            </div>
 
-            <!-- 滚动提示 -->
-            <div class="scroll-hint">↓ 向下滚动浏览更多内容 ↓</div>
+            <!-- 三大板块标题 -->
+            <div class="section-title">
+                📖 <span class="red">三大转折</span> · 红色记忆
+            </div>
 
-            <!-- ===== 顶部区域：图片 + 简介 ===== -->
-            <div class="top-section">
+            <!-- 三大板块卡片 -->
+            <div class="cards-grid">
 
-                <!-- 图片 - 横向拉满，点击放大 -->
-                <div class="hero-image-wrapper" id="heroImageWrapper">
-                    <img src="血战湘江.jpg" alt="血战湘江" id="heroImage">
-                    <span class="click-hint-badge">🔍 点击放大</span>
+                <!-- ★ 血战湘江 - 点击进入详情 -->
+                <div class="resource-card" id="cardXuejiang" data-category="湘江战役">
+                    <img class="card-image" src="血战湘江.jpg" alt="血战湘江">
+                    <div class="card-body">
+                        <div class="card-title">⚔️ 血战湘江</div>
+                        <div class="card-sub">1934年11月 · 湘江两岸</div>
+                        <div class="card-tags">
+                            <span class="card-tag">#长征</span>
+                            <span class="card-tag">#湘江战役</span>
+                            <span class="card-tag">#突围</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- 战斗简介 - 模糊对话框 -->
-                <div class="brief-box">
-                    <div class="brief-content">
-                        <p>
-                            湘江战役，中央红军经过英勇奋战，突破了国民党军第四道封锁线，
-                            挫败了蒋介石企图歼灭红军于湘江以东的计划。
-                            但此役也是中央红军长征中损失最大的一次。
-                            中央红军渡过湘江后由长征开始时的 <span class="highlight">8.6万余人</span> 锐减为 <span class="red-num">3万余人</span>。
-                        </p>
+                <div class="resource-card" data-category="通道会议">
+                    <img class="card-image" src="通道会议.jpg" alt="通道会议旧址">
+                    <div class="card-body">
+                        <div class="card-title">🏛️ 通道会议</div>
+                        <div class="card-sub">1934年12月12日 · 恭城书院</div>
+                        <div class="card-tags">
+                            <span class="card-tag">#会议</span>
+                            <span class="card-tag">#转折</span>
+                            <span class="card-tag">#决策</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card" data-category="通道转兵">
+                    <img class="card-image" src="通道转兵.jpg" alt="通道转兵路线图">
+                    <div class="card-body">
+                        <div class="card-title">🔄 通道转兵</div>
+                        <div class="card-sub">1934年12月 · 西进贵州</div>
+                        <div class="card-tags">
+                            <span class="card-tag">#转兵</span>
+                            <span class="card-tag">#战略</span>
+                            <span class="card-tag">#胜利</span>
+                        </div>
                     </div>
                 </div>
 
             </div>
 
-            <!-- ===== 黄色分割线 ===== -->
-            <div class="divider-yellow"></div>
+            <!-- 红色分割线 -->
+            <div class="divider-red"></div>
 
-            <!-- ===== 底部区域：4张图片 ===== -->
-            <div class="bottom-section">
-                <div class="bottom-grid">
+            <!-- 附加内容标题 -->
+            <div class="extra-section-title">
+                📦 <span class="red">革命遗存</span> · 历史见证
+            </div>
 
-                    <div class="bottom-item">
-                        <img src="湘江战役行军图.jpg" alt="湘江战役行军图" class="bottom-img" data-title="行军路线">
+            <!-- 附加内容 -->
+            <div class="extra-grid">
+
+                <div class="extra-card">
+                    <img class="card-image" src="红军遗物.jpg" alt="红军遗物">
+                    <div class="card-body">
+                        <div class="card-title">红军遗物</div>
+                        <div class="card-sub">1934年 · 革命文物</div>
+                        <div class="card-tags">
+                            <span class="card-tag">#文物</span>
+                            <span class="card-tag">#遗物</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-card">
+                    <img class="card-image" src="电报文件.jpg" alt="电报文件">
+                    <div class="card-body">
+                        <div class="card-title">"万万火急"电令</div>
+                        <div class="card-sub">1934年12月12日 · 军事电报</div>
+                        <div class="card-tags">
+                            <span class="card-tag">#文献</span>
+                            <span class="card-tag">#电报</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-card">
+                    <img class="card-image" src="数风流人物.jpg" alt="数风流人物">
+                    <div class="card-body">
+                        <div class="card-title">数风流人物</div>
+                        <div class="card-sub">红军将领肖像</div>
+                        <div class="card-tags">
+                            <span class="card-tag">#人物</span>
+                            <span class="card-tag">#将领</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-card">
+                    <img class="card-image" src="作战命令.jpg" alt="作战命令">
+                    <div class="card-body">
+                        <div class="card-title">强渡湘江作战命令</div>
+                        <div class="card-sub">1934年11月25日 · 军事命令</div>
+                        <div class="card-tags">
+                            <span class="card-tag">#文献</span>
+                            <span class="card-tag">#作战命令</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-card">
+                    <img class="card-image" src="战场遗址.jpg" alt="战场遗址">
+                    <div class="card-body">
+                        <div class="card-title">湘江战役遗址</div>
+                        <div class="card-sub">觉山铺 · 光华铺 · 新圩</div>
+                        <div class="card-tags">
+                            <span class="card-tag">#遗址</span>
+                            <span class="card-tag">#湘江</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-card">
+                    <img class="card-image" src="会议记录.jpg" alt="会议记录">
+                    <div class="card-body">
+                        <div class="card-title">通道会议记录</div>
+                        <div class="card-sub">1934年12月12日 · 会议纪要</div>
+                        <div class="card-tags">
+                            <span class="card-tag">#文献</span>
+                            <span class="card-tag">#会议</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 分页信息 -->
+            <div class="pagination-info">
+                <div class="total">
+                    共 <span class="num">1,284</span> 条资源  ·  第 <span class="num">1</span> / 43 页
+                </div>
+                <div class="pages">
+                    <span class="page-btn" style="color:rgba(255,255,255,0.2);">‹ 上一页</span>
+                    <span class="page-btn active">1</span>
+                    <span class="page-btn">2</span>
+                    <span class="page-btn">3</span>
+                    <span class="page-dots">…</span>
+                    <span class="page-btn">43</span>
+                    <span class="page-btn" style="color:rgba(255,255,255,0.4);">下一页 ›</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- ★ 血战湘江 详情覆盖层 - 升级版 -->
+    <!-- ============================================ -->
+    <div class="detail-overlay" id="detailOverlay">
+        <!-- 导航 -->
+        <div class="detail-nav">
+            <span class="back-detail-btn" id="backDetailBtn">← 返回</span>
+            <span class="detail-title">⚔️ <span class="red">血战湘江</span></span>
+            <span class="detail-spacer"></span>
+        </div>
+
+        <div class="detail-content">
+
+            <!-- 滚动提示 -->
+            <div class="detail-scroll-hint">↓ 向下滚动浏览更多内容 ↓</div>
+
+            <!-- 顶部：图片 + 简介 -->
+            <div class="detail-hero-wrapper" id="detailHeroWrapper">
+                <img src="血战湘江.jpg" alt="血战湘江" id="detailHeroImage">
+                <span class="click-hint-badge">🔍 点击放大</span>
+            </div>
+
+            <div class="detail-brief">
+                <div class="brief-content">
+                    <p>
+                        湘江战役，中央红军经过英勇奋战，突破了国民党军第四道封锁线，
+                        挫败了蒋介石企图歼灭红军于湘江以东的计划。
+                        但此役也是中央红军长征中损失最大的一次。
+                        中央红军渡过湘江后由长征开始时的 <span class="highlight">8.6万余人</span> 锐减为 <span class="red-num">3万余人</span>。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 黄色分割线 -->
+            <div class="detail-divider"></div>
+
+            <!-- 底部4张图片 -->
+            <div class="detail-bottom">
+                <div class="detail-bottom-grid">
+
+                    <div class="detail-bottom-item">
+                        <img src="湘江战役行军图.jpg" alt="湘江战役行军图" class="detail-bottom-img">
                         <div class="item-label">📜 <span class="highlight">行军路线</span></div>
                     </div>
 
-                    <div class="bottom-item">
-                        <img src="战场遗址.jpg" alt="战场遗址" class="bottom-img" data-title="战场遗址">
+                    <div class="detail-bottom-item">
+                        <img src="战场遗址.jpg" alt="战场遗址" class="detail-bottom-img">
                         <div class="item-label">🏚️ <span class="highlight">战场遗址</span></div>
                     </div>
 
-                    <div class="bottom-item">
-                        <img src="红军遗物.jpg" alt="红军遗物" class="bottom-img" data-title="红军遗物">
+                    <div class="detail-bottom-item">
+                        <img src="红军遗物.jpg" alt="红军遗物" class="detail-bottom-img">
                         <div class="item-label">🎖️ <span class="highlight">红军遗物</span></div>
                     </div>
 
-                    <div class="bottom-item">
-                        <img src="数风流人物.jpg" alt="数风流人物" class="bottom-img" data-title="数风流人物">
+                    <div class="detail-bottom-item">
+                        <img src="数风流人物.jpg" alt="数风流人物" class="detail-bottom-img">
                         <div class="item-label">👤 <span class="highlight">数风流人物</span></div>
                     </div>
 
                 </div>
             </div>
 
-            <!-- 底部滚动提示 -->
-            <div class="scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
+            <div class="detail-scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
 
         </div>
     </div>
@@ -704,20 +1300,97 @@
     <!-- ============================================ -->
     <!-- ★ 图片放大模态框 -->
     <!-- ============================================ -->
-    <div class="lightbox" id="lightbox">
-        <img id="lightboxImage" src="" alt="放大图片">
+    <div class="detail-lightbox" id="detailLightbox">
+        <img id="detailLightboxImage" src="" alt="放大图片">
         <span class="close-hint">点击任意位置关闭</span>
     </div>
 
     <script>
         (function() {
             // =============================================
-            // ★ 返回按钮
+            // ★ 主页交互
             // =============================================
-            document.getElementById('backBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('🔙 返回上级页面');
-                // window.history.back();
+            const cardXuejiang = document.getElementById('cardXuejiang');
+            const detailOverlay = document.getElementById('detailOverlay');
+            const backDetailBtn = document.getElementById('backDetailBtn');
+
+            // 点击"血战湘江"卡片 → 打开详情
+            cardXuejiang.addEventListener('click', function() {
+                detailOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            // 返回按钮 → 关闭详情
+            backDetailBtn.addEventListener('click', function() {
+                detailOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // 点击背景关闭
+            detailOverlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    detailOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // =============================================
+            // ★ 详情页 - 图片放大功能
+            // =============================================
+            const detailLightbox = document.getElementById('detailLightbox');
+            const detailLightboxImage = document.getElementById('detailLightboxImage');
+
+            // 主图点击放大
+            document.getElementById('detailHeroImage').addEventListener('click', function() {
+                detailLightboxImage.src = this.src;
+                detailLightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            // 底部小图点击放大
+            document.querySelectorAll('.detail-bottom-img').forEach(img => {
+                img.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    detailLightboxImage.src = this.src;
+                    detailLightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // 点击背景关闭模态框
+            detailLightbox.addEventListener('click', function() {
+                this.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // ESC键关闭
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && detailLightbox.classList.contains('active')) {
+                    detailLightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // =============================================
+            // ★ 详情页 - 滚动到顶部/底部
+            // =============================================
+            document.querySelectorAll('.detail-scroll-hint').forEach(hint => {
+                hint.addEventListener('click', function() {
+                    const overlay = document.getElementById('detailOverlay');
+                    if (this.textContent.includes('回到顶部')) {
+                        overlay.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // =============================================
+            // ★ 详情页 - 底部卡片点击
+            // =============================================
+            document.querySelectorAll('.detail-bottom-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const label = this.querySelector('.item-label')?.textContent.trim() || '资源';
+                    alert('📖 您点击了: "' + label + '"\n(详情页暂未实现)');
+                });
             });
 
             // =============================================
@@ -751,67 +1424,34 @@
             });
 
             // =============================================
-            // ★ 图片放大功能
+            // ★ 其他卡片点击
             // =============================================
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImage = document.getElementById('lightboxImage');
-
-            // 主图点击放大
-            document.getElementById('heroImage').addEventListener('click', function() {
-                lightboxImage.src = this.src;
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-
-            // 底部小图点击放大
-            document.querySelectorAll('.bottom-img').forEach(img => {
-                img.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    lightboxImage.src = this.src;
-                    lightbox.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            });
-
-            // 点击背景关闭模态框
-            lightbox.addEventListener('click', function() {
-                this.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-
-            // ESC键关闭模态框
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-                    lightbox.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-
-            // =============================================
-            // ★ 底部卡片点击（显示简介）
-            // =============================================
-            document.querySelectorAll('.bottom-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const label = this.querySelector('.item-label')?.textContent.trim() || '资源';
-                    alert('📖 您点击了: "' + label + '"\n(详情页暂未实现)');
+            const otherCards = document.querySelectorAll('.resource-card:not(#cardXuejiang), .extra-card');
+            otherCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('.card-title')?.textContent || '资源';
+                    alert('📖 您点击了: "' + title + '"\n(详情页暂未实现)');
                 });
             });
 
             // =============================================
-            // ★ 滚动到顶部/底部 平滑滚动
+            // ★ 分页点击
             // =============================================
-            const mainContainer = document.getElementById('mainContainer');
-
-            // 点击顶部滚动提示回到顶部
-            document.querySelectorAll('.scroll-hint').forEach(hint => {
-                hint.addEventListener('click', function() {
-                    if (this.textContent.includes('回到顶部')) {
-                        mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
+            const pageBtns = document.querySelectorAll('.page-btn');
+            pageBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (this.textContent.includes('页') || this.textContent.includes('…')) return;
+                    pageBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const totalSpan = document.querySelector('.pagination-info .total .num:last-child');
+                    if (totalSpan) {
+                        totalSpan.textContent = this.textContent;
                     }
                 });
             });
 
-            console.log('✅ 血战湘江 - 升级版已加载');
+            console.log('✅ 通道转兵红色资源库 已加载');
+            console.log('📌 点击"血战湘江"卡片进入升级版详情页');
             console.log('📌 背景模糊 + 鼠标滚动 + 点击图片放大');
         })();
     </script>
