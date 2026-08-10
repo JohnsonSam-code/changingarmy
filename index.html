@@ -438,7 +438,7 @@
         }
 
         /* ============================================ */
-        /* ★ 血战湘江 详情覆盖层 - 升级版 */
+        /* ★ 详情覆盖层 - 统一模型 */
         /* ============================================ */
         .detail-overlay {
             display: none;
@@ -463,7 +463,6 @@
             display: flex;
         }
 
-        /* 自定义滚动条 */
         .detail-overlay::-webkit-scrollbar {
             width: 6px;
         }
@@ -487,7 +486,6 @@
             min-height: 100%;
         }
 
-        /* 详情页内部导航 */
         .detail-nav {
             position: sticky;
             top: 0;
@@ -536,7 +534,6 @@
             width: 80px;
         }
 
-        /* ★ 图片 - 点击放大 */
         .detail-hero-wrapper {
             width: 100%;
             padding: 0 10px;
@@ -575,7 +572,6 @@
             pointer-events: none;
         }
 
-        /* ★ 战斗简介 - 模糊对话框 */
         .detail-brief {
             width: 100%;
             max-width: 1100px;
@@ -608,7 +604,6 @@
             font-weight: 700;
         }
 
-        /* ★ 黄色分割线 */
         .detail-divider {
             width: 90%;
             max-width: 1100px;
@@ -618,7 +613,6 @@
             margin: 6px auto 12px;
         }
 
-        /* ★ 底部4张图片 */
         .detail-bottom {
             width: 100%;
             padding: 4px 0 16px;
@@ -685,7 +679,6 @@
             font-weight: 600;
         }
 
-        /* ★ 滚动提示 */
         .detail-scroll-hint {
             text-align: center;
             color: rgba(255, 255, 255, 0.15);
@@ -705,7 +698,6 @@
             }
         }
 
-        /* ★ 图片放大模态框 */
         .detail-lightbox {
             display: none;
             position: fixed;
@@ -851,8 +843,6 @@
                 align-items: flex-start;
                 gap: 8px;
             }
-
-            /* 详情页响应式 */
             .detail-overlay {
                 padding: 58px 0 20px 0;
             }
@@ -1083,8 +1073,8 @@
             <!-- 三大板块卡片 -->
             <div class="cards-grid">
 
-                <!-- ★ 血战湘江 - 点击进入详情 -->
-                <div class="resource-card" id="cardXuejiang" data-category="湘江战役">
+                <!-- 血战湘江 -->
+                <div class="resource-card" data-phase="xuejiang">
                     <img class="card-image" src="血战湘江.jpg" alt="血战湘江">
                     <div class="card-body">
                         <div class="card-title">⚔️ 血战湘江</div>
@@ -1097,7 +1087,8 @@
                     </div>
                 </div>
 
-                <div class="resource-card" data-category="通道会议">
+                <!-- 通道会议 -->
+                <div class="resource-card" data-phase="tongdao">
                     <img class="card-image" src="通道会议.jpg" alt="通道会议旧址">
                     <div class="card-body">
                         <div class="card-title">🏛️ 通道会议</div>
@@ -1110,7 +1101,8 @@
                     </div>
                 </div>
 
-                <div class="resource-card" data-category="通道转兵">
+                <!-- 通道转兵 -->
+                <div class="resource-card" data-phase="zhuanbing">
                     <img class="card-image" src="通道转兵.jpg" alt="通道转兵路线图">
                     <div class="card-body">
                         <div class="card-title">🔄 通道转兵</div>
@@ -1230,70 +1222,99 @@
     </div>
 
     <!-- ============================================ -->
-    <!-- ★ 血战湘江 详情覆盖层 - 升级版 -->
+    <!-- ★ 详情覆盖层 - 统一模型 -->
     <!-- ============================================ -->
-    <div class="detail-overlay" id="detailOverlay">
-        <!-- 导航 -->
+
+    <!-- 血战湘江 详情 -->
+    <div class="detail-overlay" id="detailXuejiang">
         <div class="detail-nav">
-            <span class="back-detail-btn" id="backDetailBtn">← 返回</span>
+            <span class="back-detail-btn" data-target="xuejiang">← 返回</span>
             <span class="detail-title">⚔️ <span class="red">血战湘江</span></span>
             <span class="detail-spacer"></span>
         </div>
-
         <div class="detail-content">
-
-            <!-- 滚动提示 -->
             <div class="detail-scroll-hint">↓ 向下滚动浏览更多内容 ↓</div>
-
-            <!-- 顶部：图片 + 简介 -->
-            <div class="detail-hero-wrapper" id="detailHeroWrapper">
-                <img src="血战湘江.jpg" alt="血战湘江" id="detailHeroImage">
+            <div class="detail-hero-wrapper">
+                <img src="血战湘江.jpg" alt="血战湘江" class="detail-hero-img">
                 <span class="click-hint-badge">🔍 点击放大</span>
             </div>
-
             <div class="detail-brief">
                 <div class="brief-content">
-                    <p>
-                        湘江战役，中央红军经过英勇奋战，突破了国民党军第四道封锁线，
-                        挫败了蒋介石企图歼灭红军于湘江以东的计划。
-                        但此役也是中央红军长征中损失最大的一次。
-                        中央红军渡过湘江后由长征开始时的 <span class="highlight">8.6万余人</span> 锐减为 <span class="red-num">3万余人</span>。
-                    </p>
+                    <p>湘江战役，中央红军经过英勇奋战，突破了国民党军第四道封锁线，挫败了蒋介石企图歼灭红军于湘江以东的计划。但此役也是中央红军长征中损失最大的一次。中央红军渡过湘江后由长征开始时的 <span class="highlight">8.6万余人</span> 锐减为 <span class="red-num">3万余人</span>。</p>
                 </div>
             </div>
-
-            <!-- 黄色分割线 -->
             <div class="detail-divider"></div>
-
-            <!-- 底部4张图片 -->
             <div class="detail-bottom">
                 <div class="detail-bottom-grid">
-
-                    <div class="detail-bottom-item">
-                        <img src="湘江战役行军图.jpg" alt="湘江战役行军图" class="detail-bottom-img">
-                        <div class="item-label">📜 <span class="highlight">行军路线</span></div>
-                    </div>
-
-                    <div class="detail-bottom-item">
-                        <img src="战场遗址.jpg" alt="战场遗址" class="detail-bottom-img">
-                        <div class="item-label">🏚️ <span class="highlight">战场遗址</span></div>
-                    </div>
-
-                    <div class="detail-bottom-item">
-                        <img src="红军遗物.jpg" alt="红军遗物" class="detail-bottom-img">
-                        <div class="item-label">🎖️ <span class="highlight">红军遗物</span></div>
-                    </div>
-
-                    <div class="detail-bottom-item">
-                        <img src="数风流人物.jpg" alt="数风流人物" class="detail-bottom-img">
-                        <div class="item-label">👤 <span class="highlight">数风流人物</span></div>
-                    </div>
-
+                    <div class="detail-bottom-item"><img src="湘江战役行军图.jpg" alt="行军路线" class="detail-bottom-img"><div class="item-label">📜 <span class="highlight">行军路线</span></div></div>
+                    <div class="detail-bottom-item"><img src="战场遗址.jpg" alt="战场遗址" class="detail-bottom-img"><div class="item-label">🏚️ <span class="highlight">战场遗址</span></div></div>
+                    <div class="detail-bottom-item"><img src="红军遗物.jpg" alt="红军遗物" class="detail-bottom-img"><div class="item-label">🎖️ <span class="highlight">红军遗物</span></div></div>
+                    <div class="detail-bottom-item"><img src="数风流人物.jpg" alt="数风流人物" class="detail-bottom-img"><div class="item-label">👤 <span class="highlight">数风流人物</span></div></div>
                 </div>
             </div>
-
             <div class="detail-scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
+        </div>
+    </div>
 
+    <!-- 通道会议 详情 -->
+    <div class="detail-overlay" id="detailTongdao">
+        <div class="detail-nav">
+            <span class="back-detail-btn" data-target="tongdao">← 返回</span>
+            <span class="detail-title">🏛️ <span class="red">通道会议</span></span>
+            <span class="detail-spacer"></span>
+        </div>
+        <div class="detail-content">
+            <div class="detail-scroll-hint">↓ 向下滚动浏览更多内容 ↓</div>
+            <div class="detail-hero-wrapper">
+                <img src="通道会议.jpg" alt="通道会议" class="detail-hero-img">
+                <span class="click-hint-badge">🔍 点击放大</span>
+            </div>
+            <div class="detail-brief">
+                <div class="brief-content">
+                    <p><span class="highlight">1934年12月12日</span>，中革军委在通道恭城书院召开紧急军事会议。博古、李德仍坚持北上湘西，毛泽东据理力争——敌军已在北面布下重兵，西进贵州才是唯一生路。周恩来、朱德、张闻天、王稼祥等多数人支持毛泽东。会议最终决定：<span class="highlight">转兵西进，向贵州进发</span>。当晚，"万万火急"电令发出。</p>
+                </div>
+            </div>
+            <div class="detail-divider"></div>
+            <div class="detail-bottom">
+                <div class="detail-bottom-grid">
+                    <div class="detail-bottom-item"><img src="会议记录.jpg" alt="会议记录" class="detail-bottom-img"><div class="item-label">📄 <span class="highlight">会议记录</span></div></div>
+                    <div class="detail-bottom-item"><img src="电报文件.jpg" alt="电报文件" class="detail-bottom-img"><div class="item-label">📨 <span class="highlight">"万万火急"电令</span></div></div>
+                    <div class="detail-bottom-item"><img src="数风流人物.jpg" alt="参会人物" class="detail-bottom-img"><div class="item-label">👥 <span class="highlight">参会人物</span></div></div>
+                    <div class="detail-bottom-item"><img src="通道转兵.jpg" alt="转兵路线" class="detail-bottom-img"><div class="item-label">🗺️ <span class="highlight">转兵路线</span></div></div>
+                </div>
+            </div>
+            <div class="detail-scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
+        </div>
+    </div>
+
+    <!-- 通道转兵 详情 -->
+    <div class="detail-overlay" id="detailZhuanbing">
+        <div class="detail-nav">
+            <span class="back-detail-btn" data-target="zhuanbing">← 返回</span>
+            <span class="detail-title">🔄 <span class="red">通道转兵</span></span>
+            <span class="detail-spacer"></span>
+        </div>
+        <div class="detail-content">
+            <div class="detail-scroll-hint">↓ 向下滚动浏览更多内容 ↓</div>
+            <div class="detail-hero-wrapper">
+                <img src="通道转兵.jpg" alt="通道转兵" class="detail-hero-img">
+                <span class="click-hint-badge">🔍 点击放大</span>
+            </div>
+            <div class="detail-brief">
+                <div class="brief-content">
+                    <p>通道会议后，中央红军分两路向西疾进，一举跳出敌军在湘西布下的包围圈。<span class="highlight">12月18日</span>，红军抵达贵州黎平，转兵战略正式实现。通道转兵不仅保存了 <span class="highlight">3万红军</span> 的宝贵力量，更标志着"左"倾军事路线走向破产，为遵义会议确立毛泽东的领导地位奠定了关键基础。</p>
+                </div>
+            </div>
+            <div class="detail-divider"></div>
+            <div class="detail-bottom">
+                <div class="detail-bottom-grid">
+                    <div class="detail-bottom-item"><img src="通道转兵.jpg" alt="转兵路线" class="detail-bottom-img"><div class="item-label">🗺️ <span class="highlight">转兵路线</span></div></div>
+                    <div class="detail-bottom-item"><img src="湘江战役行军图.jpg" alt="行军图" class="detail-bottom-img"><div class="item-label">📜 <span class="highlight">行军图</span></div></div>
+                    <div class="detail-bottom-item"><img src="数风流人物.jpg" alt="历史人物" class="detail-bottom-img"><div class="item-label">👤 <span class="highlight">历史人物</span></div></div>
+                    <div class="detail-bottom-item"><img src="战场遗址.jpg" alt="历史遗址" class="detail-bottom-img"><div class="item-label">🏚️ <span class="highlight">历史遗址</span></div></div>
+                </div>
+            </div>
+            <div class="detail-scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
         </div>
     </div>
 
@@ -1308,83 +1329,94 @@
     <script>
         (function() {
             // =============================================
-            // ★ 主页交互
+            // ★ 卡片点击 → 打开对应详情
             // =============================================
-            const cardXuejiang = document.getElementById('cardXuejiang');
-            const detailOverlay = document.getElementById('detailOverlay');
-            const backDetailBtn = document.getElementById('backDetailBtn');
+            const cardMap = {
+                'xuejiang': 'detailXuejiang',
+                'tongdao': 'detailTongdao',
+                'zhuanbing': 'detailZhuanbing'
+            };
 
-            // 点击"血战湘江"卡片 → 打开详情
-            cardXuejiang.addEventListener('click', function() {
-                detailOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-
-            // 返回按钮 → 关闭详情
-            backDetailBtn.addEventListener('click', function() {
-                detailOverlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-
-            // 点击背景关闭
-            detailOverlay.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    detailOverlay.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-
-            // =============================================
-            // ★ 详情页 - 图片放大功能
-            // =============================================
-            const detailLightbox = document.getElementById('detailLightbox');
-            const detailLightboxImage = document.getElementById('detailLightboxImage');
-
-            // 主图点击放大
-            document.getElementById('detailHeroImage').addEventListener('click', function() {
-                detailLightboxImage.src = this.src;
-                detailLightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-
-            // 底部小图点击放大
-            document.querySelectorAll('.detail-bottom-img').forEach(img => {
-                img.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    detailLightboxImage.src = this.src;
-                    detailLightbox.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            });
-
-            // 点击背景关闭模态框
-            detailLightbox.addEventListener('click', function() {
-                this.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-
-            // ESC键关闭
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && detailLightbox.classList.contains('active')) {
-                    detailLightbox.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-
-            // =============================================
-            // ★ 详情页 - 滚动到顶部/底部
-            // =============================================
-            document.querySelectorAll('.detail-scroll-hint').forEach(hint => {
-                hint.addEventListener('click', function() {
-                    const overlay = document.getElementById('detailOverlay');
-                    if (this.textContent.includes('回到顶部')) {
-                        overlay.scrollTo({ top: 0, behavior: 'smooth' });
+            document.querySelectorAll('.resource-card[data-phase]').forEach(card => {
+                card.addEventListener('click', function() {
+                    const phase = this.dataset.phase;
+                    const targetId = cardMap[phase];
+                    if (targetId) {
+                        document.getElementById(targetId).classList.add('active');
+                        document.body.style.overflow = 'hidden';
                     }
                 });
             });
 
             // =============================================
-            // ★ 详情页 - 底部卡片点击
+            // ★ 返回按钮 → 关闭对应详情
+            // =============================================
+            document.querySelectorAll('.back-detail-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const overlay = this.closest('.detail-overlay');
+                    if (overlay) {
+                        overlay.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+
+            // =============================================
+            // ★ 点击背景关闭
+            // =============================================
+            document.querySelectorAll('.detail-overlay').forEach(overlay => {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+
+            // =============================================
+            // ★ 图片放大功能（统一）
+            // =============================================
+            const lightbox = document.getElementById('detailLightbox');
+            const lightboxImg = document.getElementById('detailLightboxImage');
+
+            // 所有详情页中的主图和底部图
+            document.querySelectorAll('.detail-hero-img, .detail-bottom-img').forEach(img => {
+                img.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    lightboxImg.src = this.src;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            lightbox.addEventListener('click', function() {
+                this.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // =============================================
+            // ★ 滚动到顶部/底部
+            // =============================================
+            document.querySelectorAll('.detail-scroll-hint').forEach(hint => {
+                hint.addEventListener('click', function() {
+                    const overlay = this.closest('.detail-overlay');
+                    if (overlay) {
+                        if (this.textContent.includes('回到顶部')) {
+                            overlay.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+
+            // =============================================
+            // ★ 底部卡片点击提示
             // =============================================
             document.querySelectorAll('.detail-bottom-item').forEach(item => {
                 item.addEventListener('click', function() {
@@ -1405,13 +1437,11 @@
                 const keyword = searchInput.value.trim();
                 const year = yearSelect.value;
                 const category = categorySelect.value;
-
                 let message = '🔍 搜索条件：\n';
                 message += `📝 关键词: "${keyword || '(空)'}"\n`;
                 message += `📅 年份: ${year || '不限'}\n`;
                 message += `📂 分类: ${category || '不限'}\n`;
                 message += `\n(搜索功能暂未实现)`;
-
                 alert(message);
             }
 
@@ -1426,8 +1456,7 @@
             // =============================================
             // ★ 其他卡片点击
             // =============================================
-            const otherCards = document.querySelectorAll('.resource-card:not(#cardXuejiang), .extra-card');
-            otherCards.forEach(card => {
+            document.querySelectorAll('.extra-card').forEach(card => {
                 card.addEventListener('click', function() {
                     const title = this.querySelector('.card-title')?.textContent || '资源';
                     alert('📖 您点击了: "' + title + '"\n(详情页暂未实现)');
@@ -1437,11 +1466,10 @@
             // =============================================
             // ★ 分页点击
             // =============================================
-            const pageBtns = document.querySelectorAll('.page-btn');
-            pageBtns.forEach(btn => {
+            document.querySelectorAll('.page-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     if (this.textContent.includes('页') || this.textContent.includes('…')) return;
-                    pageBtns.forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     const totalSpan = document.querySelector('.pagination-info .total .num:last-child');
                     if (totalSpan) {
@@ -1451,8 +1479,7 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 点击"血战湘江"卡片进入升级版详情页');
-            console.log('📌 背景模糊 + 鼠标滚动 + 点击图片放大');
+            console.log('📌 三大转折统一详情页模型：背景模糊 + 滚动 + 点击放大');
         })();
     </script>
 
