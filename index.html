@@ -672,6 +672,9 @@
             align-items: center;
             justify-content: center;
             background: rgba(0, 0, 0, 0.10);
+            cursor: default;
+            pointer-events: none;
+            user-select: none;
         }
 
         .detail-bottom-item .item-label .highlight {
@@ -755,6 +758,7 @@
 
         /* ============================================ */
         /* ★ 红军遗物详情 - 5张图片自适应边框 */
+        /* ★ 参考网页风格：文字纯展示，不可点击 */
         /* ============================================ */
         .relics-grid {
             display: grid;
@@ -767,14 +771,13 @@
         }
 
         .relic-item {
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(0, 0, 0, 0.12);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             border-radius: 14px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.04);
             transition: 0.3s;
-            cursor: default;
             display: flex;
             flex-direction: column;
         }
@@ -782,7 +785,7 @@
         .relic-item:hover {
             transform: translateY(-4px);
             background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(204, 0, 0, 0.15);
+            border-color: rgba(204, 0, 0, 0.12);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
 
@@ -800,24 +803,30 @@
             transform: scale(1.02);
         }
 
+        /* ★ 文字标签 - 纯展示，不可点击（参考网页风格） */
         .relic-item .relic-label {
-            padding: 12px 14px 14px;
+            padding: 14px 16px 16px;
             text-align: center;
             font-size: 0.85rem;
-            color: #e0e0e0;
-            line-height: 1.5;
+            color: #c8c8d4;
+            line-height: 1.6;
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 0, 0, 0.10);
+            background: rgba(0, 0, 0, 0.08);
             cursor: default;
             pointer-events: none;
+            user-select: none;
+            letter-spacing: 0.3px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
 
+        /* ★ 文字中的高亮部分 */
         .relic-item .relic-label .highlight {
-            color: #f7d98c;
+            color: #d4a847;
             font-weight: 600;
+            margin-right: 4px;
         }
 
         /* ===== 响应式 ===== */
@@ -1430,6 +1439,7 @@
 
     <!-- ============================================ -->
     <!-- ★ 红军遗物 详情 - 5张图片自适应边框 -->
+    <!-- ★ 参考网页风格：文字纯展示，不可点击 -->
     <!-- ============================================ -->
     <div class="detail-overlay" id="detailRelics">
         <div class="detail-nav">
@@ -1550,13 +1560,13 @@
             });
 
             // =============================================
-            // ★ 图片放大功能（统一）
+            // ★ 图片放大功能（统一）- 只对图片生效
             // =============================================
             const lightbox = document.getElementById('detailLightbox');
             const lightboxImg = document.getElementById('detailLightboxImage');
 
             // 所有详情页中的可点击图片
-            document.querySelectorAll('.detail-hero-img, .detail-bottom-img, .relic-img').forEach(img => {
+            document.querySelectorAll('.detail-hero-img, .detail-bottom-img, .relic-item img').forEach(img => {
                 img.addEventListener('click', function(e) {
                     e.stopPropagation();
                     lightboxImg.src = this.src;
@@ -1593,6 +1603,7 @@
 
             // =============================================
             // ★ 底部卡片点击提示（仅对 detail-bottom-item 生效，排除 relic-item）
+            // ★ relic-item 的文字已通过 CSS pointer-events: none 禁止点击
             // =============================================
             document.querySelectorAll('.detail-bottom-item').forEach(item => {
                 item.addEventListener('click', function() {
@@ -1600,8 +1611,6 @@
                     alert('📖 您点击了: "' + label + '"\n(详情页暂未实现)');
                 });
             });
-
-            // ★ 老物件点击只放大图片，不弹窗（已由上面的图片点击事件处理）
 
             // =============================================
             // ★ 搜索功能
@@ -1657,7 +1666,8 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 老物件图片点击只放大，不弹窗');
+            console.log('📌 老物件文字参考网页风格：纯展示，不可点击');
+            console.log('📌 点击图片放大，点击文字无反应');
         })();
     </script>
 
