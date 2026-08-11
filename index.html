@@ -306,7 +306,7 @@
         }
 
         /* ============================================ */
-        /* ★ 附加内容 */
+        /* ★ 附加内容 - 可点击卡片 */
         /* ============================================ */
         .extra-grid {
             display: grid;
@@ -753,6 +753,71 @@
             backdrop-filter: blur(4px);
         }
 
+        /* ============================================ */
+        /* ★ 红军遗物详情 - 5张图片自适应边框 */
+        /* ============================================ */
+        .relics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10px 0;
+        }
+
+        .relic-item {
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .relic-item:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(204, 0, 0, 0.15);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .relic-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            background: #2a2a4a;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .relic-item img:hover {
+            transform: scale(1.02);
+        }
+
+        .relic-item .relic-label {
+            padding: 12px 14px 14px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #e0e0e0;
+            line-height: 1.5;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.10);
+        }
+
+        .relic-item .relic-label .highlight {
+            color: #f7d98c;
+            font-weight: 600;
+        }
+
         /* ===== 响应式 ===== */
         @media (max-width: 1024px) {
             .cards-grid {
@@ -777,6 +842,13 @@
             }
             .detail-hero-wrapper img {
                 max-height: 45vh;
+            }
+            .relics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+                gap: 16px;
+            }
+            .relic-item img {
+                height: 160px;
             }
         }
 
@@ -904,6 +976,17 @@
                 padding: 6px 16px;
                 bottom: 20px;
             }
+            .relics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 14px;
+            }
+            .relic-item img {
+                height: 140px;
+            }
+            .relic-item .relic-label {
+                font-size: 0.75rem;
+                padding: 10px 12px 12px;
+            }
         }
 
         @media (max-width: 600px) {
@@ -1000,6 +1083,31 @@
             }
             .detail-scroll-hint {
                 font-size: 0.55rem;
+            }
+            .relics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .relic-item img {
+                height: 120px;
+            }
+            .relic-item .relic-label {
+                font-size: 0.7rem;
+                padding: 8px 10px 10px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .relics-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .relic-item img {
+                height: 100px;
+            }
+            .relic-item .relic-label {
+                font-size: 0.6rem;
+                padding: 6px 8px 8px;
             }
         }
     </style>
@@ -1125,17 +1233,19 @@
                 📦 <span class="red">革命遗存</span> · 历史见证
             </div>
 
-            <!-- 附加内容 -->
+            <!-- 附加内容 - 可点击卡片 -->
             <div class="extra-grid">
 
-                <div class="extra-card">
+                <!-- ★ 红军遗物 - 点击进入详情 -->
+                <div class="extra-card" id="cardRelics">
                     <img class="card-image" src="红军遗物.jpg" alt="红军遗物">
                     <div class="card-body">
-                        <div class="card-title">红军遗物</div>
-                        <div class="card-sub">1934年 · 革命文物</div>
+                        <div class="card-title">🎖️ 红军遗物</div>
+                        <div class="card-sub">革命文物 · 历史见证</div>
                         <div class="card-tags">
                             <span class="card-tag">#文物</span>
                             <span class="card-tag">#遗物</span>
+                            <span class="card-tag">#5件</span>
                         </div>
                     </div>
                 </div>
@@ -1222,7 +1332,7 @@
     </div>
 
     <!-- ============================================ -->
-    <!-- ★ 详情覆盖层 - 统一模型 -->
+    <!-- ★ 详情覆盖层 - 三大转折 -->
     <!-- ============================================ -->
 
     <!-- 血战湘江 详情 -->
@@ -1309,9 +1419,69 @@
                     <div class="detail-bottom-item"><img src="过通道示意图.jpg" alt="转兵路线" class="detail-bottom-img"><div class="item-label">🗺️ <span class="highlight">转兵路线</span></div></div>
                     <div class="detail-bottom-item"><img src="历史人物.jpg" alt="历史人物1" class="detail-bottom-img"><div class="item-label">📜 <span class="highlight">历史人物1</span></div></div>
                     <div class="detail-bottom-item"><img src="女红军.jpg" alt="历史人物2" class="detail-bottom-img"><div class="item-label">👤 <span class="highlight">历史人物2</span></div></div>
-                    <div class="detail-bottom-item"><img src="西入贵州行进路线示章图.jpg" alt="西向贵州" class="detail-bottom-img"><div class="item-label">🏚️ <span class="highlight">西向贵州</span></div></div>
+                    <div class="detail-bottom-item"><img src="西入贵州行进路线示意图.jpg" alt="西向贵州" class="detail-bottom-img"><div class="item-label">🏚️ <span class="highlight">西乡贵州</span></div></div>
                 </div>
             </div>
+            <div class="detail-scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- ★ 红军遗物 详情 - 5张图片自适应边框 -->
+    <!-- ============================================ -->
+    <div class="detail-overlay" id="detailRelics">
+        <div class="detail-nav">
+            <span class="back-detail-btn" data-target="relics">← 返回</span>
+            <span class="detail-title">🎖️ <span class="red">红军遗物</span></span>
+            <span class="detail-spacer"></span>
+        </div>
+        <div class="detail-content">
+            <div class="detail-scroll-hint">↓ 向下滚动浏览更多内容 ↓</div>
+
+            <!-- 简介 -->
+            <div class="detail-brief">
+                <div class="brief-content">
+                    <p>📦 革命文物 · 历史见证 —— 这些珍贵的红军遗物，记录了那段烽火岁月中的 <span class="highlight">坚定信念</span> 与 <span class="highlight">不屈精神</span>。</p>
+                </div>
+            </div>
+
+            <div class="detail-divider"></div>
+
+            <!-- ★ 5张图片自适应网格 -->
+            <div class="relics-grid">
+
+                <!-- 老物件1 -->
+                <div class="relic-item">
+                    <img src="老物件1.jpg" alt="老物件1" class="relic-img">
+                    <div class="relic-label">🔫 <span class="highlight">老物件1</span> · 红军使用过的武器</div>
+                </div>
+
+                <!-- 老物件2 -->
+                <div class="relic-item">
+                    <img src="老物件2.jpg" alt="老物件2" class="relic-img">
+                    <div class="relic-label">📖 <span class="highlight">老物件2</span> · 红军战士的学习笔记</div>
+                </div>
+
+                <!-- 老物件3 -->
+                <div class="relic-item">
+                    <img src="老物件3.jpg" alt="老物件3" class="relic-img">
+                    <div class="relic-label">🏺 <span class="highlight">老物件3</span> · 行军途中使用的器具</div>
+                </div>
+
+                <!-- 老物件4 -->
+                <div class="relic-item">
+                    <img src="老物件4.jpg" alt="老物件4" class="relic-img">
+                    <div class="relic-label">📜 <span class="highlight">老物件4</span> · 珍贵的革命文献</div>
+                </div>
+
+                <!-- 老物件5 -->
+                <div class="relic-item">
+                    <img src="老物件5.jpg" alt="老物件5" class="relic-img">
+                    <div class="relic-label">🎖️ <span class="highlight">老物件5</span> · 红军战士的荣誉勋章</div>
+                </div>
+
+            </div>
+
             <div class="detail-scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
         </div>
     </div>
@@ -1346,6 +1516,12 @@
                 });
             });
 
+            // ★ 红军遗物卡片点击
+            document.getElementById('cardRelics').addEventListener('click', function() {
+                document.getElementById('detailRelics').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
             // =============================================
             // ★ 返回按钮 → 关闭对应详情
             // =============================================
@@ -1377,8 +1553,8 @@
             const lightbox = document.getElementById('detailLightbox');
             const lightboxImg = document.getElementById('detailLightboxImage');
 
-            // 所有详情页中的主图和底部图
-            document.querySelectorAll('.detail-hero-img, .detail-bottom-img').forEach(img => {
+            // 所有详情页中的可点击图片
+            document.querySelectorAll('.detail-hero-img, .detail-bottom-img, .relic-img').forEach(img => {
                 img.addEventListener('click', function(e) {
                     e.stopPropagation();
                     lightboxImg.src = this.src;
@@ -1416,9 +1592,9 @@
             // =============================================
             // ★ 底部卡片点击提示
             // =============================================
-            document.querySelectorAll('.detail-bottom-item').forEach(item => {
+            document.querySelectorAll('.detail-bottom-item, .relic-item').forEach(item => {
                 item.addEventListener('click', function() {
-                    const label = this.querySelector('.item-label')?.textContent.trim() || '资源';
+                    const label = this.querySelector('.item-label, .relic-label')?.textContent.trim() || '资源';
                     alert('📖 您点击了: "' + label + '"\n(详情页暂未实现)');
                 });
             });
@@ -1454,7 +1630,7 @@
             // =============================================
             // ★ 其他卡片点击
             // =============================================
-            document.querySelectorAll('.extra-card').forEach(card => {
+            document.querySelectorAll('.extra-card:not(#cardRelics)').forEach(card => {
                 card.addEventListener('click', function() {
                     const title = this.querySelector('.card-title')?.textContent || '资源';
                     alert('📖 您点击了: "' + title + '"\n(详情页暂未实现)');
@@ -1477,7 +1653,7 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 三大转折统一详情页模型：背景模糊 + 滚动 + 点击放大');
+            console.log('📌 红军遗物：5张老物件图片，自适应边框，点击放大');
         })();
     </script>
 
