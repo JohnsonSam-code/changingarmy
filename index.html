@@ -774,7 +774,7 @@
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.04);
             transition: 0.3s;
-            cursor: pointer;
+            cursor: default;
             display: flex;
             flex-direction: column;
         }
@@ -811,6 +811,8 @@
             align-items: center;
             justify-content: center;
             background: rgba(0, 0, 0, 0.10);
+            cursor: default;
+            pointer-events: none;
         }
 
         .relic-item .relic-label .highlight {
@@ -1590,14 +1592,16 @@
             });
 
             // =============================================
-            // ★ 底部卡片点击提示
+            // ★ 底部卡片点击提示（仅对 detail-bottom-item 生效，排除 relic-item）
             // =============================================
-            document.querySelectorAll('.detail-bottom-item, .relic-item').forEach(item => {
+            document.querySelectorAll('.detail-bottom-item').forEach(item => {
                 item.addEventListener('click', function() {
-                    const label = this.querySelector('.item-label, .relic-label')?.textContent.trim() || '资源';
+                    const label = this.querySelector('.item-label')?.textContent.trim() || '资源';
                     alert('📖 您点击了: "' + label + '"\n(详情页暂未实现)');
                 });
             });
+
+            // ★ 老物件点击只放大图片，不弹窗（已由上面的图片点击事件处理）
 
             // =============================================
             // ★ 搜索功能
@@ -1653,7 +1657,7 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 红军遗物：5张老物件图片，自适应边框，点击放大');
+            console.log('📌 老物件图片点击只放大，不弹窗');
         })();
     </script>
 
