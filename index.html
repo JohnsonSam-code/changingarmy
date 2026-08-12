@@ -309,7 +309,6 @@
             border: 1px solid rgba(204, 0, 0, 0.1);
         }
 
-        /* 搜索隐藏 */
         .resource-card.hidden {
             display: none;
         }
@@ -1680,13 +1679,13 @@
                         match = fullText.includes(keyword);
                     }
 
-                    // 年份筛选（基于 data-search 中的年份信息）
-                    if (match && year && year !== '全部') {
+                    // 年份筛选
+                    if (match && year && year !== '全部' && year !== '') {
                         match = searchData.includes(year);
                     }
 
-                    // 分类筛选（基于 data-search 中的分类信息）
-                    if (match && category && category !== '全部') {
+                    // 分类筛选
+                    if (match && category && category !== '全部' && category !== '') {
                         match = searchData.includes(category);
                     }
 
@@ -1699,20 +1698,18 @@
                 });
 
                 // 更新搜索结果提示
-                if (keyword || (year && year !== '全部') || (category && category !== '全部')) {
-                    let displayKeyword = keyword || '筛选条件';
-                    if (year && year !== '全部') displayKeyword += ' · ' + year;
-                    if (category && category !== '全部') displayKeyword += ' · ' + category;
+                let displayKeyword = '';
+                if (keyword) displayKeyword += keyword;
+                if (year && year !== '全部' && year !== '') displayKeyword += (displayKeyword ? ' · ' : '') + year;
+                if (category && category !== '全部' && category !== '') displayKeyword += (displayKeyword ? ' · ' : '') +
+                category;
+
+                if (displayKeyword) {
                     resultCount.textContent = matchCount;
                     resultKeyword.textContent = '“' + displayKeyword + '”';
                     searchResultInfo.classList.add('show');
                 } else {
                     searchResultInfo.classList.remove('show');
-                }
-
-                // 如果没有任何匹配，显示空状态（但保留提示）
-                if (matchCount === 0) {
-                    // 已经显示了"找到 0 个结果"
                 }
             }
 
@@ -1729,7 +1726,7 @@
             }
 
             // =============================================
-            // ★ 事件绑定
+            // ★ 事件绑定（只绑定一次，不冲突）
             // =============================================
             searchBtn.addEventListener('click', performSearch);
             searchInput.addEventListener('keydown', function(e) {
