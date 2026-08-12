@@ -145,6 +145,37 @@
             width: 100%;
         }
 
+        /* ===== 搜索结果提示 ===== */
+        .search-result-info {
+            display: none;
+            text-align: center;
+            padding: 10px 0 6px;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 1px;
+        }
+        .search-result-info .num {
+            color: #f7d98c;
+            font-weight: 600;
+        }
+        .search-result-info .keyword {
+            color: #f7d98c;
+            font-weight: 600;
+        }
+        .search-result-info .clear-btn {
+            color: #cc0000;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-left: 12px;
+            font-weight: 600;
+        }
+        .search-result-info .clear-btn:hover {
+            color: #ff4444;
+        }
+        .search-result-info.show {
+            display: block;
+        }
+
         /* ============================================ */
         /* ★ 统计框 */
         /* ============================================ */
@@ -278,6 +309,11 @@
             border: 1px solid rgba(204, 0, 0, 0.1);
         }
 
+        /* 搜索隐藏 */
+        .resource-card.hidden {
+            display: none;
+        }
+
         /* ============================================ */
         /* ★ 红色分割线 */
         /* ============================================ */
@@ -376,6 +412,10 @@
             background: rgba(204, 0, 0, 0.12);
             color: #f7d98c;
             border: 1px solid rgba(204, 0, 0, 0.08);
+        }
+
+        .extra-card.hidden {
+            display: none;
         }
 
         /* ============================================ */
@@ -1186,16 +1226,23 @@
                 </div>
             </div>
 
+            <!-- ★ 搜索结果提示 -->
+            <div class="search-result-info" id="searchResultInfo">
+                找到 <span class="num" id="resultCount">0</span> 个结果
+                <span class="keyword" id="resultKeyword"></span>
+                <span class="clear-btn" id="clearSearch">✕ 清除搜索</span>
+            </div>
+
             <!-- 三大板块标题 -->
             <div class="section-title">
                 📖 <span class="red">三大转折</span> · 红色记忆
             </div>
 
             <!-- 三大板块卡片 -->
-            <div class="cards-grid">
+            <div class="cards-grid" id="cardsGrid">
 
                 <!-- 血战湘江 -->
-                <div class="resource-card" data-phase="xuejiang">
+                <div class="resource-card" data-phase="xuejiang" data-search="血战湘江 湘江战役 长征 突围 1934 11月">
                     <img class="card-image" src="血战湘江.jpg" alt="血战湘江">
                     <div class="card-body">
                         <div class="card-title">⚔️ 血战湘江</div>
@@ -1209,7 +1256,7 @@
                 </div>
 
                 <!-- 通道会议 -->
-                <div class="resource-card" data-phase="tongdao">
+                <div class="resource-card" data-phase="tongdao" data-search="通道会议 恭城书院 转兵 决策 1934 12月 毛泽东 周恩来 朱德">
                     <img class="card-image" src="通道会议.jpg" alt="通道会议旧址">
                     <div class="card-body">
                         <div class="card-title">🏛️ 通道会议</div>
@@ -1223,7 +1270,7 @@
                 </div>
 
                 <!-- 通道转兵 -->
-                <div class="resource-card" data-phase="zhuanbing">
+                <div class="resource-card" data-phase="zhuanbing" data-search="通道转兵 转兵 西进 贵州 黎平 遵义 1934 12月 战略">
                     <img class="card-image" src="通道转兵.jpg" alt="通道转兵路线图">
                     <div class="card-body">
                         <div class="card-title">🔄 通道转兵</div>
@@ -1247,10 +1294,10 @@
             </div>
 
             <!-- ★ 4个小板块 -->
-            <div class="extra-grid">
+            <div class="extra-grid" id="extraGrid">
 
                 <!-- 1. 红军遗物 -->
-                <div class="extra-card" data-extra="relics">
+                <div class="extra-card" data-extra="relics" data-search="红军遗物 文物 遗物 革命文物 历史见证 武器 学习笔记 行军锅 文献 勋章">
                     <img class="card-image" src="军民鱼水情.jpg" alt="红军遗物">
                     <div class="card-body">
                         <div class="card-title">🎖️ 红军遗物</div>
@@ -1264,7 +1311,7 @@
                 </div>
 
                 <!-- 2. 长征精神 -->
-                <div class="extra-card" data-extra="spirit">
+                <div class="extra-card" data-extra="spirit" data-search="长征精神 信念 艰苦奋斗 不怕牺牲 团结互助 实事求是 使命感 指挥员 宣言书">
                     <img class="card-image" src="伟大的长征精神.jpg" alt="长征精神">
                     <div class="card-body">
                         <div class="card-title">🔥 长征精神</div>
@@ -1278,7 +1325,7 @@
                 </div>
 
                 <!-- 3. 红色故事 -->
-                <div class="extra-card" data-extra="figures">
+                <div class="extra-card" data-extra="figures" data-search="红色故事 英雄 事迹 传奇 军民 鱼水情 侗乡 民族团结 智斗 机智 五姑嫂 人民群众">
                     <img class="card-image" src="红色侗乡.jpg" alt="红色故事">
                     <div class="card-body">
                         <div class="card-title">📖 红色故事</div>
@@ -1292,7 +1339,7 @@
                 </div>
 
                 <!-- 4. 英雄人物 -->
-                <div class="extra-card" data-extra="maps">
+                <div class="extra-card" data-extra="maps" data-search="英雄人物 遗址 地图 历史人物 女红军 梯队 长征四老 决策者 巾帼 指挥 前辈">
                     <img class="card-image" src="壮士.jpg" alt="英雄人物">
                     <div class="card-body">
                         <div class="card-title">🗺️ 英雄人物</div>
@@ -1584,6 +1631,118 @@
     <script>
         (function() {
             // =============================================
+            // ★ DOM 引用
+            // =============================================
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const yearSelect = document.getElementById('yearSelect');
+            const categorySelect = document.getElementById('categorySelect');
+            const searchResultInfo = document.getElementById('searchResultInfo');
+            const resultCount = document.getElementById('resultCount');
+            const resultKeyword = document.getElementById('resultKeyword');
+            const clearSearch = document.getElementById('clearSearch');
+
+            // 所有可搜索的卡片
+            const allCards = document.querySelectorAll('.resource-card, .extra-card');
+
+            // =============================================
+            // ★ 搜索功能
+            // =============================================
+            function performSearch() {
+                const keyword = searchInput.value.trim().toLowerCase();
+                const year = yearSelect.value;
+                const category = categorySelect.value;
+
+                // 如果没有关键词且没有筛选条件，显示全部
+                if (!keyword && !year && !category) {
+                    allCards.forEach(card => card.classList.remove('hidden'));
+                    searchResultInfo.classList.remove('show');
+                    return;
+                }
+
+                let matchCount = 0;
+
+                allCards.forEach(card => {
+                    // 获取卡片的搜索数据
+                    const searchData = (card.dataset.search || '').toLowerCase();
+                    const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+                    const sub = (card.querySelector('.card-sub')?.textContent || '').toLowerCase();
+                    const tags = Array.from(card.querySelectorAll('.card-tag'))
+                        .map(tag => tag.textContent.toLowerCase())
+                        .join(' ');
+
+                    // 构建完整搜索文本
+                    const fullText = searchData + ' ' + title + ' ' + sub + ' ' + tags;
+
+                    // 关键词匹配
+                    let match = true;
+                    if (keyword) {
+                        match = fullText.includes(keyword);
+                    }
+
+                    // 年份筛选（基于 data-search 中的年份信息）
+                    if (match && year && year !== '全部') {
+                        match = searchData.includes(year);
+                    }
+
+                    // 分类筛选（基于 data-search 中的分类信息）
+                    if (match && category && category !== '全部') {
+                        match = searchData.includes(category);
+                    }
+
+                    if (match) {
+                        card.classList.remove('hidden');
+                        matchCount++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                // 更新搜索结果提示
+                if (keyword || (year && year !== '全部') || (category && category !== '全部')) {
+                    let displayKeyword = keyword || '筛选条件';
+                    if (year && year !== '全部') displayKeyword += ' · ' + year;
+                    if (category && category !== '全部') displayKeyword += ' · ' + category;
+                    resultCount.textContent = matchCount;
+                    resultKeyword.textContent = '“' + displayKeyword + '”';
+                    searchResultInfo.classList.add('show');
+                } else {
+                    searchResultInfo.classList.remove('show');
+                }
+
+                // 如果没有任何匹配，显示空状态（但保留提示）
+                if (matchCount === 0) {
+                    // 已经显示了"找到 0 个结果"
+                }
+            }
+
+            // =============================================
+            // ★ 清除搜索
+            // =============================================
+            function clearSearchFunc() {
+                searchInput.value = '';
+                yearSelect.value = '';
+                categorySelect.value = '';
+                allCards.forEach(card => card.classList.remove('hidden'));
+                searchResultInfo.classList.remove('show');
+                searchInput.focus();
+            }
+
+            // =============================================
+            // ★ 事件绑定
+            // =============================================
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    performSearch();
+                }
+            });
+            yearSelect.addEventListener('change', performSearch);
+            categorySelect.addEventListener('change', performSearch);
+            clearSearch.addEventListener('click', clearSearchFunc);
+
+            // =============================================
             // ★ 三大转折卡片点击
             // =============================================
             const cardMap = {
@@ -1691,34 +1850,6 @@
             });
 
             // =============================================
-            // ★ 搜索功能
-            // =============================================
-            const searchInput = document.getElementById('searchInput');
-            const searchBtn = document.getElementById('searchBtn');
-            const yearSelect = document.getElementById('yearSelect');
-            const categorySelect = document.getElementById('categorySelect');
-
-            function handleSearch() {
-                const keyword = searchInput.value.trim();
-                const year = yearSelect.value;
-                const category = categorySelect.value;
-                let message = '🔍 搜索条件：\n';
-                message += `📝 关键词: "${keyword || '(空)'}"\n`;
-                message += `📅 年份: ${year || '不限'}\n`;
-                message += `📂 分类: ${category || '不限'}\n`;
-                message += `\n(搜索功能暂未实现)`;
-                alert(message);
-            }
-
-            searchBtn.addEventListener('click', handleSearch);
-            searchInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleSearch();
-                }
-            });
-
-            // =============================================
             // ★ 分页点击
             // =============================================
             document.querySelectorAll('.page-btn').forEach(btn => {
@@ -1734,8 +1865,8 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 4个小板块：红军遗物、长征精神、红色故事、英雄人物');
-            console.log('📌 文字风格参考通道县溪镇红色文化资源展示');
+            console.log('📌 搜索功能已启用：支持关键词、年份、分类筛选');
+            console.log('📌 输入关键词后按回车或点击搜索按钮即可搜索');
         })();
     </script>
 
