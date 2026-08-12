@@ -306,11 +306,11 @@
         }
 
         /* ============================================ */
-        /* ★ 附加内容 - 可点击卡片 */
+        /* ★ 附加内容 - 4个小板块（精简） */
         /* ============================================ */
         .extra-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 18px;
             padding: 10px 0 20px;
             max-width: 1100px;
@@ -672,9 +672,6 @@
             align-items: center;
             justify-content: center;
             background: rgba(0, 0, 0, 0.10);
-            cursor: default;
-            pointer-events: none;
-            user-select: none;
         }
 
         .detail-bottom-item .item-label .highlight {
@@ -757,10 +754,9 @@
         }
 
         /* ============================================ */
-        /* ★ 红军遗物详情 - 5张图片自适应边框 */
-        /* ★ 参考网页风格：文字纯展示，不可点击 */
+        /* ★ 通用详情网格 - 5张图片自适应边框 */
         /* ============================================ */
-        .relics-grid {
+        .detail-grid-5 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
@@ -770,7 +766,7 @@
             padding: 10px 0;
         }
 
-        .relic-item {
+        .detail-item-5 {
             background: rgba(0, 0, 0, 0.12);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
@@ -782,14 +778,14 @@
             flex-direction: column;
         }
 
-        .relic-item:hover {
+        .detail-item-5:hover {
             transform: translateY(-4px);
             background: rgba(255, 255, 255, 0.06);
             border-color: rgba(204, 0, 0, 0.12);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .relic-item img {
+        .detail-item-5 img {
             width: 100%;
             height: 200px;
             object-fit: cover;
@@ -799,12 +795,11 @@
             cursor: pointer;
         }
 
-        .relic-item img:hover {
+        .detail-item-5 img:hover {
             transform: scale(1.02);
         }
 
-        /* ★ 文字标签 - 纯展示，不可点击（参考网页风格） */
-        .relic-item .relic-label {
+        .detail-item-5 .item-label {
             padding: 14px 16px 16px;
             text-align: center;
             font-size: 0.85rem;
@@ -822,8 +817,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        /* ★ 文字中的高亮部分 */
-        .relic-item .relic-label .highlight {
+        .detail-item-5 .item-label .highlight {
             color: #d4a847;
             font-weight: 600;
             margin-right: 4px;
@@ -837,6 +831,10 @@
             }
             .resource-card .card-image {
                 height: 170px;
+            }
+            .extra-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 14px;
             }
             .detail-bottom-grid {
                 gap: 14px;
@@ -854,11 +852,11 @@
             .detail-hero-wrapper img {
                 max-height: 45vh;
             }
-            .relics-grid {
+            .detail-grid-5 {
                 grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
                 gap: 16px;
             }
-            .relic-item img {
+            .detail-item-5 img {
                 height: 160px;
             }
         }
@@ -904,7 +902,7 @@
                 padding: 14px 16px 16px;
             }
             .extra-grid {
-                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
                 gap: 14px;
             }
             .extra-card .card-image {
@@ -987,14 +985,14 @@
                 padding: 6px 16px;
                 bottom: 20px;
             }
-            .relics-grid {
+            .detail-grid-5 {
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
                 gap: 14px;
             }
-            .relic-item img {
+            .detail-item-5 img {
                 height: 140px;
             }
-            .relic-item .relic-label {
+            .detail-item-5 .item-label {
                 font-size: 0.75rem;
                 padding: 10px 12px 12px;
             }
@@ -1095,28 +1093,32 @@
             .detail-scroll-hint {
                 font-size: 0.55rem;
             }
-            .relics-grid {
+            .detail-grid-5 {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
-            .relic-item img {
+            .detail-item-5 img {
                 height: 120px;
             }
-            .relic-item .relic-label {
+            .detail-item-5 .item-label {
                 font-size: 0.7rem;
                 padding: 8px 10px 10px;
             }
         }
 
         @media (max-width: 400px) {
-            .relics-grid {
+            .extra-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 10px;
             }
-            .relic-item img {
+            .detail-grid-5 {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .detail-item-5 img {
                 height: 100px;
             }
-            .relic-item .relic-label {
+            .detail-item-5 .item-label {
                 font-size: 0.6rem;
                 padding: 6px 8px 8px;
             }
@@ -1241,14 +1243,14 @@
 
             <!-- 附加内容标题 -->
             <div class="extra-section-title">
-                📦 <span class="red">革命遗存</span> · 历史见证
+                📦 <span class="red">红色专题</span> · 深入探索
             </div>
 
-            <!-- 附加内容 - 可点击卡片 -->
+            <!-- ★ 4个小板块：红军遗物、长征精神、人物故事、遗址地图 -->
             <div class="extra-grid">
 
-                <!-- ★ 红军遗物 - 点击进入详情 -->
-                <div class="extra-card" id="cardRelics">
+                <!-- 1. 红军遗物 -->
+                <div class="extra-card" data-extra="relics">
                     <img class="card-image" src="军民鱼水情.jpg" alt="红军遗物">
                     <div class="card-body">
                         <div class="card-title">🎖️ 红军遗物</div>
@@ -1261,62 +1263,44 @@
                     </div>
                 </div>
 
-                <div class="extra-card">
-                    <img class="card-image" src="电报文件.jpg" alt="电报文件">
+                <!-- 2. 长征精神 -->
+                <div class="extra-card" data-extra="spirit">
+                    <img class="card-image" src="长征精神.jpg" alt="长征精神">
                     <div class="card-body">
-                        <div class="card-title">"万万火急"电令</div>
-                        <div class="card-sub">1934年12月12日 · 军事电报</div>
+                        <div class="card-title">🔥 长征精神</div>
+                        <div class="card-sub">坚定信念 · 艰苦奋斗</div>
                         <div class="card-tags">
-                            <span class="card-tag">#文献</span>
-                            <span class="card-tag">#电报</span>
+                            <span class="card-tag">#精神</span>
+                            <span class="card-tag">#信念</span>
+                            <span class="card-tag">#5篇</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="extra-card">
-                    <img class="card-image" src="数风流人物.jpg" alt="数风流人物">
+                <!-- 3. 人物故事 -->
+                <div class="extra-card" data-extra="figures">
+                    <img class="card-image" src="人物故事.jpg" alt="人物故事">
                     <div class="card-body">
-                        <div class="card-title">数风流人物</div>
-                        <div class="card-sub">红军将领肖像</div>
+                        <div class="card-title">👤 人物故事</div>
+                        <div class="card-sub">英雄人物 · 感人事迹</div>
                         <div class="card-tags">
                             <span class="card-tag">#人物</span>
-                            <span class="card-tag">#将领</span>
+                            <span class="card-tag">#故事</span>
+                            <span class="card-tag">#5位</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="extra-card">
-                    <img class="card-image" src="作战命令.jpg" alt="作战命令">
+                <!-- 4. 遗址地图 -->
+                <div class="extra-card" data-extra="maps">
+                    <img class="card-image" src="遗址地图.jpg" alt="遗址地图">
                     <div class="card-body">
-                        <div class="card-title">强渡湘江作战命令</div>
-                        <div class="card-sub">1934年11月25日 · 军事命令</div>
-                        <div class="card-tags">
-                            <span class="card-tag">#文献</span>
-                            <span class="card-tag">#作战命令</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="extra-card">
-                    <img class="card-image" src="战场遗址.jpg" alt="战场遗址">
-                    <div class="card-body">
-                        <div class="card-title">湘江战役遗址</div>
-                        <div class="card-sub">觉山铺 · 光华铺 · 新圩</div>
+                        <div class="card-title">🗺️ 遗址地图</div>
+                        <div class="card-sub">红色遗址 · 地理分布</div>
                         <div class="card-tags">
                             <span class="card-tag">#遗址</span>
-                            <span class="card-tag">#湘江</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="extra-card">
-                    <img class="card-image" src="会议记录.jpg" alt="会议记录">
-                    <div class="card-body">
-                        <div class="card-title">通道会议记录</div>
-                        <div class="card-sub">1934年12月12日 · 会议纪要</div>
-                        <div class="card-tags">
-                            <span class="card-tag">#文献</span>
-                            <span class="card-tag">#会议</span>
+                            <span class="card-tag">#地图</span>
+                            <span class="card-tag">#5处</span>
                         </div>
                     </div>
                 </div>
@@ -1430,7 +1414,7 @@
                     <div class="detail-bottom-item"><img src="过通道示意图.jpg" alt="转兵路线" class="detail-bottom-img"><div class="item-label">🗺️ <span class="highlight">转兵路线</span></div></div>
                     <div class="detail-bottom-item"><img src="历史人物.jpg" alt="历史人物1" class="detail-bottom-img"><div class="item-label">📜 <span class="highlight">历史人物1</span></div></div>
                     <div class="detail-bottom-item"><img src="女红军.jpg" alt="历史人物2" class="detail-bottom-img"><div class="item-label">👤 <span class="highlight">历史人物2</span></div></div>
-                    <div class="detail-bottom-item"><img src="西入贵州行进路线示意图.jpg" alt="西向贵州" class="detail-bottom-img"><div class="item-label">🏚️ <span class="highlight">西乡贵州</span></div></div>
+                    <div class="detail-bottom-item"><img src="西入贵州行进路线示意图.jpg" alt="西向贵州" class="detail-bottom-img"><div class="item-label">🏚️ <span class="highlight">西向贵州</span></div></div>
                 </div>
             </div>
             <div class="detail-scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
@@ -1438,9 +1422,10 @@
     </div>
 
     <!-- ============================================ -->
-    <!-- ★ 红军遗物 详情 - 5张图片自适应边框 -->
-    <!-- ★ 参考网页风格：文字纯展示，不可点击 -->
+    <!-- ★ 4个小板块详情（统一格式：5张图片） -->
     <!-- ============================================ -->
+
+    <!-- 1. 红军遗物 详情 -->
     <div class="detail-overlay" id="detailRelics">
         <div class="detail-nav">
             <span class="back-detail-btn" data-target="relics">← 返回</span>
@@ -1449,51 +1434,157 @@
         </div>
         <div class="detail-content">
             <div class="detail-scroll-hint">↓ 向下滚动浏览更多内容 ↓</div>
-
-            <!-- 简介 -->
             <div class="detail-brief">
                 <div class="brief-content">
                     <p>📦 革命文物 · 历史见证 —— 这些珍贵的红军遗物，记录了那段烽火岁月中的 <span class="highlight">坚定信念</span> 与 <span class="highlight">不屈精神</span>。</p>
                 </div>
             </div>
-
             <div class="detail-divider"></div>
-
-            <!-- ★ 5张图片自适应网格 -->
-            <div class="relics-grid">
-
-                <!-- 老物件1 -->
-                <div class="relic-item">
-                    <img src="老物件1.jpg" alt="老物件1" class="relic-img">
-                    <div class="relic-label">🔫 <span class="highlight">老物件1</span> · 红军使用过的武器</div>
+            <div class="detail-grid-5">
+                <div class="detail-item-5">
+                    <img src="老物件1.jpg" alt="老物件1" class="detail-img-5">
+                    <div class="item-label">🔫 <span class="highlight">老物件1</span> · 红军使用过的武器</div>
                 </div>
-
-                <!-- 老物件2 -->
-                <div class="relic-item">
-                    <img src="老物件2.jpg" alt="老物件2" class="relic-img">
-                    <div class="relic-label">📖 <span class="highlight">老物件2</span> · 红军战士的学习笔记</div>
+                <div class="detail-item-5">
+                    <img src="老物件2.jpg" alt="老物件2" class="detail-img-5">
+                    <div class="item-label">📖 <span class="highlight">老物件2</span> · 红军战士的学习笔记</div>
                 </div>
-
-                <!-- 老物件3 -->
-                <div class="relic-item">
-                    <img src="老物件3.jpg" alt="老物件3" class="relic-img">
-                    <div class="relic-label">🏺 <span class="highlight">老物件3</span> · 行军途中使用的器具</div>
+                <div class="detail-item-5">
+                    <img src="老物件3.jpg" alt="老物件3" class="detail-img-5">
+                    <div class="item-label">🏺 <span class="highlight">老物件3</span> · 行军途中使用的器具</div>
                 </div>
-
-                <!-- 老物件4 -->
-                <div class="relic-item">
-                    <img src="老物件4.jpg" alt="老物件4" class="relic-img">
-                    <div class="relic-label">📜 <span class="highlight">老物件4</span> · 珍贵的革命文献</div>
+                <div class="detail-item-5">
+                    <img src="老物件4.jpg" alt="老物件4" class="detail-img-5">
+                    <div class="item-label">📜 <span class="highlight">老物件4</span> · 珍贵的革命文献</div>
                 </div>
-
-                <!-- 老物件5 -->
-                <div class="relic-item">
-                    <img src="老物件5.jpg" alt="老物件5" class="relic-img">
-                    <div class="relic-label">🎖️ <span class="highlight">老物件5</span> · 红军战士的荣誉勋章</div>
+                <div class="detail-item-5">
+                    <img src="老物件5.jpg" alt="老物件5" class="detail-img-5">
+                    <div class="item-label">🎖️ <span class="highlight">老物件5</span> · 红军战士的荣誉勋章</div>
                 </div>
-
             </div>
+            <div class="detail-scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
+        </div>
+    </div>
 
+    <!-- 2. 长征精神 详情 -->
+    <div class="detail-overlay" id="detailSpirit">
+        <div class="detail-nav">
+            <span class="back-detail-btn" data-target="spirit">← 返回</span>
+            <span class="detail-title">🔥 <span class="red">长征精神</span></span>
+            <span class="detail-spacer"></span>
+        </div>
+        <div class="detail-content">
+            <div class="detail-scroll-hint">↓ 向下滚动浏览更多内容 ↓</div>
+            <div class="detail-brief">
+                <div class="brief-content">
+                    <p>🔥 长征精神 —— 不怕牺牲、艰苦奋斗、坚定信念、实事求是、团结互助。<span class="highlight">铭记历史，传承红色基因</span>。</p>
+                </div>
+            </div>
+            <div class="detail-divider"></div>
+            <div class="detail-grid-5">
+                <div class="detail-item-5">
+                    <img src="长征精神1.jpg" alt="长征精神1" class="detail-img-5">
+                    <div class="item-label">🔥 <span class="highlight">精神1</span> · 不怕牺牲</div>
+                </div>
+                <div class="detail-item-5">
+                    <img src="长征精神2.jpg" alt="长征精神2" class="detail-img-5">
+                    <div class="item-label">💪 <span class="highlight">精神2</span> · 艰苦奋斗</div>
+                </div>
+                <div class="detail-item-5">
+                    <img src="长征精神3.jpg" alt="长征精神3" class="detail-img-5">
+                    <div class="item-label">⭐ <span class="highlight">精神3</span> · 坚定信念</div>
+                </div>
+                <div class="detail-item-5">
+                    <img src="长征精神4.jpg" alt="长征精神4" class="detail-img-5">
+                    <div class="item-label">🤝 <span class="highlight">精神4</span> · 团结互助</div>
+                </div>
+                <div class="detail-item-5">
+                    <img src="长征精神5.jpg" alt="长征精神5" class="detail-img-5">
+                    <div class="item-label">🧭 <span class="highlight">精神5</span> · 实事求是</div>
+                </div>
+            </div>
+            <div class="detail-scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
+        </div>
+    </div>
+
+    <!-- 3. 人物故事 详情 -->
+    <div class="detail-overlay" id="detailFigures">
+        <div class="detail-nav">
+            <span class="back-detail-btn" data-target="figures">← 返回</span>
+            <span class="detail-title">👤 <span class="red">人物故事</span></span>
+            <span class="detail-spacer"></span>
+        </div>
+        <div class="detail-content">
+            <div class="detail-scroll-hint">↓ 向下滚动浏览更多内容 ↓</div>
+            <div class="detail-brief">
+                <div class="brief-content">
+                    <p>👤 英雄人物 · 感人事迹 —— 他们用生命书写了 <span class="highlight">红色传奇</span>，他们的故事值得我们永远铭记。</p>
+                </div>
+            </div>
+            <div class="detail-divider"></div>
+            <div class="detail-grid-5">
+                <div class="detail-item-5">
+                    <img src="人物1.jpg" alt="人物1" class="detail-img-5">
+                    <div class="item-label">👨‍✈️ <span class="highlight">人物1</span> · 红军将领</div>
+                </div>
+                <div class="detail-item-5">
+                    <img src="人物2.jpg" alt="人物2" class="detail-img-5">
+                    <div class="item-label">👩‍✈️ <span class="highlight">人物2</span> · 巾帼英雄</div>
+                </div>
+                <div class="detail-item-5">
+                    <img src="人物3.jpg" alt="人物3" class="detail-img-5">
+                    <div class="item-label">🎖️ <span class="highlight">人物3</span> · 战斗英雄</div>
+                </div>
+                <div class="detail-item-5">
+                    <img src="人物4.jpg" alt="人物4" class="detail-img-5">
+                    <div class="item-label">📖 <span class="highlight">人物4</span> · 革命先驱</div>
+                </div>
+                <div class="detail-item-5">
+                    <img src="人物5.jpg" alt="人物5" class="detail-img-5">
+                    <div class="item-label">⭐ <span class="highlight">人物5</span> · 无名英雄</div>
+                </div>
+            </div>
+            <div class="detail-scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
+        </div>
+    </div>
+
+    <!-- 4. 遗址地图 详情 -->
+    <div class="detail-overlay" id="detailMaps">
+        <div class="detail-nav">
+            <span class="back-detail-btn" data-target="maps">← 返回</span>
+            <span class="detail-title">🗺️ <span class="red">遗址地图</span></span>
+            <span class="detail-spacer"></span>
+        </div>
+        <div class="detail-content">
+            <div class="detail-scroll-hint">↓ 向下滚动浏览更多内容 ↓</div>
+            <div class="detail-brief">
+                <div class="brief-content">
+                    <p>🗺️ 红色遗址 · 地理分布 —— 追寻红色足迹，重温 <span class="highlight">革命历程</span>，感受 <span class="highlight">历史温度</span>。</p>
+                </div>
+            </div>
+            <div class="detail-divider"></div>
+            <div class="detail-grid-5">
+                <div class="detail-item-5">
+                    <img src="遗址1.jpg" alt="遗址1" class="detail-img-5">
+                    <div class="item-label">🏛️ <span class="highlight">遗址1</span> · 恭城书院</div>
+                </div>
+                <div class="detail-item-5">
+                    <img src="遗址2.jpg" alt="遗址2" class="detail-img-5">
+                    <div class="item-label">⚔️ <span class="highlight">遗址2</span> · 湘江战场</div>
+                </div>
+                <div class="detail-item-5">
+                    <img src="遗址3.jpg" alt="遗址3" class="detail-img-5">
+                    <div class="item-label">🏚️ <span class="highlight">遗址3</span> · 红军驻地</div>
+                </div>
+                <div class="detail-item-5">
+                    <img src="遗址4.jpg" alt="遗址4" class="detail-img-5">
+                    <div class="item-label">🗺️ <span class="highlight">遗址4</span> · 转兵路线</div>
+                </div>
+                <div class="detail-item-5">
+                    <img src="遗址5.jpg" alt="遗址5" class="detail-img-5">
+                    <div class="item-label">🏔️ <span class="highlight">遗址5</span> · 红色地标</div>
+                </div>
+            </div>
             <div class="detail-scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
         </div>
     </div>
@@ -1509,7 +1600,7 @@
     <script>
         (function() {
             // =============================================
-            // ★ 卡片点击 → 打开对应详情
+            // ★ 三大转折卡片点击
             // =============================================
             const cardMap = {
                 'xuejiang': 'detailXuejiang',
@@ -1528,14 +1619,29 @@
                 });
             });
 
-            // ★ 红军遗物卡片点击
-            document.getElementById('cardRelics').addEventListener('click', function() {
-                document.getElementById('detailRelics').classList.add('active');
-                document.body.style.overflow = 'hidden';
+            // =============================================
+            // ★ 4个小板块卡片点击
+            // =============================================
+            const extraMap = {
+                'relics': 'detailRelics',
+                'spirit': 'detailSpirit',
+                'figures': 'detailFigures',
+                'maps': 'detailMaps'
+            };
+
+            document.querySelectorAll('.extra-card[data-extra]').forEach(card => {
+                card.addEventListener('click', function() {
+                    const key = this.dataset.extra;
+                    const targetId = extraMap[key];
+                    if (targetId) {
+                        document.getElementById(targetId).classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
             });
 
             // =============================================
-            // ★ 返回按钮 → 关闭对应详情
+            // ★ 返回按钮
             // =============================================
             document.querySelectorAll('.back-detail-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1560,13 +1666,12 @@
             });
 
             // =============================================
-            // ★ 图片放大功能（统一）- 只对图片生效
+            // ★ 图片放大功能（统一）
             // =============================================
             const lightbox = document.getElementById('detailLightbox');
             const lightboxImg = document.getElementById('detailLightboxImage');
 
-            // 所有详情页中的可点击图片
-            document.querySelectorAll('.detail-hero-img, .detail-bottom-img, .relic-item img').forEach(img => {
+            document.querySelectorAll('.detail-hero-img, .detail-bottom-img, .detail-img-5').forEach(img => {
                 img.addEventListener('click', function(e) {
                     e.stopPropagation();
                     lightboxImg.src = this.src;
@@ -1602,17 +1707,6 @@
             });
 
             // =============================================
-            // ★ 底部卡片点击提示（仅对 detail-bottom-item 生效，排除 relic-item）
-            // ★ relic-item 的文字已通过 CSS pointer-events: none 禁止点击
-            // =============================================
-            document.querySelectorAll('.detail-bottom-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const label = this.querySelector('.item-label')?.textContent.trim() || '资源';
-                    alert('📖 您点击了: "' + label + '"\n(详情页暂未实现)');
-                });
-            });
-
-            // =============================================
             // ★ 搜索功能
             // =============================================
             const searchInput = document.getElementById('searchInput');
@@ -1641,16 +1735,6 @@
             });
 
             // =============================================
-            // ★ 其他卡片点击
-            // =============================================
-            document.querySelectorAll('.extra-card:not(#cardRelics)').forEach(card => {
-                card.addEventListener('click', function() {
-                    const title = this.querySelector('.card-title')?.textContent || '资源';
-                    alert('📖 您点击了: "' + title + '"\n(详情页暂未实现)');
-                });
-            });
-
-            // =============================================
             // ★ 分页点击
             // =============================================
             document.querySelectorAll('.page-btn').forEach(btn => {
@@ -1666,8 +1750,8 @@
             });
 
             console.log('✅ 通道转兵红色资源库 已加载');
-            console.log('📌 老物件文字参考网页风格：纯展示，不可点击');
-            console.log('📌 点击图片放大，点击文字无反应');
+            console.log('📌 4个小板块：红军遗物、长征精神、人物故事、遗址地图');
+            console.log('📌 每个板块5张图片，点击放大');
         })();
     </script>
 
