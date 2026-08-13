@@ -47,10 +47,6 @@
             gap: 14px;
         }
 
-        .nav-icon {
-            font-size: 1.4rem;
-        }
-
         .nav-title {
             font-size: 1.3rem;
             font-weight: 700;
@@ -174,49 +170,6 @@
         }
         .search-result-info.show {
             display: block;
-        }
-
-        /* ============================================ */
-        /* ★ 统计框 */
-        /* ============================================ */
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
-            padding: 20px 0 30px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .stat-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 14px;
-            padding: 18px 16px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: 0.3s;
-        }
-
-        .stat-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-2px);
-        }
-
-        .stat-item .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #f7d98c;
-            display: block;
-        }
-
-        .stat-item .stat-label {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 4px;
-        }
-
-        .stat-item .stat-icon {
-            font-size: 1.2rem;
-            margin-right: 6px;
         }
 
         /* ============================================ */
@@ -415,65 +368,6 @@
 
         .extra-card.hidden {
             display: none;
-        }
-
-        /* ============================================ */
-        /* ★ 分页信息 */
-        /* ============================================ */
-        .pagination-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 0 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            flex-wrap: wrap;
-            gap: 12px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .pagination-info .total {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.4);
-            letter-spacing: 0.5px;
-        }
-
-        .pagination-info .total .num {
-            color: #f7d98c;
-            font-weight: 600;
-        }
-
-        .pagination-info .pages {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .pagination-info .pages .page-btn {
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.4);
-            background: transparent;
-            border: 1px solid transparent;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .pagination-info .pages .page-btn:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .pagination-info .pages .page-btn.active {
-            color: #fff;
-            background: rgba(204, 0, 0, 0.25);
-            border-color: rgba(204, 0, 0, 0.2);
-        }
-
-        .pagination-info .pages .page-dots {
-            color: rgba(255, 255, 255, 0.2);
-            padding: 0 4px;
         }
 
         /* ============================================ */
@@ -947,21 +841,9 @@
             .extra-card .card-image {
                 height: 110px;
             }
-            .stats-row {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
-            }
-            .stat-item .stat-number {
-                font-size: 1.5rem;
-            }
             .section-title {
                 font-size: 1.2rem;
                 padding: 20px 0 12px;
-            }
-            .pagination-info {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
             }
             .detail-overlay {
                 padding: 58px 0 20px 0;
@@ -1053,19 +935,6 @@
             .extra-card .card-image {
                 height: 100px;
             }
-            .stats-row {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-            .stat-item {
-                padding: 14px 12px;
-            }
-            .stat-item .stat-number {
-                font-size: 1.3rem;
-            }
-            .stat-item .stat-label {
-                font-size: 0.7rem;
-            }
             .section-title {
                 font-size: 1.1rem;
             }
@@ -1081,10 +950,6 @@
                 padding: 2px 4px;
                 padding-right: 14px;
                 min-width: 40px;
-            }
-            .pagination-info .pages .page-btn {
-                padding: 4px 10px;
-                font-size: 0.7rem;
             }
             .detail-hero-wrapper img {
                 max-height: 30vh;
@@ -1199,30 +1064,6 @@
     <!-- ===== 主页面 ===== -->
     <div class="main-container" id="mainPage">
         <div class="content-wrapper">
-
-            <!-- 统计框 -->
-            <div class="stats-row">
-                <div class="stat-item">
-                    <span class="stat-number">1,284</span>
-                    <span class="stat-label"><span class="stat-icon"></span>图文总数</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">386</span>
-                    <span class="stat-label"><span class="stat-icon"></span>影像资料</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">512</span>
-                    <span class="stat-label"><span class="stat-icon"></span>文献档案</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">128</span>
-                    <span class="stat-label"><span class="stat-icon"></span>革命文物</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">258</span>
-                    <span class="stat-label"><span class="stat-icon"></span>地图/路线</span>
-                </div>
-            </div>
 
             <!-- ★ 搜索结果提示 -->
             <div class="search-result-info" id="searchResultInfo">
@@ -1352,22 +1193,6 @@
 
             </div>
 
-            <!-- 分页信息 -->
-            <div class="pagination-info">
-                <div class="total">
-                    共 <span class="num">1,284</span> 条资源  ·  第 <span class="num">1</span> / 43 页
-                </div>
-                <div class="pages">
-                    <span class="page-btn" style="color:rgba(255,255,255,0.2);">‹ 上一页</span>
-                    <span class="page-btn active">1</span>
-                    <span class="page-btn">2</span>
-                    <span class="page-btn">3</span>
-                    <span class="page-dots">…</span>
-                    <span class="page-btn">43</span>
-                    <span class="page-btn" style="color:rgba(255,255,255,0.4);">下一页 ›</span>
-                </div>
-            </div>
-
         </div>
     </div>
 
@@ -1492,19 +1317,19 @@
                 </div>
                 <div class="detail-item-5">
                     <img src="老物件2.jpg" alt="老物件2" class="detail-img-5">
-                    <div class="item-label"><span class="highlight">学习笔记</span> · 红军使用的生活物品</div>
+                    <div class="item-label"><span class="highlight">生活</span> · 红军使用的生活物品</div>
                 </div>
                 <div class="detail-item-5">
                     <img src="老物件3.jpg" alt="老物件3" class="detail-img-5">
-                    <div class="item-label"><span class="highlight">行军锅</span> · 红军过通道使用的生活物品</div>
+                    <div class="item-label"><span class="highlight">生活</span> · 红军过通道使用的生活物品</div>
                 </div>
                 <div class="detail-item-5">
                     <img src="老物件4.jpg" alt="老物件4" class="detail-img-5">
-                    <div class="item-label"><span class="highlight">革命文献</span> · 红军使用的铡刀，茶壶</div>
+                    <div class="item-label"><span class="highlight">刀具</span> · 红军使用的铡刀，茶壶</div>
                 </div>
                 <div class="detail-item-5">
                     <img src="老物件5.jpg" alt="老物件5" class="detail-img-5">
-                    <div class="item-label"><span class="highlight">荣誉勋章</span> · 红军过通道时使用的银币和餐具</div>
+                    <div class="item-label"><span class="highlight">餐具</span> · 红军过通道时使用的银币和餐具</div>
                 </div>
             </div>
             <div class="detail-scroll-hint" style="padding-top:10px;">↑ 回到顶部 ↑</div>
@@ -1725,7 +1550,7 @@
             }
 
             // =============================================
-            // ★ 事件绑定（只绑定一次，不冲突）
+            // ★ 事件绑定
             // =============================================
             searchBtn.addEventListener('click', performSearch);
             searchInput.addEventListener('keydown', function(e) {
@@ -1805,7 +1630,7 @@
             });
 
             // =============================================
-            // ★ 图片放大功能（统一）
+            // ★ 图片放大功能
             // =============================================
             const lightbox = document.getElementById('detailLightbox');
             const lightboxImg = document.getElementById('detailLightboxImage');
@@ -1845,24 +1670,8 @@
                 });
             });
 
-            // =============================================
-            // ★ 分页点击
-            // =============================================
-            document.querySelectorAll('.page-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (this.textContent.includes('页') || this.textContent.includes('…')) return;
-                    document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    const totalSpan = document.querySelector('.pagination-info .total .num:last-child');
-                    if (totalSpan) {
-                        totalSpan.textContent = this.textContent;
-                    }
-                });
-            });
-
             console.log('✅ 通道转兵红色资源库 已加载');
             console.log('📌 搜索功能已启用：支持关键词、年份、分类筛选');
-            console.log('📌 输入关键词后按回车或点击搜索按钮即可搜索');
         })();
     </script>
 
